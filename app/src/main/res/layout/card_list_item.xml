@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_centerVertical="true"
+    android:layout_alignParentLeft="false"
+    android:layout_alignParentRight="true">
+
+    <TextView
+        android:text="Disturbance in the force"
+        android:id="@+id/textCardTitle"
+        android:layout_width="0dp"
+        android:layout_weight="4"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        />
+
+    <TextView
+        android:id="@+id/textCardCount"
+        android:text="0"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:gravity="center"/>
+    <Button
+        android:text="+"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnAdd"
+        android:layout_weight="1"
+        android:layout_gravity="right"
+        style="@style/Widget.AppCompat.Button.Borderless" />
+
+    <Button
+        android:text="-"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnRemove"
+        android:layout_gravity="right"
+        style="@style/Widget.AppCompat.Button.Borderless" />
+</LinearLayout>
