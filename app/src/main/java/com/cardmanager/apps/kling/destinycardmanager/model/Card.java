@@ -1,23 +1,38 @@
 package com.cardmanager.apps.kling.destinycardmanager.model;
 
+import java.util.EventListener;
+
 /**
- * Created by danie on 2016-11-23.
+ * Class representing a basic card. The base class for all cards.
  */
 public class Card {
-    int cardNumber;
-    String set;
-    String name;
-    String effect;
-    String action;
-    String quote;
-    String claim;
-    CardColor color;
-    CardFaction faction;
-    CardType type;
-    CardSubType subType = CardSubType.NONE;
-    CardRarity rarity;
-    int cost;
-    String restriction;
+    protected int cardNumber;
+    protected String set;
+    protected String name;
+    protected String effect;
+    protected String action;
+    protected String quote;
+    protected String claim;
+    protected CardColor color;
+    protected CardFaction faction;
+    protected CardType type;
+    protected CardSubType subType = CardSubType.NONE;
+    protected CardRarity rarity;
+    protected int cost;
+    protected String restriction;
+
+    int ownedCount = 0;
+
+    public int getOwnedCount() {
+        return ownedCount;
+    }
+
+    public void setOwnedCount(int ownedCount) {
+        this.ownedCount = ownedCount;
+    }
+
+    public void increaseOwnedCount() { ownedCount++; }
+    public void decreaseOwnedCount() { ownedCount--; }
 
     public String getClaim() {
         return claim;

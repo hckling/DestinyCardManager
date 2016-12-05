@@ -9,7 +9,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
- * Created by danie on 2016-11-25.
+ * The CardSetBuilder reads the XML file and creates the card sets into memory.
  */
 
 public class CardSetBuilder {
@@ -18,9 +18,9 @@ public class CardSetBuilder {
     public static ArrayList<CardSet> readCardsXml(XmlPullParser parser) throws IOException, ParseException {
         if (cardSets == null) {
             try {
-                cardSets = new ArrayList<CardSet>();
+                cardSets = new ArrayList<>();
 
-                String name = "";
+                String name;
                 int attributes = 0;
 
                 do {
@@ -38,10 +38,6 @@ public class CardSetBuilder {
                 return cardSets;
             } catch (XmlPullParserException e) {
                 e.printStackTrace();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         } else {
             return cardSets;
@@ -57,7 +53,7 @@ public class CardSetBuilder {
         do {
             parser.next();
             if ((parser.getEventType() == XmlPullParser.START_TAG) && (parser.getName().equals("card"))) {
-                cardSet.cards.add(parseCard(parser));
+                cardSet.addCard(parseCard(parser));
             }
         } while (!((parser.getEventType() == XmlPullParser.END_TAG) && (parser.getName().equals("set"))));
 
