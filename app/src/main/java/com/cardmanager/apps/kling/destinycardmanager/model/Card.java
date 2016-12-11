@@ -21,7 +21,7 @@ public class Card {
     protected int cost;
     protected String restriction;
 
-    int ownedCount = 0;
+    protected int ownedCount = 0;
 
     public int getOwnedCount() {
         return ownedCount;

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.cardmanager.apps.kling.destinycardmanager.activities.BuildDeckActivity;
 import com.cardmanager.apps.kling.destinycardmanager.activities.SelectCardsActivity;
 import com.cardmanager.apps.kling.destinycardmanager.model.CardSet;
 import com.cardmanager.apps.kling.destinycardmanager.model.CardSetBuilder;
@@ -35,6 +36,14 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SelectCardsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button newDeckButton = (Button) findViewById(R.id.btnNewDeck);
+        newDeckButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), BuildDeckActivity.class);
                 startActivity(intent);
             }
         });

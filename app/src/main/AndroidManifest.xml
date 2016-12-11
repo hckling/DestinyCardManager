@@ -20,6 +20,12 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
+        <activity android:name=".activities.BuildDeckActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.BUILD_DECK"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
