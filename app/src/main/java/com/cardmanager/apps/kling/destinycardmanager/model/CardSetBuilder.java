@@ -90,6 +90,8 @@ public class CardSetBuilder {
                     parseAction(card, parser);
                 } else if (parser.getName().equalsIgnoreCase("effect")) {
                     parseEffect(card, parser);
+                } else if (parser.getName().equalsIgnoreCase("specialEffect")) {
+                    parseSpecialEffect(card, parser);
                 } else if (parser.getName().equalsIgnoreCase("dice")) {
                     parseDice(card, parser);
                 } else if (parser.getName().equalsIgnoreCase("quote")) {

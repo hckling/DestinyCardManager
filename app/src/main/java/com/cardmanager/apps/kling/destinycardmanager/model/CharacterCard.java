@@ -12,8 +12,6 @@ public class CharacterCard extends DiceCard {
     int normalPointCost;
     int elitePointCost;
 
-    boolean isElite = false;
-
     public boolean isCompatible(Card card) {
         boolean cardIsCompatible = isColorCompatible(card.getColor()) && isFactionCompatible(card.getFaction());
 
@@ -32,16 +30,12 @@ public class CharacterCard extends DiceCard {
     private boolean isFactionCompatible(CardFaction faction) { return (this.faction == faction) || (faction == CardFaction.NEUTRAL); }
 
     public void setNormalPointCost(int normalPointCost) { this.normalPointCost = normalPointCost; }
+    public int getNormalPointCost() {return this.normalPointCost; }
+
     public void setElitePointCost(int elitePointCost) { this.elitePointCost = elitePointCost; }
+    public int getElitePointCost() { return this.elitePointCost; }
 
-    public boolean getIsElite() {return isElite; };
-    public void setIsElite(boolean isElite) {this.isElite = isElite; }
-
-    public int getPointsValue() {
-        if (isElite) {
-            return elitePointCost;
-        } else {
-            return normalPointCost;
-        }
+    public boolean getCanBeElite() {
+        return elitePointCost > 0;
     }
 }

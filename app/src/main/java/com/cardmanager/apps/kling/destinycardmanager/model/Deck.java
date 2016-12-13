@@ -9,10 +9,10 @@ import java.util.ArrayList;
 public class Deck {
     String name;
 
-    ArrayList<Card> cards = new ArrayList<Card>();
-    ArrayList<Card> drawCards = new ArrayList<Card>();
-    ArrayList<CharacterCard> characters = new ArrayList<CharacterCard>();
-    Card battlefield = null;
+    ArrayList<SelectedCard> allCards = new ArrayList<>();
+    ArrayList<SelectedCard> drawCards = new ArrayList<>();
+    ArrayList<SelectedCharacter> characters = new ArrayList<>();
+    SelectedCard battlefield = null;
 
     public String getName() {return name; }
     public void setName(String name) { this.name = name; }
@@ -42,10 +42,14 @@ public class Deck {
     }
 
     private boolean charactersAreCompatible() {
-        CardFaction faction = characters.get(0).getFaction();
+        if (characters.size() == 0) {
+            return true;
+        }
+
+        CardFaction faction = characters.get(0).getCard().getFaction();
 
         for (int i = 1; i < characters.size(); i++) {
-            if (characters.get(i).faction != faction) {
+            if (characters.get(i).getCard().faction != faction) {
                 return false;
             }
         }
@@ -54,12 +58,12 @@ public class Deck {
     }
 
     private boolean cardsAreCompatibleWithCharacters() {
-        for (int i = 0; i < cards.size(); i++) {
-            if ((cards.get(i).getType() == CardType.BATTLEFIELD) || (cards.get(i).getType() == CardType.CHARACTER)) {
+        for (int i = 0; i < allCards.size(); i++) {
+            if ((allCards.get(i).getCard().getType() == CardType.BATTLEFIELD) || (allCards.get(i).getCard().getType() == CardType.CHARACTER)) {
                 continue;
             }
 
-            if (!cardIsCompatibleWithAnyCharacter(cards.get(i))) {
+            if (!cardIsCompatibleWithAnyCharacter(allCards.get(i).getCard())) {
                 return false;
             }
         }
@@ -69,7 +73,7 @@ public class Deck {
 
     private boolean cardIsCompatibleWithAnyCharacter(Card card) {
         for (int i = 0; i < characters.size(); i++) {
-            if (characters.get(i).isCompatible(card)) {
+            if (characters.get(i).getCharacterCard().isCompatible(card)) {
                 return true;
             }
         }
@@ -81,7 +85,7 @@ public class Deck {
         int pointsTotal = 0;
 
         for (int i = 0; i < characters.size(); i++) {
-            pointsTotal += characters.get(i).getPointsValue();
+            pointsTotal += characters.get(i).getPoints();
         }
 
         return pointsTotal;

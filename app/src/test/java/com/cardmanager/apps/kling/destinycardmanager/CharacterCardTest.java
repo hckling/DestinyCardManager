@@ -8,6 +8,7 @@ import com.cardmanager.apps.kling.destinycardmanager.model.CardSubType;
 import com.cardmanager.apps.kling.destinycardmanager.model.CardType;
 import com.cardmanager.apps.kling.destinycardmanager.model.CharacterCard;
 import com.cardmanager.apps.kling.destinycardmanager.model.DiceCard;
+import com.cardmanager.apps.kling.destinycardmanager.model.SelectedCharacter;
 import com.cardmanager.apps.kling.destinycardmanager.model.SpecialCompatibility;
 
 import org.junit.Test;
@@ -20,14 +21,15 @@ public class CharacterCardTest {
     @Test
     public void test_getPointsValue() {
         CharacterCard card = new CharacterCard();
+        SelectedCharacter selectedCharacter = new SelectedCharacter(card);
 
         card.setNormalPointCost(10);
         card.setElitePointCost(13);
 
-        assert(card.getPointsValue() == 10);
+        assert(selectedCharacter.getPoints() == 10);
 
-        card.setIsElite(true);
-        assert(card.getPointsValue() == 13);
+        selectedCharacter.makeElite();
+        assert(selectedCharacter.getPoints() == 13);
     }
 
     @Test
@@ -37,7 +39,6 @@ public class CharacterCardTest {
         finn.setCardNumber(45);
         finn.setElitePointCost(16);
         finn.setNormalPointCost(13);
-        finn.setIsElite(false);
         finn.setColor(CardColor.YELLOW);
         finn.setEffect("You can attach any weapon to this character, ignoring play restrictions. \n You can include any red villain weapons and vehicles in your deck.");
         finn.setFaction(CardFaction.HERO);

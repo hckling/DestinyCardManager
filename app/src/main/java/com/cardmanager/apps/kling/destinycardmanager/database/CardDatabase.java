@@ -8,7 +8,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.cardmanager.apps.kling.destinycardmanager.model.Card;
 
+import java.io.Console;
 import java.util.ArrayList;
+
+import static java.lang.System.console;
 
 /**
  * Created by danie on 2016-12-04.
@@ -41,25 +44,29 @@ public class CardDatabase extends SQLiteOpenHelper {
 
     public void updateCards(ArrayList<Card> cards) {
         SQLiteDatabase rd = getReadableDatabase();
-        String query = "SELECT " + OWNED_COUNT + " FROM " + OWNED_CARDS_TABLE_NAME + " WHERE " + CARD_NUMBER + "=?";
+        String query = "SELECT " + CARD_NUMBER + ", " + OWNED_COUNT + " FROM " + OWNED_CARDS_TABLE_NAME + " WHERE " + CARD_NUMBER + "=?";
 
-        for (Card card: cards) {
-            Cursor cursor = rd.rawQuery(query, new String[] {String.valueOf(card.getCardNumber())});
-            if (cursor.getCount() > 0) {
-                cursor.moveToFirst();
-                int ownedCount = cursor.getInt(cursor.getColumnIndex(OWNED_COUNT));
-                card.setOwnedCount(ownedCount);
+        try {
+            for (Card card : cards) {
+                Cursor cursor = rd.rawQuery(query, new String[]{String.valueOf(card.getCardNumber())});
+
+                if (cursor.getCount() > 0) {
+                    cursor.moveToFirst();
+                    int cardNumber = cursor.getInt(cursor.getColumnIndex(CARD_NUMBER));
+                    int ownedCount = cursor.getInt(cursor.getColumnIndex(OWNED_COUNT));
+                    card.setOwnedCount(ownedCount);
+                }
             }
+        } finally {
+            rd.close();
         }
-
-        rd.close();
     }
 
     public void updateDatabase(ArrayList<Card> cards) {
         SQLiteDatabase wd = getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        wd.beginTransaction();
+        //wd.beginTransaction();
 
         try {
             for (int i = 0; i < cards.size(); i++) {
@@ -68,11 +75,14 @@ public class CardDatabase extends SQLiteOpenHelper {
                 values.put(CARD_NUMBER, cards.get(i).getCardNumber());
                 values.put(OWNED_COUNT, cards.get(i).getOwnedCount());
                 long result = wd.insertWithOnConflict(OWNED_CARDS_TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+                if (result == -1)
+                {
+                    result = 0;
+                }
             }
         } finally {
-            wd.endTransaction();
+            //wd.endTransaction();
+            wd.close();
         }
-
-        wd.close();
     }
 }

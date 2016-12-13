@@ -1,5 +1,7 @@
 package com.cardmanager.apps.kling.destinycardmanager.model;
 
+import com.cardmanager.apps.kling.destinycardmanager.R;
+
 import java.text.ParseException;
 
 /**
@@ -47,6 +49,24 @@ public enum DieValueType {
             return FOCUS;
         } else {
             throw new ParseException("Unknown dice result: " + type, 0);
+        }
+    }
+
+    public int getImageResourceId() {
+        switch (this) {
+            case BLANK: return R.drawable.blank_small;
+            case DISCARD: return R.drawable.discard_small;
+            case DISRUPT: return R.drawable.disrupt_small;
+            case FOCUS: return R.drawable.focus_small;
+            case MELEE_DAMAGE: return R.drawable.melee_small;
+            case MELEE_DAMAGE_MODIFIER: return R.drawable.melee_small;
+            case RANGED_DAMAGE: return R.drawable.ranged_small;
+            case RANGED_DAMAGE_MODIFIER: return R.drawable.ranged_small;
+            case RESOURCE: return R.drawable.resource_small;
+            case RESOURCE_MODIFIER: return R.drawable.resource_small;
+            case SHIELD: return R.drawable.shield_small;
+            case SPECIAL: return R.drawable.special_small;
+            default: return R.drawable.blank_small;
         }
     }
 }

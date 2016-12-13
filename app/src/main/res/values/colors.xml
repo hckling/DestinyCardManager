@@ -9,4 +9,5 @@
     <color name="yellowCard">#f7e436</color>
     <color name="cardBackground">#f7f6f2</color>
     <color name="cardBorder">#bcbcb8</color>
+    <color name="lightGrey">#CCCCCC</color>
 </resources>

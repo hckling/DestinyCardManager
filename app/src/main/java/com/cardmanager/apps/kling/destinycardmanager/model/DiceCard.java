@@ -7,8 +7,10 @@ import java.util.ArrayList;
  */
 
 public class DiceCard extends Card {
-    ArrayList<DieValue> dieValues = new ArrayList<DieValue>();
-    String specialEffect;
+
+    public DiceCard() {
+        dieValues = new ArrayList<>();
+    }
 
     public DieValue getValue(int side) { return dieValues.get(side - 1); }
     public void addDiceValue(int value, DieValueType dieValueType, int cost) {dieValues.add(new DieValue(value, dieValueType, cost)); }

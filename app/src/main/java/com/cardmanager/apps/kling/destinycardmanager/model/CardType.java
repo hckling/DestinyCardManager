@@ -28,4 +28,16 @@ public enum CardType {
             throw new ParseException("Uknown card type: " + str, 0);
         }
     }
+
+    @Override
+    public String toString() {
+        switch (this) {
+            case BATTLEFIELD: return "Battlefield";
+            case CHARACTER: return "Character";
+            case EVENT: return "Event";
+            case SUPPORT: return "Support";
+            case UPGRADE: return "Upgrade";
+            default: return "Unknown";
+        }
+    }
 }

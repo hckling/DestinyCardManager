@@ -1,9 +1,10 @@
 package com.cardmanager.apps.kling.destinycardmanager.model;
 
+import java.util.ArrayList;
 import java.util.EventListener;
 
 /**
- * Class representing a basic card. The base class for all cards.
+ * Class representing a basic card. The base class for all allCards.
  */
 public class Card {
     protected int cardNumber;
@@ -20,6 +21,9 @@ public class Card {
     protected CardRarity rarity;
     protected int cost;
     protected String restriction;
+
+    protected String specialEffect;
+    protected ArrayList<DieValue> dieValues;
 
     protected int ownedCount = 0;
 
@@ -95,4 +99,12 @@ public class Card {
 
     public String getQuote() { return quote; }
     public void setQuote(String quote) { this.quote = quote; }
+
+    public boolean hasEffect() { return (effect != null) && (!effect.isEmpty()); }
+    public boolean hasSpecialEffect() { return (specialEffect != null) && !specialEffect.isEmpty(); }
+    public boolean hasDice() { return (dieValues != null) && !dieValues.isEmpty(); }
+
+    public String getSpecialEffect() {
+        return specialEffect;
+    }
 }

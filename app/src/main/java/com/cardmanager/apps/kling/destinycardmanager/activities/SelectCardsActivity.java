@@ -32,18 +32,8 @@ public class SelectCardsActivity extends Activity {
     public void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
 
-        db = new CardDatabase(getApplicationContext());
-
-        XmlPullParser parser = getApplicationContext().getResources().getXml(R.xml.cards);
-        try {
-            cardSets = CardSetBuilder.readCardsXml(parser);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        db.updateCards(cardSets.get(0).getCards());
+        parseCards();
+        readOwnedCardsFromDb();
 
         setContentView(R.layout.activity_select_cards);
         listview = (ListView) findViewById(R.id.lvAllCards);
@@ -57,5 +47,21 @@ public class SelectCardsActivity extends Activity {
                 db.updateDatabase(cardSets.get(0).getCards());
             }
         });
+    }
+
+    private void readOwnedCardsFromDb() {
+        db = new CardDatabase(getApplicationContext());
+        db.updateCards(cardSets.get(0).getCards());
+    }
+
+    private void parseCards() {
+        XmlPullParser parser = getApplicationContext().getResources().getXml(R.xml.cards);
+        try {
+            cardSets = CardSetBuilder.readCardsXml(parser);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }
