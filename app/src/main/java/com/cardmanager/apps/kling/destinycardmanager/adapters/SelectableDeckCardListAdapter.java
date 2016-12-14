@@ -16,7 +16,7 @@ import com.cardmanager.apps.kling.destinycardmanager.model.Card;
 import com.cardmanager.apps.kling.destinycardmanager.model.CardSubType;
 import com.cardmanager.apps.kling.destinycardmanager.model.DiceCard;
 import com.cardmanager.apps.kling.destinycardmanager.model.DieValue;
-import com.cardmanager.apps.kling.destinycardmanager.model.SelectedCard;
+import com.cardmanager.apps.kling.destinycardmanager.model.SelectableCard;
 
 import java.util.List;
 
@@ -24,16 +24,16 @@ import java.util.List;
  * Created by danie on 2016-12-13.
  */
 
-public class SelectableDeckCardListAdapter extends ArrayAdapter<SelectedCard> {
+public class SelectableDeckCardListAdapter extends ArrayAdapter<SelectableCard> {
     private static final int MAX_SELECTABLE = 2;
 
-    public SelectableDeckCardListAdapter(Context context, int resource, List<SelectedCard> objects) {
+    public SelectableDeckCardListAdapter(Context context, int resource, List<SelectableCard> objects) {
         super(context, resource, objects);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final SelectedCard card = getItem(position);
+        final SelectableCard card = getItem(position);
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.select_card_list_item, parent, false);
@@ -114,7 +114,7 @@ public class SelectableDeckCardListAdapter extends ArrayAdapter<SelectedCard> {
         llAction.setVisibility(View.GONE);
     }
 
-    private void showGuiAction(SelectedCard card, View convertView) {
+    private void showGuiAction(SelectableCard card, View convertView) {
         LinearLayout llAction = (LinearLayout) convertView.findViewById(R.id.llAction);
         llAction.setVisibility(View.VISIBLE);
 
@@ -203,13 +203,13 @@ public class SelectableDeckCardListAdapter extends ArrayAdapter<SelectedCard> {
         tvEffect.setVisibility(View.GONE);
     }
 
-    private void showGuiEffect(SelectedCard card, View convertView) {
+    private void showGuiEffect(SelectableCard card, View convertView) {
         TextView tvEffect = (TextView) convertView.findViewById(R.id.tvEffect);
         tvEffect.setVisibility(View.VISIBLE);
         tvEffect.setText(card.getCard().getEffect());
     }
 
-    private void updateGuiDefault(SelectedCard card, View convertView) {
+    private void updateGuiDefault(SelectableCard card, View convertView) {
         TextView tvTitle = (TextView) convertView.findViewById(R.id.tvCardName);
         final TextView tvCardCount = (TextView) convertView.findViewById(R.id.tvCardCount);
 

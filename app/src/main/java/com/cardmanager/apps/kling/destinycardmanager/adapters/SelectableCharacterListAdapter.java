@@ -1,7 +1,6 @@
 package com.cardmanager.apps.kling.destinycardmanager.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,25 +11,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cardmanager.apps.kling.destinycardmanager.R;
-import com.cardmanager.apps.kling.destinycardmanager.model.Card;
-import com.cardmanager.apps.kling.destinycardmanager.model.CharacterCard;
-import com.cardmanager.apps.kling.destinycardmanager.model.SelectedCharacter;
+import com.cardmanager.apps.kling.destinycardmanager.model.Deck;
+import com.cardmanager.apps.kling.destinycardmanager.model.SelectableCharacter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by danie on 2016-12-11.
  */
 
-public class SelectableCharacterListAdapter extends ArrayAdapter<SelectedCharacter> {
-    public SelectableCharacterListAdapter(Context context, int resource, List<SelectedCharacter> objects) {
+public class SelectableCharacterListAdapter extends ArrayAdapter<SelectableCharacter> {
+    public SelectableCharacterListAdapter(Context context, int resource, List<SelectableCharacter> objects) {
         super(context, resource, objects);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final SelectedCharacter card = getItem(position);
+        final SelectableCharacter card = getItem(position);
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.select_character_list_item, parent, false);
@@ -97,6 +94,12 @@ public class SelectableCharacterListAdapter extends ArrayAdapter<SelectedCharact
                 }
             }
         });
+
+        if (!card.isAvailableForSelection()) {
+            convertView.setVisibility(View.GONE);
+        } else {
+            convertView.setVisibility(View.VISIBLE);
+        }
 
         return convertView;
     }

@@ -4,10 +4,10 @@ package com.cardmanager.apps.kling.destinycardmanager.model;
  * Created by danie on 2016-12-13.
  */
 
-public class SelectedCharacter extends SelectedCard {
+public class SelectableCharacter extends SelectableCard {
     boolean isElite = false;
 
-    public SelectedCharacter(CharacterCard card) {
+    public SelectableCharacter(CharacterCard card) {
         super(card);
     }
 
@@ -21,8 +21,20 @@ public class SelectedCharacter extends SelectedCard {
 
     public CharacterCard getCharacterCard() { return (CharacterCard) getCard(); }
 
-    public void makeElite() { isElite = true; }
-    public void makeNormal() { isElite = false; }
+    public void makeElite() {
+        isElite = true;
+        if (selectionChanged != null) {
+            selectionChanged.selectionStateChanged();
+        }
+    }
+
+    public void makeNormal() {
+        isElite = false;
+
+        if (selectionChanged != null) {
+            selectionChanged.selectionStateChanged();
+        }
+    }
 
     public boolean isElite() { return isElite; }
 }

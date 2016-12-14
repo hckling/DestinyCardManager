@@ -13,11 +13,17 @@ public class CharacterCard extends DiceCard {
     int elitePointCost;
 
     public boolean isCompatible(Card card) {
-        boolean cardIsCompatible = isColorCompatible(card.getColor()) && isFactionCompatible(card.getFaction());
+        boolean cardIsCompatible = false;
 
-        for (int i = 0; i < specialCompatibilities.size(); i++) {
-            if (specialCompatibilities.get(i).isCompatible(card)) {
-                cardIsCompatible = true;
+        if (card.getType() == CardType.CHARACTER) {
+            cardIsCompatible = card.getFaction() == getFaction();
+        } else {
+            cardIsCompatible = isColorCompatible(card.getColor()) && isFactionCompatible(card.getFaction());
+
+            for (int i = 0; i < specialCompatibilities.size(); i++) {
+                if (specialCompatibilities.get(i).isCompatible(card)) {
+                    cardIsCompatible = true;
+                }
             }
         }
 

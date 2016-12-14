@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,13 +26,13 @@ import com.cardmanager.apps.kling.destinycardmanager.model.CardSetBuilder;
 import com.cardmanager.apps.kling.destinycardmanager.model.CardType;
 import com.cardmanager.apps.kling.destinycardmanager.model.CharacterCard;
 import com.cardmanager.apps.kling.destinycardmanager.model.Deck;
-import com.cardmanager.apps.kling.destinycardmanager.model.SelectedCard;
-import com.cardmanager.apps.kling.destinycardmanager.model.SelectedCharacter;
+import com.cardmanager.apps.kling.destinycardmanager.model.SelectableCard;
+import com.cardmanager.apps.kling.destinycardmanager.model.SelectableCharacter;
+import com.cardmanager.apps.kling.destinycardmanager.model.SelectionListener;
 
 import org.xmlpull.v1.XmlPullParser;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -47,7 +48,6 @@ public class BuildDeckPagerActivity extends FragmentActivity {
     protected static final int EVENT_PAGE = 3;
 
     Deck deck = new Deck();
-    ArrayList<SelectedCard> allAvailableCards = new ArrayList<>();
     ArrayList<Card> allCards = new ArrayList<>();
 
     ViewPager pager;
@@ -61,12 +61,16 @@ public class BuildDeckPagerActivity extends FragmentActivity {
         parseCards();
         readOwnedCardsFromDb();
 
-        deck.setAvailableCards(allAvailableCards);
+        deck.setAvailableCards(allCards);
 
-        adapter = new DeckBuildingPagerAdapter(getSupportFragmentManager(), allAvailableCards);
+        adapter = new DeckBuildingPagerAdapter(getSupportFragmentManager(), deck);
 
         pager = (ViewPager) findViewById(R.id.vpMain);
         pager.setAdapter(adapter);
+    }
+
+    private void onAvailableCardsChanged() {
+
     }
 
     private void readOwnedCardsFromDb() {
@@ -83,14 +87,6 @@ public class BuildDeckPagerActivity extends FragmentActivity {
                 CardSet set = cardSets.get(i);
                 allCards.addAll(set.getCards());
             }
-
-            for (int i = 0; i < allCards.size(); i++) {
-                if (allCards.get(i).getType() == CardType.CHARACTER) {
-                    allAvailableCards.add(new SelectedCharacter((CharacterCard) allCards.get(i)));
-                } else {
-                    allAvailableCards.add(new SelectedCard(allCards.get(i)));
-                }
-            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
@@ -100,27 +96,23 @@ public class BuildDeckPagerActivity extends FragmentActivity {
 
     public static class SelectCardsFragment extends ListFragment {
         int pageNumber;
-        ArrayList<SelectedCharacter> characterCards = new ArrayList<>();
-        ArrayList<SelectedCard> upgradeCards = new ArrayList<>();
-        ArrayList<SelectedCard> supportCards = new ArrayList<>();
-        ArrayList<SelectedCard> eventCards = new ArrayList<>();
-        private ArrayList<SelectedCard> battlefieldCards = new ArrayList<>();
+        Deck deck;
 
+        public void setDeck(Deck deck) {
+            this.deck = deck;
 
-        public void setCards(ArrayList<SelectedCard> cards) {
-            for (SelectedCard card: cards) {
-                switch(card.getCard().getType()) {
-                    case CHARACTER: characterCards.add((SelectedCharacter) card);
-                        break;
-                    case EVENT: eventCards.add(card);
-                        break;
-                    case UPGRADE: upgradeCards.add(card);
-                        break;
-                    case SUPPORT: supportCards.add(card);
-                        break;
-                    case BATTLEFIELD: battlefieldCards.add(card);
+            deck.addAvailableCardsChangedListener(new SelectionListener() {
+                @Override
+                public void selectionStateChanged() {
+                    ListAdapter la = getListAdapter();
+
+                    if (la instanceof SelectableCharacterListAdapter) {
+                        ((SelectableCharacterListAdapter)la).notifyDataSetChanged();
+                    } else if (la instanceof SelectableDeckCardListAdapter) {
+                        ((SelectableDeckCardListAdapter)la).notifyDataSetChanged();
+                    }
                 }
-            }
+            });
         }
 
         static SelectCardsFragment newInstance(int pageNumber) {
@@ -199,19 +191,19 @@ public class BuildDeckPagerActivity extends FragmentActivity {
             switch (pageNumber) {
                 case CHARACTER_PAGE:
                     setListAdapter(new SelectableCharacterListAdapter(getActivity(),
-                            R.layout.select_character_list_item, characterCards));
+                            R.layout.select_character_list_item, deck.getAvailableCharacters()));
                     break;
                 case UPGRADE_PAGE:
                     setListAdapter(new SelectableDeckCardListAdapter(getActivity(),
-                            R.layout.select_card_list_item, upgradeCards));
+                            R.layout.select_card_list_item, deck.getAvailableUpgrades()));
                     break;
                 case SUPPORT_PAGE:
                     setListAdapter(new SelectableDeckCardListAdapter(getActivity(),
-                            R.layout.select_card_list_item, supportCards));
+                            R.layout.select_card_list_item, deck.getAvailableSupport()));
                     break;
                 case EVENT_PAGE:
                     setListAdapter(new SelectableDeckCardListAdapter(getActivity(),
-                            R.layout.select_card_list_item, eventCards));
+                            R.layout.select_card_list_item, deck.getAvailableEvents()));
                     break;
             }
 
@@ -224,18 +216,18 @@ public class BuildDeckPagerActivity extends FragmentActivity {
     }
 
     public static class DeckBuildingPagerAdapter extends FragmentPagerAdapter {
-        ArrayList<SelectedCard> availableCards;
+        Deck deck;
 
-        public DeckBuildingPagerAdapter(FragmentManager fm, ArrayList<SelectedCard> availableCards) {
+        public DeckBuildingPagerAdapter(FragmentManager fm, Deck deck) {
             super(fm);
 
-            this.availableCards = availableCards;
+            this.deck = deck;
         }
 
         @Override
         public Fragment getItem(int position) {
             SelectCardsFragment fragment = SelectCardsFragment.newInstance(position);
-            fragment.setCards(availableCards);
+            fragment.setDeck(deck);
             return fragment;
         }
 

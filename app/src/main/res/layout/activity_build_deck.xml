@@ -5,8 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="4dp"
-    tools:context=".activities.BuildDeckActivity">
+    android:padding="4dp">
 
     <LinearLayout
         android:orientation="horizontal"
