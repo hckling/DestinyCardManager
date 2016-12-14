@@ -20,7 +20,7 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.BuildDeckActivity">
+        <activity android:name=".activities.BuildDeckPagerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.BUILD_DECK"/>
                 <category android:name="android.intent.category.DEFAULT"/>

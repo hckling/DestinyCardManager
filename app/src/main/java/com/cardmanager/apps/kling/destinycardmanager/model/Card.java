@@ -100,6 +100,7 @@ public class Card {
     public String getQuote() { return quote; }
     public void setQuote(String quote) { this.quote = quote; }
 
+    public boolean hasAction() { return (action != null) && (!action.isEmpty()); }
     public boolean hasEffect() { return (effect != null) && (!effect.isEmpty()); }
     public boolean hasSpecialEffect() { return (specialEffect != null) && !specialEffect.isEmpty(); }
     public boolean hasDice() { return (dieValues != null) && !dieValues.isEmpty(); }

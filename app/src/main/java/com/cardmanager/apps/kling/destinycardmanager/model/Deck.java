@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Deck {
     String name;
 
-    ArrayList<SelectedCard> allCards = new ArrayList<>();
+    ArrayList<SelectedCard> allCards;
     ArrayList<SelectedCard> drawCards = new ArrayList<>();
     ArrayList<SelectedCharacter> characters = new ArrayList<>();
     SelectedCard battlefield = null;
@@ -89,5 +89,13 @@ public class Deck {
         }
 
         return pointsTotal;
+    }
+
+    public void setAvailableCards(ArrayList<SelectedCard> availableCards) {
+        allCards = availableCards;
+
+        for (SelectedCard card: allCards) {
+
+        }
     }
 }

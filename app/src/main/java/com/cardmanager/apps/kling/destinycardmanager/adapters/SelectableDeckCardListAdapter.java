@@ -43,6 +43,12 @@ public class SelectableDeckCardListAdapter extends ArrayAdapter<SelectedCard> {
 
         updateGuiDefault(card, convertView);
 
+        if (card.getCard().hasAction()) {
+            showGuiAction(card, convertView);
+        } else {
+            hideGuiAction(convertView);
+        }
+
         if (card.getCard().hasEffect()) {
             showGuiEffect(card, convertView);
         } else {
@@ -52,7 +58,7 @@ public class SelectableDeckCardListAdapter extends ArrayAdapter<SelectedCard> {
         if (card.getCard().hasDice()) {
             showGuiDieResults((DiceCard) card.getCard(), convertView);
         } else {
-            hideGuiDieResults((DiceCard) card.getCard(), convertView);
+            hideGuiDieResults(card.getCard(), convertView);
         }
 
         if (card.getCard().hasSpecialEffect()) {
@@ -103,7 +109,20 @@ public class SelectableDeckCardListAdapter extends ArrayAdapter<SelectedCard> {
         return convertView;
     }
 
-    private void hideGuiDieResults(DiceCard card, View convertView) {
+    private void hideGuiAction(View convertView) {
+        LinearLayout llAction = (LinearLayout) convertView.findViewById(R.id.llAction);
+        llAction.setVisibility(View.GONE);
+    }
+
+    private void showGuiAction(SelectedCard card, View convertView) {
+        LinearLayout llAction = (LinearLayout) convertView.findViewById(R.id.llAction);
+        llAction.setVisibility(View.VISIBLE);
+
+        TextView tvAction = (TextView) convertView.findViewById(R.id.tvAction);
+        tvAction.setText(card.getCard().getAction());
+    }
+
+    private void hideGuiDieResults(Card card, View convertView) {
         LinearLayout llDiceResults = (LinearLayout) convertView.findViewById(R.id.llDiceResult);
         llDiceResults.setVisibility(View.GONE);
     }
