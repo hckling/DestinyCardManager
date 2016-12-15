@@ -209,10 +209,20 @@ public class Deck {
             // the selected character faction and its points cost is not higher than the remaining
             // points total.
             for (SelectableCharacter character: selectableCharacters) {
+                // Check if the character can be elited, based on points cost
+                if ((character.getCharacterCard().getElitePointCost() - character.getCharacterCard().getNormalPointCost()) <= remainingPoints) {
+                    character.allowElite();
+                } else {
+                    character.disallowElite();
+                }
+
+                // Already selected characters are always available in the list
                 if (selectedCharacters.contains(character)) {
                     continue;
                 }
 
+                // Remove any other characters which are either too expensive or don't match the
+                // faction of the already selected characters
                 for(SelectableCharacter selectedCharacter: selectedCharacters) {
                     if ((character.getCharacterCard().isCompatible(selectedCharacter.getCard()) && (character.getCharacterCard().getNormalPointCost() <= remainingPoints))) {
                         character.makeAvailableForSelection();

@@ -6,6 +6,7 @@ package com.cardmanager.apps.kling.destinycardmanager.model;
 
 public class SelectableCharacter extends SelectableCard {
     boolean isElite = false;
+    private boolean eliteAllowed = true;
 
     public SelectableCharacter(CharacterCard card) {
         super(card);
@@ -20,6 +21,10 @@ public class SelectableCharacter extends SelectableCard {
     }
 
     public CharacterCard getCharacterCard() { return (CharacterCard) getCard(); }
+
+    public boolean isEliteAllowed() { return eliteAllowed && getCharacterCard().getCanBeElite(); }
+    public void allowElite() { eliteAllowed = true; }
+    public void disallowElite() {eliteAllowed = false; }
 
     public void makeElite() {
         isElite = true;

@@ -23,31 +23,466 @@
         android:layout_weight="5"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tvCharacterName"
-            android:text="Captain Phasma"
+        <!-- Title -->
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
             android:paddingTop="2dp"
-            android:paddingBottom="2dp"/>
+            android:paddingBottom="2dp">
+
+            <TextView
+                android:id="@+id/tvCharacterName"
+                android:text="Captain Phasma"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="8dp"
+                />
+
+            <TextView
+                android:id="@+id/tvElite"
+                android:text="(elite)"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+        <!-- Card rules -->
+        <LinearLayout
+            android:id="@+id/llAction"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="4dp"
+            android:paddingLeft="4dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:visibility="gone">
+            <TextView
+                android:text="Action:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="4dp"
+                android:textSize="4pt"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/tvAction"
+                android:text="Just a test action"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="4pt"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"/>
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/tvCharacterRule"
-            android:text="Your non-unique characters have the Guardian keyword."
+            android:id="@+id/tvEffect"
+            android:text="Your non unique characters have the Guardian keyword."
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="4pt"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
             android:paddingTop="2dp"
-            android:paddingBottom="2dp"/>
+            android:paddingBottom="2dp"
+            android:visibility="visible"/>
 
+        <LinearLayout
+            android:id="@+id/llSpecialEffect"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="2dp"
+            android:visibility="gone">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/special_small_inverted"
+                android:layout_gravity="center"/>
+            <TextView
+                android:id="@+id/tvSpecialEffect"
+                android:text="Force an opponent to deal 2 damage to their characters, distributing the damage as they wish."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="4pt"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"/>
+        </LinearLayout>
+
+        <!-- Dice result -->
+        <LinearLayout
+            android:id="@+id/llDiceResult"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp">
+
+            <!--Dice result 1-->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right">
+                    <TextView
+                        android:id="@+id/tvDiceResult1"
+                        android:text=""
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textSize="4pt"
+                        android:textStyle="italic"
+                        android:visibility="invisible"/>
+                    <ImageView
+                        android:id="@+id/ivDiceResult1"
+                        android:src="@drawable/blank_small"
+                        android:layout_gravity="right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="4dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="2dp"
+                    android:visibility="invisible">
+
+                    <TextView
+                        android:id="@+id/tvDiceResult1cost"
+                        android:text="1"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textSize="4pt"
+                        android:textStyle="italic"/>
+                    <ImageView
+                        android:id="@+id/ivDiceResult1cost"
+                        android:src="@drawable/resource_small_yellow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="4dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--Dice result 2-->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tvDiceResult2"
+                        android:text=""
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textSize="4pt"
+                        android:textStyle="italic"
+                        android:visibility="invisible"/>
+                    <ImageView
+                        android:id="@+id/ivDiceResult2"
+                        android:src="@drawable/special_small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="4dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="2dp"
+                    android:visibility="invisible">
+
+                    <TextView
+                        android:id="@+id/tvDiceResult2cost"
+                        android:text="1"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textSize="4pt"
+                        android:textStyle="italic"/>
+                    <ImageView
+                        android:id="@+id/ivDiceResult2cost"
+                        android:src="@drawable/resource_small_yellow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="4dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--Dice result 3-->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tvDiceResult3"
+                        android:text="1"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textSize="4pt"
+                        android:textStyle="italic"/>
+                    <ImageView
+                        android:id="@+id/ivDiceResult3"
+                        android:src="@drawable/resource_small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="4dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="2dp"
+                    android:visibility="invisible">
+
+                    <TextView
+                        android:id="@+id/tvDiceResult3cost"
+                        android:text="1"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textSize="4pt"
+                        android:textStyle="italic"/>
+                    <ImageView
+                        android:id="@+id/ivDiceResult3cost"
+                        android:src="@drawable/resource_small_yellow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="4dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--Dice result 4-->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tvDiceResult4"
+                        android:text="+2"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textSize="4pt"
+                        android:textStyle="italic"/>
+                    <ImageView
+                        android:id="@+id/ivDiceResult4"
+                        android:src="@drawable/ranged_small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="4dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="2dp"
+                    android:visibility="invisible">
+
+                    <TextView
+                        android:id="@+id/tvDiceResult4cost"
+                        android:text="1"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textSize="4pt"
+                        android:textStyle="italic"/>
+                    <ImageView
+                        android:id="@+id/ivDiceResult4cost"
+                        android:src="@drawable/resource_small_yellow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="4dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--Dice result 5-->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tvDiceResult5"
+                        android:text="+1"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textSize="4pt"
+                        android:textStyle="italic" />
+                    <ImageView
+                        android:id="@+id/ivDiceResult5"
+                        android:src="@drawable/ranged_small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="4dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="2dp"
+                    android:visibility="invisible">
+
+                    <TextView
+                        android:id="@+id/tvDiceResult5cost"
+                        android:text="1"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textSize="4pt"
+                        android:textStyle="italic"/>
+                    <ImageView
+                        android:id="@+id/ivDiceResult5cost"
+                        android:src="@drawable/resource_small_yellow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="4dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Dice result 6 -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tvDiceResult6"
+                        android:text="2"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textSize="4pt"
+                        android:textStyle="italic"/>
+                    <ImageView
+                        android:id="@+id/ivDiceResult6"
+                        android:src="@drawable/ranged_small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="4dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="2dp">
+
+                    <TextView
+                        android:id="@+id/tvDiceResult6cost"
+                        android:text="1"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textSize="4pt"
+                        android:textStyle="italic"/>
+                    <ImageView
+                        android:id="@+id/ivDiceResult6cost"
+                        android:src="@drawable/resource_small_yellow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="4dp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Faction and points -->
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom">
 
             <TextView
                 android:id="@+id/tvFaction"
@@ -76,19 +511,26 @@
         </LinearLayout>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnAdd"
-        android:text="+"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"/>
-    <Button
-        android:id="@+id/btnRemove"
-        android:text="-"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"/>
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:text="+"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical"/>
+        <Button
+            android:id="@+id/btnRemove"
+            android:text="-"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
 
 </LinearLayout>

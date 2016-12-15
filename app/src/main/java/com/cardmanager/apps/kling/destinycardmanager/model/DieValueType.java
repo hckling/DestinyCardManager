@@ -69,4 +69,12 @@ public enum DieValueType {
             default: return R.drawable.blank_small;
         }
     }
+
+    public boolean isModifier() {
+        if (this == RESOURCE_MODIFIER || this == MELEE_DAMAGE_MODIFIER || this == RANGED_DAMAGE_MODIFIER) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

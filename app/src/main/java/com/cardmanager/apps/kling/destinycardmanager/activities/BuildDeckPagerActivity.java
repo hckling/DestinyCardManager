@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,11 +22,7 @@ import com.cardmanager.apps.kling.destinycardmanager.database.CardDatabase;
 import com.cardmanager.apps.kling.destinycardmanager.model.Card;
 import com.cardmanager.apps.kling.destinycardmanager.model.CardSet;
 import com.cardmanager.apps.kling.destinycardmanager.model.CardSetBuilder;
-import com.cardmanager.apps.kling.destinycardmanager.model.CardType;
-import com.cardmanager.apps.kling.destinycardmanager.model.CharacterCard;
 import com.cardmanager.apps.kling.destinycardmanager.model.Deck;
-import com.cardmanager.apps.kling.destinycardmanager.model.SelectableCard;
-import com.cardmanager.apps.kling.destinycardmanager.model.SelectableCharacter;
 import com.cardmanager.apps.kling.destinycardmanager.model.SelectionListener;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -69,13 +64,19 @@ public class BuildDeckPagerActivity extends FragmentActivity {
         pager.setAdapter(adapter);
     }
 
-    private void onAvailableCardsChanged() {
-
-    }
-
     private void readOwnedCardsFromDb() {
         CardDatabase db = new CardDatabase(getApplicationContext());
         db.updateCards(allCards);
+
+        // Remove all cards we do not yet own
+        int i = 0;
+        while(i < allCards.size()) {
+            if (allCards.get(i).getOwnedCount() == 0) {
+                allCards.remove(i);
+            } else {
+                i++;
+            }
+        }
     }
 
     private void parseCards() {
@@ -207,11 +208,6 @@ public class BuildDeckPagerActivity extends FragmentActivity {
                     break;
             }
 
-        }
-
-        @Override
-        public void onListItemClick(ListView l, View v, int position, long id) {
-            Log.i("FragmentList", "Item clicked: " + id);
         }
     }
 

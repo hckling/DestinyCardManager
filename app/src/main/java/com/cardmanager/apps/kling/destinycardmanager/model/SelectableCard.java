@@ -30,7 +30,8 @@ public class SelectableCard {
         }
     };
     public void deselect() {
-        count --;
+        if (count > 0)
+            count--;
 
         if (count == 0 && selectionChanged != null) {
             selectionChanged.selectionStateChanged();

@@ -140,7 +140,11 @@ public class SelectableDeckCardListAdapter extends ArrayAdapter<SelectableCard> 
             {
                 TextView tvDieResultValue = (TextView) getDynamicView(convertView, viewName);
                 if (result.getValue() > 0) {
-                    tvDieResultValue.setText(String.valueOf(result.getValue()));
+                    if (result.getValueType().isModifier()) {
+                        tvDieResultValue.setText("+" + String.valueOf(result.getValue()));
+                    } else {
+                        tvDieResultValue.setText(String.valueOf(result.getValue()));
+                    }
                 } else {
                     tvDieResultValue.setText("");
                 }
