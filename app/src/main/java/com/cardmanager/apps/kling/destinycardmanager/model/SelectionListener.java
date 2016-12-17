@@ -5,5 +5,5 @@ package com.cardmanager.apps.kling.destinycardmanager.model;
  */
 
 public interface SelectionListener {
-    void selectionStateChanged();
+    void selectionChanged();
 }

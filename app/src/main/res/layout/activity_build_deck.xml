@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:padding="4dp">
             <TextView
-                android:text="Characters:"
+                android:text="Points:"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
@@ -45,7 +45,7 @@
             android:padding="4dp">
 
             <TextView
-                android:id="@+id/tvCharacterCount"
+                android:id="@+id/tvCharacterPoints"
                 android:text="0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
                 android:gravity="right"/>
 
             <TextView
-                android:id="@+id/tvFactionValue"
+                android:id="@+id/tvFaction"
                 android:text="-"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
                 android:gravity="right"/>
 
             <TextView
-                android:id="@+id/tvDicecCount"
+                android:id="@+id/tvDiceCount"
                 android:text="0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -107,37 +107,98 @@
             android:layout_height="match_parent"
             android:padding="4dp">
 
-            <TextView
-                android:id="@+id/tvCost"
-                android:text="0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
                 android:layout_gravity="right"
-                android:gravity="right"/>
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tvCost"
+                    android:text="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:paddingRight="2dp"/>
+                <ImageView
+                    android:src="@drawable/resource_small_yellow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvResources"
-                android:text="0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:gravity="right"/>
 
-            <TextView
-                android:id="@+id/tvAttack"
-                android:text="0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
                 android:layout_gravity="right"
-                android:gravity="right"/>
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tvResources"
+                    android:text="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:paddingRight="2dp"/>
+                <ImageView
+                    android:src="@drawable/resource_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvDefense"
-                android:text="0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
                 android:layout_gravity="right"
-                android:gravity="right"/>
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tvMeleeAttack"
+                    android:text="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:paddingRight="2dp"/>
+
+                <ImageView
+                    android:src="@drawable/melee_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="2dp"/>
+
+                <TextView
+                    android:text="0"
+                    android:id="@+id/tvRangedAttack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="2dp"/>
+
+                <ImageView
+                    android:src="@drawable/ranged_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_gravity="right"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tvDefense"
+                    android:text="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:paddingRight="2dp"/>
+                <ImageView
+                    android:src="@drawable/shield_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 

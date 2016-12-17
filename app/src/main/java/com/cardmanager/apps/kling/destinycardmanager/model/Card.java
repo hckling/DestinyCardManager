@@ -21,7 +21,7 @@ public class Card {
     protected CardRarity rarity;
     protected int cost;
     protected String restriction;
-
+    protected boolean isUnique;
     protected String specialEffect;
     protected ArrayList<DieValue> dieValues;
 
@@ -107,5 +107,34 @@ public class Card {
 
     public String getSpecialEffect() {
         return specialEffect;
+    }
+    public void setSpecialEffect(String specialEffect) { this.specialEffect = specialEffect; }
+
+    public boolean isUnique() {
+        return isUnique;
+    }
+
+    public void setUnique(boolean unique) {
+        isUnique = unique;
+    }
+
+    public double getMeleeAttackRating() {
+        return 0;
+    }
+
+    public double getRangedAttackRating() {
+        return 0;
+    }
+
+    public double getCostRating() {
+        return getCost();
+    }
+
+    public double getIncomeRating() {
+        return 0;
+    }
+
+    public double getDefenceRating() {
+        return 0;
     }
 }

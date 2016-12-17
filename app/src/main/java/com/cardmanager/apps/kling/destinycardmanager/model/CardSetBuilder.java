@@ -294,10 +294,13 @@ public class CardSetBuilder {
         card.setFaction(CardFaction.fromString(parser.getAttributeValue(null, "faction")));
         card.setRarity(CardRarity.fromString(parser.getAttributeValue(null, "rarity")));
         card.setCardNumber(Integer.valueOf(parser.getAttributeValue(null, "cardNr")));
+
         String costStr = parser.getAttributeValue(null, "cost");
 
         if (costStr != null) {
             card.setCost(Integer.valueOf(costStr));
         }
+
+        card.setUnique(Boolean.valueOf(parser.getAttributeValue(null, "isUnique")));
     }
 }

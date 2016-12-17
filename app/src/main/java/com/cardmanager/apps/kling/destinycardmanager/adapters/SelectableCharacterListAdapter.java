@@ -13,15 +13,10 @@ import android.widget.TextView;
 
 import com.cardmanager.apps.kling.destinycardmanager.R;
 import com.cardmanager.apps.kling.destinycardmanager.model.Card;
-import com.cardmanager.apps.kling.destinycardmanager.model.CardSubType;
-import com.cardmanager.apps.kling.destinycardmanager.model.Deck;
 import com.cardmanager.apps.kling.destinycardmanager.model.DiceCard;
 import com.cardmanager.apps.kling.destinycardmanager.model.DieValue;
-import com.cardmanager.apps.kling.destinycardmanager.model.DieValueType;
-import com.cardmanager.apps.kling.destinycardmanager.model.SelectableCard;
-import com.cardmanager.apps.kling.destinycardmanager.model.SelectableCharacter;
-
-import org.w3c.dom.Text;
+import com.cardmanager.apps.kling.destinycardmanager.model.CardSelectionInfo;
+import com.cardmanager.apps.kling.destinycardmanager.model.CharacterSelectionInfo;
 
 import java.util.List;
 
@@ -29,14 +24,14 @@ import java.util.List;
  * Created by danie on 2016-12-11.
  */
 
-public class SelectableCharacterListAdapter extends ArrayAdapter<SelectableCharacter> {
-    public SelectableCharacterListAdapter(Context context, int resource, List<SelectableCharacter> objects) {
+public class SelectableCharacterListAdapter extends ArrayAdapter<CharacterSelectionInfo> {
+    public SelectableCharacterListAdapter(Context context, int resource, List<CharacterSelectionInfo> objects) {
         super(context, resource, objects);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final SelectableCharacter card = getItem(position);
+        final CharacterSelectionInfo card = getItem(position);
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.select_character_list_item, parent, false);
@@ -85,6 +80,8 @@ public class SelectableCharacterListAdapter extends ArrayAdapter<SelectableChara
 
         final Button btnAddAndPromote = (Button) convertView.findViewById(R.id.btnAdd);
         final Button btnRemove = (Button) convertView.findViewById(R.id.btnRemove);
+
+        btnAddAndPromote.setEnabled(true);
 
         if (card.isSelected()) {
             if (card.isElite()) {
@@ -174,7 +171,7 @@ public class SelectableCharacterListAdapter extends ArrayAdapter<SelectableChara
         llAction.setVisibility(View.GONE);
     }
 
-    private void showGuiAction(SelectableCard card, View convertView) {
+    private void showGuiAction(CardSelectionInfo card, View convertView) {
         LinearLayout llAction = (LinearLayout) convertView.findViewById(R.id.llAction);
         llAction.setVisibility(View.VISIBLE);
 
@@ -268,13 +265,13 @@ public class SelectableCharacterListAdapter extends ArrayAdapter<SelectableChara
         tvEffect.setVisibility(View.GONE);
     }
 
-    private void showGuiEffect(SelectableCharacter card, View convertView) {
+    private void showGuiEffect(CharacterSelectionInfo card, View convertView) {
         TextView tvEffect = (TextView) convertView.findViewById(R.id.tvEffect);
         tvEffect.setVisibility(View.VISIBLE);
         tvEffect.setText(card.getCard().getEffect());
     }
 
-    private void updateGuiDefault(SelectableCharacter card, View convertView) {
+    private void updateGuiDefault(CharacterSelectionInfo card, View convertView) {
         TextView tvTitle = (TextView) convertView.findViewById(R.id.tvCharacterName);
         final TextView tvElite = (TextView) convertView.findViewById(R.id.tvElite);
         TextView tvFaction = (TextView) convertView.findViewById(R.id.tvFaction);

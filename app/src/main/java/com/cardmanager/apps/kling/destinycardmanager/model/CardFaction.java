@@ -22,4 +22,14 @@ public enum CardFaction {
             throw new ParseException("Unknown faction: " + str, 0);
         }
     }
+
+    @Override
+    public String toString() {
+        switch(this) {
+            case HERO: return "Hero";
+            case NEUTRAL: return "Neutral";
+            case VILLAIN: return "Villain";
+            default: return "Unknown";
+        }
+    }
 }

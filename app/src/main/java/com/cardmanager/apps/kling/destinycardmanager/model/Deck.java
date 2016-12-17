@@ -1,8 +1,6 @@
 package com.cardmanager.apps.kling.destinycardmanager.model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.EventListener;
 
 /**
  * Created by danie on 2016-11-24.
@@ -10,8 +8,8 @@ import java.util.EventListener;
 
 public class Deck {
     private String name;
-
-    private final static int MAX_POINTS = 30;
+    private int deckCardCount = 0;
+    private final int MAX_DECK_SIZE = 30;
 
     private ArrayList<Card> allBattlefields = new ArrayList<>();
     private ArrayList<CharacterCard> allCharacters = new ArrayList<>();
@@ -19,70 +17,56 @@ public class Deck {
     private ArrayList<Card> allSupport = new ArrayList<>();
     private ArrayList<Card> allEvents = new ArrayList<>();
 
-    private ArrayList<SelectableCharacter> selectableCharacters = new ArrayList<>();
-    private ArrayList<SelectableCharacter> nonSelectableCharacters = new ArrayList<>();
+    CharacterSelector characterSelector;
+    CardSelector upgradeSelector;
+    CardSelector supportSelector;
+    CardSelector eventSelector;
+    CardSelector battlefieldSelector;
 
-    private ArrayList<SelectableCard> selectableUpgrades = new ArrayList<>();
-    private ArrayList<SelectableCard> selectableSupport = new ArrayList<>();
-    private ArrayList<SelectableCard> selectableEvents = new ArrayList<>();
-    private ArrayList<SelectableCard> selectableBattlefields = new ArrayList<>();
-
+    private ArrayList<CardSelectionInfo> selectableBattlefields = new ArrayList<>();
     public ArrayList<SelectionListener> availableCardsChanged = new ArrayList<>();
-
-    private int totalCharacterPoints = 0;
+    private ArrayList<SelectionListener> deckChangedListener = new ArrayList<>();
 
     public String getName() {return name; }
     public void setName(String name) { this.name = name; }
 
-    public boolean isValid() {
-        if (selectableBattlefields.size() < 1) {
-            return false;
-        }
+    private void cardSelectionChanged() {
+        boolean wasAtMaxSize = deckCardCount == MAX_DECK_SIZE;
 
-        if (selectableCharacters.size() < 1) {
-            return false;
-        }
+        deckCardCount = 0;
 
-        if (getTotalCharacterPoints() > MAX_POINTS) {
-            return false;
-        }
+        deckCardCount += upgradeSelector.getSelectedCardCount();
+        deckCardCount += eventSelector.getSelectedCardCount();
+        deckCardCount += supportSelector.getSelectedCardCount();
 
-        if (!charactersAreCompatible()) {
-            return false;
-        }
+        raiseDeckChanged();
 
-        return true;
+        if (deckCardCount == MAX_DECK_SIZE) {
+            upgradeSelector.preventNewSelection();
+            eventSelector.preventNewSelection();
+            supportSelector.preventNewSelection();
+
+            raiseAvailableCardsChanged();
+        } else if (wasAtMaxSize) {
+            upgradeSelector.allowNewSelection(characterSelector.getSelectedCharacters());
+            eventSelector.allowNewSelection(characterSelector.getSelectedCharacters());
+            supportSelector.allowNewSelection(characterSelector.getSelectedCharacters());
+
+            raiseAvailableCardsChanged();
+        }
     }
 
-    private boolean charactersAreCompatible() {
-        if (selectableCharacters.size() == 0) {
-            return true;
-        }
+    public ArrayList<CardSelectionInfo> getAllSelectedCards() {
+        ArrayList<CardSelectionInfo> result = new ArrayList<>();
 
-        CardFaction faction = selectableCharacters.get(0).getCard().getFaction();
+        result.addAll(characterSelector.getSelectedCharacters());
+        result.addAll(upgradeSelector.getSelected());
+        result.addAll(supportSelector.getSelected());
+        result.addAll(eventSelector.getSelected());
 
-        for (int i = 1; i < selectableCharacters.size(); i++) {
-            if (selectableCharacters.get(i).getCount() > 0) {
-                if (selectableCharacters.get(i).getCard().faction != faction) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
+        return result;
     }
 
-    private boolean cardIsCompatibleWithAnyCharacter(Card card) {
-        for (int i = 0; i < selectableCharacters.size(); i++) {
-            if (selectableCharacters.get(i).getCount() > 0) {
-                if (selectableCharacters.get(i).getCharacterCard().isCompatible(card)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
 
     public void setAvailableCards(ArrayList<Card> availableCards) {
         // Split the cards by type (maybe some other class should do this...)
@@ -101,170 +85,140 @@ public class Deck {
         }
 
         // Create selectable cards from the cards in the user's deck
-        buildSelectableCharacters();
-        buildSelectableUpgrades();
-        buildSelectableSupport();
-        buildSelectableEvents();
-        buildSelectableBattlefields();
-    }
+        characterSelector = new CharacterSelector(allCharacters);
+        characterSelector.addSelectionChangedListener(new SelectionListener() {
+            @Override
+            public void selectionChanged() {
+                characterSelectionChanged();
+            }
+        });
 
-    private void buildSelectableBattlefields() {
-        for (Card card: allBattlefields) {
-            SelectableCard selectableCard = new SelectableCard(card);
-            selectableCard.selectionChanged = new SelectionListener() {
-                @Override
-                public void selectionStateChanged() {
-                    battlefieldSelectionChanged();
-                }
-            };
-            selectableBattlefields.add(new SelectableCard(card));
-        }
-    }
+        upgradeSelector = new CardSelector(allUpgrades);
+        upgradeSelector.addSelectionListener(new SelectionListener() {
+            @Override
+            public void selectionChanged() {
+                cardSelectionChanged();
+            }
+        });
 
-    private void buildSelectableEvents() {
-        for (Card card: allEvents) {
-            SelectableCard selectableCard = new SelectableCard(card);
-            selectableCard.selectionChanged = new SelectionListener() {
-                @Override
-                public void selectionStateChanged() {
-                    cardSelectionChanged();
-                }
-            };
-            selectableEvents.add(selectableCard);
-        }
-    }
+        supportSelector = new CardSelector(allSupport);
+        supportSelector.addSelectionListener(new SelectionListener() {
+            @Override
+            public void selectionChanged() {
+                cardSelectionChanged();
+            }
+        });
 
-    private void buildSelectableSupport() {
-        for (Card card: allSupport) {
-            SelectableCard selectableCard = new SelectableCard(card);
-            selectableCard.selectionChanged = new SelectionListener() {
-                @Override
-                public void selectionStateChanged() {
-                    cardSelectionChanged();
-                }
-            };
+        eventSelector = new CardSelector(allEvents);
+        eventSelector.addSelectionListener(new SelectionListener() {
+            @Override
+            public void selectionChanged() {
+                cardSelectionChanged();
+            }
+        });
 
-            selectableSupport.add(selectableCard);
-        }
-    }
-
-    private void buildSelectableUpgrades() {
-        for (Card card: allUpgrades) {
-            SelectableCard selectableCard = new SelectableCard(card);
-            selectableCard.selectionChanged = new SelectionListener() {
-                @Override
-                public void selectionStateChanged() {
-                    cardSelectionChanged();
-                }
-            };
-            selectableUpgrades.add(selectableCard);
-        }
-    }
-
-    private void battlefieldSelectionChanged() {
-        // TODO: Do something with this
-    }
-
-    private void cardSelectionChanged() {
-        // TODO: Do something clever
-    }
-
-    private void buildSelectableCharacters() {
-        for (CharacterCard card: allCharacters) {
-            SelectableCharacter selectableCharacter = new SelectableCharacter(card);
-
-            selectableCharacter.selectionChanged = new SelectionListener() {
-                @Override
-                public void selectionStateChanged() {
-                    characterSelectionChanged();
-                }
-            };
-
-            selectableCharacters.add(selectableCharacter);
-        }
+        battlefieldSelector = new CardSelector(allBattlefields);
     }
 
     public void characterSelectionChanged() {
-        // When the character selection has changed, the available cards will change as well.
-        ArrayList<SelectableCharacter> selectedCharacters = new ArrayList<>();
+        characterSelector.filterBySelection();
+        upgradeSelector.filterByCharacterSelection(characterSelector.getSelectedCharacters());
+        supportSelector.filterByCharacterSelection(characterSelector.getSelectedCharacters());
+        eventSelector.filterByCharacterSelection(characterSelector.getSelectedCharacters());
 
-        totalCharacterPoints = 0;
+        raiseAvailableCardsChanged();
+        raiseDeckChanged();
+    }
 
-        // Find all currently selected characters
-        for(SelectableCharacter character: selectableCharacters) {
-            if (character.getCount() > 0) {
-                totalCharacterPoints += character.getPoints();
-                selectedCharacters.add(character);
-            }
-        }
-
-        selectableCharacters.addAll(nonSelectableCharacters);
-        nonSelectableCharacters.clear();
-
-        int remainingPoints = MAX_POINTS - totalCharacterPoints;
-
-        // If we have any selected characters
-        if (selectedCharacters.size() > 0) {
-            // Add any compatible characters to the list. A character is compatible if it matches
-            // the selected character faction and its points cost is not higher than the remaining
-            // points total.
-            for (SelectableCharacter character: selectableCharacters) {
-                // Check if the character can be elited, based on points cost
-                if ((character.getCharacterCard().getElitePointCost() - character.getCharacterCard().getNormalPointCost()) <= remainingPoints) {
-                    character.allowElite();
-                } else {
-                    character.disallowElite();
-                }
-
-                // Already selected characters are always available in the list
-                if (selectedCharacters.contains(character)) {
-                    continue;
-                }
-
-                // Remove any other characters which are either too expensive or don't match the
-                // faction of the already selected characters
-                for(SelectableCharacter selectedCharacter: selectedCharacters) {
-                    if ((character.getCharacterCard().isCompatible(selectedCharacter.getCard()) && (character.getCharacterCard().getNormalPointCost() <= remainingPoints))) {
-                        character.makeAvailableForSelection();
-                    } else {
-                        character.makeUnavailableForSelection();
-                    }
-                }
-            }
-
-            // TODO: filter other cards
-
-        } else {
-            for (SelectableCharacter character: selectableCharacters) {
-                character.makeAvailableForSelection();
-            }
-
-            // TODO: Allow all cards
-        }
-
-        int i = 0;
-
-        while (i < selectableCharacters.size()) {
-            if (!selectableCharacters.get(i).isAvailableForSelection()) {
-                nonSelectableCharacters.add(selectableCharacters.get(i));
-                selectableCharacters.remove(selectableCharacters.get(i));
-            } else {
-                i++;
-            }
-        }
-
-        for (SelectionListener listener: availableCardsChanged) {
-            listener.selectionStateChanged();
+    private void raiseDeckChanged() {
+        for (SelectionListener listener: deckChangedListener) {
+            listener.selectionChanged();
         }
     }
 
-    public ArrayList<SelectableCharacter> getAvailableCharacters() { return selectableCharacters; }
-    public ArrayList<SelectableCard> getAvailableUpgrades() { return selectableUpgrades; }
-    public ArrayList<SelectableCard> getAvailableSupport() { return selectableSupport; }
-    public ArrayList<SelectableCard> getAvailableEvents() { return selectableEvents; }
-    public ArrayList<SelectableCard> getAvailableBattlefields() { return selectableBattlefields; }
+    private void raiseAvailableCardsChanged() {
+        for (SelectionListener listener: availableCardsChanged) {
+            listener.selectionChanged();
+        }
+    }
 
-    public int getTotalCharacterPoints() { return totalCharacterPoints; }
+    public ArrayList<CharacterSelectionInfo> getAvailableCharacters() { return characterSelector.getAvailable(); }
+    public ArrayList<CardSelectionInfo> getAvailableUpgrades() { return upgradeSelector.getAvailable(); }
+    public ArrayList<CardSelectionInfo> getAvailableSupport() { return supportSelector.getAvailable(); }
+    public ArrayList<CardSelectionInfo> getAvailableEvents() { return eventSelector.getAvailable(); }
+    public ArrayList<CardSelectionInfo> getAvailableBattlefields() { return battlefieldSelector.getAvailable(); }
+
+    public int getTotalCharacterPoints() { return characterSelector.getTotalCharacterPoints(); }
 
     public void addAvailableCardsChangedListener(SelectionListener listener) { availableCardsChanged.add(listener); }
+    public void addDeckChangedListener(SelectionListener listener) { deckChangedListener.add(listener); }
+
+    public String getFaction() {
+        if (characterSelector.getSelectedCharacters().size() > 0) {
+            return characterSelector.getSelectedCharacters().get(0).getCharacterCard().getFaction().toString();
+        } else {
+            return "-";
+        }
+    }
+    public int getDeckCardCount() { return deckCardCount; }
+
+    public int getDiceCount() {
+        int result = 0;
+
+        for (CardSelectionInfo c: getAllSelectedCards()) {
+            result += c.getDiceCount();
+        }
+
+        return result;
+    }
+
+    public double getMeleeAttackRating() {
+        double result = 0;
+
+        for(CardSelectionInfo c: getAllSelectedCards()) {
+            result += c.getCard().getMeleeAttackRating();
+        }
+
+        return result;
+    }
+
+    public double getRangedAttackRating() {
+        double result = 0;
+
+        for(CardSelectionInfo c: getAllSelectedCards()) {
+            result += c.getCard().getRangedAttackRating();
+        }
+
+        return result;
+    }
+
+    public double getCostRating() {
+        double result = 0;
+
+        for(CardSelectionInfo c: getAllSelectedCards()) {
+            result += c.getCard().getCostRating();
+        }
+
+        return result;
+    }
+
+    public double getIncomeRating() {
+        double result = 0;
+
+        for(CardSelectionInfo c: getAllSelectedCards()) {
+            result += c.getCard().getIncomeRating();
+        }
+
+        return result;
+    }
+
+    public double getDefenceRating() {
+        double result = 0;
+
+        for (CardSelectionInfo c: getAllSelectedCards()) {
+            result += c.getCard().getDefenceRating();
+        }
+
+        return result;
+    }
 }

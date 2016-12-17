@@ -8,7 +8,7 @@ import com.cardmanager.apps.kling.destinycardmanager.model.CardSubType;
 import com.cardmanager.apps.kling.destinycardmanager.model.CardType;
 import com.cardmanager.apps.kling.destinycardmanager.model.CharacterCard;
 import com.cardmanager.apps.kling.destinycardmanager.model.DiceCard;
-import com.cardmanager.apps.kling.destinycardmanager.model.SelectableCharacter;
+import com.cardmanager.apps.kling.destinycardmanager.model.CharacterSelectionInfo;
 import com.cardmanager.apps.kling.destinycardmanager.model.SpecialCompatibility;
 
 import org.junit.Test;
@@ -21,7 +21,7 @@ public class CharacterCardTest {
     @Test
     public void test_getPointsValue() {
         CharacterCard card = new CharacterCard();
-        SelectableCharacter selectedCharacter = new SelectableCharacter(card);
+        CharacterSelectionInfo selectedCharacter = new CharacterSelectionInfo(card);
 
         card.setNormalPointCost(10);
         card.setElitePointCost(13);

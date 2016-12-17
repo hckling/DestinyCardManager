@@ -22,6 +22,7 @@ import com.cardmanager.apps.kling.destinycardmanager.database.CardDatabase;
 import com.cardmanager.apps.kling.destinycardmanager.model.Card;
 import com.cardmanager.apps.kling.destinycardmanager.model.CardSet;
 import com.cardmanager.apps.kling.destinycardmanager.model.CardSetBuilder;
+import com.cardmanager.apps.kling.destinycardmanager.model.CharacterSelector;
 import com.cardmanager.apps.kling.destinycardmanager.model.Deck;
 import com.cardmanager.apps.kling.destinycardmanager.model.SelectionListener;
 
@@ -62,6 +63,44 @@ public class BuildDeckPagerActivity extends FragmentActivity {
 
         pager = (ViewPager) findViewById(R.id.vpMain);
         pager.setAdapter(adapter);
+
+        deck.addDeckChangedListener(new SelectionListener() {
+            @Override
+            public void selectionChanged() {
+                updateDeckInfo();
+            }
+        });
+
+        updateDeckInfo();
+    }
+
+    private void updateDeckInfo() {
+        TextView tvCardCount = (TextView) findViewById(R.id.tvCardCount);
+        tvCardCount.setText(String.valueOf(deck.getDeckCardCount()));
+
+        TextView tvDiceCount = (TextView) findViewById(R.id.tvDiceCount);
+        tvDiceCount.setText(String.valueOf(deck.getDiceCount()));
+
+        TextView tvCharacterPoints = (TextView) findViewById(R.id.tvCharacterPoints);
+        tvCharacterPoints.setText(String.valueOf(deck.getTotalCharacterPoints()) + " / " + String.valueOf(CharacterSelector.MAX_POINTS));
+
+        TextView tvFaction = (TextView) findViewById(R.id.tvFaction);
+        tvFaction.setText(deck.getFaction());
+
+        TextView tvMeleeAttack = (TextView) findViewById(R.id.tvMeleeAttack);
+        tvMeleeAttack.setText(String.valueOf(deck.getMeleeAttackRating()));
+
+        TextView tvRangedAttack = (TextView) findViewById(R.id.tvRangedAttack);
+        tvRangedAttack.setText(String.valueOf(deck.getRangedAttackRating()));
+
+        TextView tvCost = (TextView) findViewById(R.id.tvCost);
+        tvCost.setText(String.valueOf(deck.getCostRating()));
+
+        TextView tvDefense = (TextView) findViewById(R.id.tvDefense);
+        tvDefense.setText(String.valueOf(deck.getDefenceRating()));
+
+        TextView tvResources = (TextView) findViewById(R.id.tvResources);
+        tvResources.setText(String.valueOf(deck.getIncomeRating()));
     }
 
     private void readOwnedCardsFromDb() {
@@ -104,7 +143,7 @@ public class BuildDeckPagerActivity extends FragmentActivity {
 
             deck.addAvailableCardsChangedListener(new SelectionListener() {
                 @Override
-                public void selectionStateChanged() {
+                public void selectionChanged() {
                     ListAdapter la = getListAdapter();
 
                     if (la instanceof SelectableCharacterListAdapter) {

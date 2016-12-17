@@ -327,7 +327,6 @@
                 </LinearLayout>
             </LinearLayout>
 
-
             <!--Dice result 4-->
             <LinearLayout
                 android:orientation="vertical"
@@ -385,7 +384,6 @@
                         android:paddingRight="4dp"/>
                 </LinearLayout>
             </LinearLayout>
-
 
             <!--Dice result 5-->
             <LinearLayout
@@ -501,6 +499,21 @@
                         android:paddingRight="4dp"/>
                 </LinearLayout>
             </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="2dp"
+            android:paddingRight="4dp"
+            android:paddingLeft="4dp">
+            <TextView
+                android:text="Villain"
+                android:id="@+id/tvFaction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="5pt"/>
         </LinearLayout>
     </LinearLayout>
 
