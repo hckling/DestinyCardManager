@@ -88,28 +88,28 @@ public class BuildDeckPagerActivity extends FragmentActivity {
         tvFaction.setText(deck.getFaction());
 
         TextView tvMeleeAttack = (TextView) findViewById(R.id.tvMeleeAttack);
-        tvMeleeAttack.setText(String.format("%.0f", deck.getMeleeAttackRating()));
+        tvMeleeAttack.setText(String.format("%2.0f", deck.getMeleeAttackRating()));
 
         TextView tvRangedAttack = (TextView) findViewById(R.id.tvRangedAttack);
-        tvRangedAttack.setText(String.format("%.0f", deck.getRangedAttackRating()));
+        tvRangedAttack.setText(String.format("%2.0f", deck.getRangedAttackRating()));
 
         TextView tvCost = (TextView) findViewById(R.id.tvCost);
-        tvCost.setText(String.format("%.0f", deck.getCostRating()));
+        tvCost.setText(String.format("%2.0f", deck.getCostRating()));
 
         TextView tvDefense = (TextView) findViewById(R.id.tvDefense);
-        tvDefense.setText(String.format("%.0f", deck.getDefenceRating()));
+        tvDefense.setText(String.format("%2.0f", deck.getDefenceRating()));
 
         TextView tvResources = (TextView) findViewById(R.id.tvResources);
-        tvResources.setText(String.format("%.0f", deck.getIncomeRating()));
+        tvResources.setText(String.format("%2.0f", deck.getIncomeRating()));
 
         TextView tvDiscard = (TextView) findViewById(R.id.tvDiscard);
-        tvCost.setText(String.format("%.0f", deck.getDiscardRating()));
+        tvCost.setText(String.format("%2.0f", deck.getDiscardRating()));
 
         TextView tvDisrupt = (TextView) findViewById(R.id.tvDisrupt);
-        tvDefense.setText(String.format("%.0f", deck.getDisruptRating()));
+        tvDefense.setText(String.format("%2.0f", deck.getDisruptRating()));
 
         TextView tvFocus = (TextView) findViewById(R.id.tvFocus);
-        tvResources.setText(String.format("%.0f", deck.getFocusRating()));
+        tvResources.setText(String.format("%2.0f", deck.getFocusRating()));
     }
 
     private void readOwnedCardsFromDb() {

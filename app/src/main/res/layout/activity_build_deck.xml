@@ -10,20 +10,78 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="Faction:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="4dp"/>
+        <TextView
+            android:text="-"
+            android:minEms="3"
+            android:gravity="end"
+            android:id="@+id/tvFaction2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="4dp"/>
+        <TextView
+            android:text="Points:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"/>
+        <TextView
+            android:text="0 of 30"
+            android:gravity="end"
+            android:id="@+id/tvPoints2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="4dp"/>
+        <TextView
+            android:text="Cards:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"/>
+        <TextView
+            android:text="0 of 30"
+            android:gravity="end"
+            android:id="@+id/tvCards2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="4dp"/>
+        <TextView
+            android:text="Dice:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"/>
+        <TextView
+            android:text="0"
+            android:gravity="end"
+            android:id="@+id/tvDice2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="4dp"/>
+
+    </LinearLayout>
+    <!-- Deck details (detailed) -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:padding="4dp">
+        android:padding="4dp"
+        android:visibility="gone">
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="0dp"
-            android:layout_weight="2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:padding="4dp">
                 <TextView
@@ -50,11 +108,15 @@
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:padding="4dp">
+                android:paddingTop="4dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingBottom="4dp">
 
                 <TextView
                     android:id="@+id/tvCharacterPoints"
                     android:text="0"
+                    android:minEms="3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
@@ -90,7 +152,9 @@
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:padding="4dp">
+            android:paddingTop="4dp"
+            android:paddingRight="2dp"
+            android:paddingLeft="2dp">
             <TextView
                 android:text="Economy:"
                 android:layout_width="wrap_content"
@@ -111,148 +175,168 @@
 
         </LinearLayout>
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:padding="4dp">
+            android:gravity="end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingTop="4dp">
 
-            <LinearLayout
-                android:gravity="right"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                <!-- Cost and resources -->
                 <TextView
                     android:id="@+id/tvCost"
                     android:text="0"
                     android:layout_width="wrap_content"
+                    android:minEms="1"
+                    android:gravity="right"
                     android:layout_height="wrap_content"
+                    android:layout_column="3"
+                    android:layout_row="0"
                     android:layout_gravity="center_vertical"
                     android:paddingRight="2dp"/>
                 <ImageView
                     android:src="@drawable/resource_small_yellow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingRight="2dp"/>
+                    android:layout_column="4"
+                    android:layout_row="0"
+                    android:paddingRight="4dp"/>
                 <TextView
                     android:id="@+id/tvResources"
                     android:text="0"
+                    android:minEms="1"
+                    android:gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_column="5"
+                    android:layout_row="0"
                     android:paddingRight="2dp"/>
                 <ImageView
                     android:src="@drawable/resource_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_column="6"
+                    android:layout_row="0"
                     android:layout_gravity="center_vertical"/>
-            </LinearLayout>
 
-            <LinearLayout
-                android:gravity="right"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                <!-- Focus/Disrupt/Discard -->
                 <TextView
                     android:id="@+id/tvFocus"
                     android:text="0"
+                    android:minEms="1"
+                    android:gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:gravity="right"
+                    android:layout_column="1"
+                    android:layout_row="1"
                     android:paddingRight="2dp"/>
                 <ImageView
                     android:src="@drawable/focus_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingRight="2dp"/>
+                    android:layout_column="2"
+                    android:layout_row="1"
+                    android:paddingRight="4dp"/>
                 <TextView
                     android:id="@+id/tvDisrupt"
                     android:text="0"
+                    android:minEms="1"
+                    android:gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:gravity="right"
+                    android:layout_column="3"
+                    android:layout_row="1"
                     android:paddingRight="2dp"/>
                 <ImageView
                     android:src="@drawable/disrupt_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingRight="2dp"/>
+                    android:layout_column="4"
+                    android:layout_row="1"
+                    android:layout_gravity="end"
+                    android:paddingRight="4dp"/>
                 <TextView
                     android:id="@+id/tvDiscard"
                     android:text="0"
+                    android:minEms="1"
+                    android:gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:gravity="right"
+                    android:layout_column="5"
+                    android:layout_row="1"
                     android:paddingRight="2dp"/>
                 <ImageView
                     android:src="@drawable/discard_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical" />
-            </LinearLayout>
+                    android:layout_column="6"
+                    android:layout_row="1"
+                    android:paddingRight="4dp"/>
 
-            <LinearLayout
-                android:gravity="right"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                <!-- Attack -->
                 <TextView
                     android:id="@+id/tvMeleeAttack"
                     android:text="0"
+                    android:minEms="1"
+                    android:gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:gravity="left"
+                    android:layout_column="3"
+                    android:layout_row="2"
                     android:paddingRight="2dp"/>
 
                 <ImageView
                     android:src="@drawable/melee_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingRight="2dp"/>
+                    android:layout_column="4"
+                    android:layout_row="2"
+                    android:paddingRight="4dp"/>
 
                 <TextView
                     android:text="0"
+                    android:minEms="1"
+                    android:gravity="right"
                     android:id="@+id/tvRangedAttack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_column="5"
+                    android:layout_row="2"
                     android:paddingRight="2dp"/>
 
                 <ImageView
                     android:src="@drawable/ranged_small"
                     android:layout_width="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_column="6"
+                    android:layout_row="2"
                     android:layout_height="wrap_content"/>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:gravity="right"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
+                <!-- Defence -->
                 <TextView
                     android:id="@+id/tvDefense"
                     android:text="0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
+                    android:minEms="1"
                     android:gravity="right"
+                    android:minWidth="4dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_column="5"
+                    android:layout_row="3"
                     android:paddingRight="2dp"/>
                 <ImageView
                     android:src="@drawable/shield_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"/>
-            </LinearLayout>
-
+                    android:layout_column="6"
+                    android:layout_row="3"/>
+            </GridLayout>
         </LinearLayout>
     </LinearLayout>
 
@@ -264,4 +348,10 @@
         android:layout_gravity="center_horizontal">
 
     </android.support.v4.view.ViewPager>
+
+    <Button
+        android:text="Save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"/>
 </LinearLayout>
