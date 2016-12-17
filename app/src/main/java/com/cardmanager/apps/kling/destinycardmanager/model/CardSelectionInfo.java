@@ -73,4 +73,36 @@ public class CardSelectionInfo {
             return 0;
         }
     }
+
+    public double getMeleeAttackRating() {
+        return card.getMeleeAttackRating();
+    }
+
+    public double getRangedAttackRating() {
+        return card.getRangedAttackRating();
+    }
+
+    public double getCostRating() {
+        return card.getCostRating();
+    }
+
+    public double getIncomeRating() {
+        return card.getIncomeRating();
+    }
+
+    public double getDefenceRating() {
+        return card.getIncomeRating();
+    }
+
+    public double getFocusRating() {
+        return card.getFocusRating();
+    }
+
+    public double getDisruptRating() {
+        return card.getDisruptRating();
+    }
+
+    public double getDiscardRating() {
+        return card.getDiscardRating();
+    }
 }

@@ -213,8 +213,10 @@ public class SelectableCharacterListAdapter extends ArrayAdapter<CharacterSelect
                 TextView tvDieResultCost = (TextView) getDynamicView(convertView, viewName);
 
                 if (result.getCost() > 0) {
+                    tvDieResultCost.setVisibility(View.VISIBLE);
                     tvDieResultCost.setText(String.valueOf(result.getCost()));
                 } else {
+                    tvDieResultCost.setVisibility(View.GONE);
                     tvDieResultCost.setText("");
                 }
             }

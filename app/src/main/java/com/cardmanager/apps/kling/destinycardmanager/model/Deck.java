@@ -176,7 +176,7 @@ public class Deck {
         double result = 0;
 
         for(CardSelectionInfo c: getAllSelectedCards()) {
-            result += c.getCard().getMeleeAttackRating();
+            result += c.getMeleeAttackRating();
         }
 
         return result;
@@ -186,7 +186,7 @@ public class Deck {
         double result = 0;
 
         for(CardSelectionInfo c: getAllSelectedCards()) {
-            result += c.getCard().getRangedAttackRating();
+            result += c.getRangedAttackRating();
         }
 
         return result;
@@ -196,7 +196,7 @@ public class Deck {
         double result = 0;
 
         for(CardSelectionInfo c: getAllSelectedCards()) {
-            result += c.getCard().getCostRating();
+            result += c.getCostRating();
         }
 
         return result;
@@ -206,7 +206,7 @@ public class Deck {
         double result = 0;
 
         for(CardSelectionInfo c: getAllSelectedCards()) {
-            result += c.getCard().getIncomeRating();
+            result += c.getIncomeRating();
         }
 
         return result;
@@ -216,7 +216,37 @@ public class Deck {
         double result = 0;
 
         for (CardSelectionInfo c: getAllSelectedCards()) {
-            result += c.getCard().getDefenceRating();
+            result += c.getDefenceRating();
+        }
+
+        return result;
+    }
+
+    public double getFocusRating() {
+        double result = 0;
+
+        for (CardSelectionInfo c: getAllSelectedCards()) {
+            result += c.getFocusRating();
+        }
+
+        return result;
+    }
+
+    public double getDisruptRating() {
+        double result = 0;
+
+        for (CardSelectionInfo c: getAllSelectedCards()) {
+            result += c.getDisruptRating();
+        }
+
+        return result;
+    }
+
+    public double getDiscardRating() {
+        double result = 0;
+
+        for (CardSelectionInfo c: getAllSelectedCards()) {
+            result += c.getDiscardRating();
         }
 
         return result;

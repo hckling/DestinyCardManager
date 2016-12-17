@@ -137,4 +137,16 @@ public class Card {
     public double getDefenceRating() {
         return 0;
     }
+
+    public double getFocusRating() {
+        return 0;
+    }
+
+    public double getDisruptRating() {
+        return 0;
+    }
+
+    public double getDiscardRating() {
+        return 0;
+    }
 }

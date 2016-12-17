@@ -46,4 +46,77 @@ public class CharacterSelectionInfo extends CardSelectionInfo {
             return 1;
         }
     }
+
+    @Override
+    public double getMeleeAttackRating() {
+        if (isElite())
+        {
+            return super.getMeleeAttackRating() * 2;
+        } else {
+            return super.getMeleeAttackRating();
+        }
+    }
+
+    public double getRangedAttackRating() {
+        if (isElite())
+        {
+            return super.getRangedAttackRating() * 2;
+        } else {
+            return super.getRangedAttackRating();
+        }
+    }
+
+    public double getCostRating() {
+        if (isElite())
+        {
+            return super.getCostRating() * 2;
+        } else {
+            return super.getCostRating();
+        }
+    }
+
+    public double getIncomeRating() {
+        if (isElite())
+        {
+            return super.getIncomeRating() * 2;
+        } else {
+            return super.getIncomeRating();
+        }
+    }
+
+    public double getDefenceRating() {
+        if (isElite())
+        {
+            return super.getDefenceRating() * 2;
+        } else {
+            return super.getDefenceRating();
+        }
+    }
+
+    public double getFocusRating() {
+        if (isElite())
+        {
+            return super.getFocusRating() * 2;
+        } else {
+            return super.getFocusRating();
+        }
+    }
+
+    public double getDisruptRating() {
+        if (isElite())
+        {
+            return super.getDisruptRating() * 2;
+        } else {
+            return super.getDisruptRating();
+        }
+    }
+
+    public double getDiscardRating() {
+        if (isElite())
+        {
+            return super.getDiscardRating() * 2;
+        } else {
+            return super.getDiscardRating();
+        }
+    }
 }

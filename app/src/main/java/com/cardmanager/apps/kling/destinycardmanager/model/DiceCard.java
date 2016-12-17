@@ -80,12 +80,58 @@ public class DiceCard extends Card {
         return result;
     }
 
+    @Override
     public double getDefenceRating() {
         double result = 0;
 
         for(DieValue d: dieValues) {
             switch(d.getValueType()) {
                 case SHIELD:
+                    result += d.getValue();
+                    break;
+            }
+        }
+
+        return result;
+    }
+
+    @Override
+    public double getFocusRating() {
+        double result = 0;
+
+        for(DieValue d: dieValues) {
+            switch(d.getValueType()) {
+                case FOCUS:
+                    result += d.getValue();
+                    break;
+            }
+        }
+
+        return result;
+    }
+
+    @Override
+    public double getDisruptRating() {
+        double result = 0;
+
+        for(DieValue d: dieValues) {
+            switch(d.getValueType()) {
+                case DISRUPT:
+                    result += d.getValue();
+                    break;
+            }
+        }
+
+        return result;
+    }
+
+    @Override
+    public double getDiscardRating() {
+        double result = 0;
+
+        for(DieValue d: dieValues) {
+            switch(d.getValueType()) {
+                case DISCARD:
                     result += d.getValue();
                     break;
             }

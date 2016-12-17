@@ -44,4 +44,19 @@ public class CharacterCard extends DiceCard {
     public boolean getCanBeElite() {
         return elitePointCost > 0;
     }
+
+    public double getMeleeAttackRating() {
+        double result = 0;
+
+        for(DieValue d: dieValues) {
+            switch(d.getValueType()) {
+                case MELEE_DAMAGE:
+                    result += d.getValue();
+                case MELEE_DAMAGE_MODIFIER:
+                    result += d.getValue() / 2;
+            }
+        }
+
+        return result;
+    }
 }
