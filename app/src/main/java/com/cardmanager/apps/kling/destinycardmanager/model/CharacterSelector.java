@@ -7,7 +7,7 @@ import java.util.Comparator;
  * Created by danie on 2016-12-16.
  */
 
-public class CharacterSelector {
+public class CharacterSelector implements Selector<CharacterSelectionInfo> {
     public final static int MAX_POINTS = 30;
 
     private int totalCharacterPoints = 0;
@@ -46,10 +46,10 @@ public class CharacterSelector {
         }
     }
 
-    public void filterBySelection() {
+    public void filterByCharacterSelection(ArrayList<CharacterSelectionInfo> selectedCharacters) {
         // When the character selection has changed, the available cards will change as well.
 
-        selectedCharacters.clear();
+        this.selectedCharacters.clear();
 
         totalCharacterPoints = 0;
 
@@ -57,7 +57,7 @@ public class CharacterSelector {
         for(CharacterSelectionInfo character: availableCharacters) {
             if (character.getCount() > 0) {
                 totalCharacterPoints += character.getPoints();
-                selectedCharacters.add(character);
+                this.selectedCharacters.add(character);
             }
         }
 
@@ -67,19 +67,19 @@ public class CharacterSelector {
         int remainingPoints = MAX_POINTS - totalCharacterPoints;
 
         // If we have any selected characters
-        if (selectedCharacters.size() > 0) {
+        if (this.selectedCharacters.size() > 0) {
             for (CharacterSelectionInfo character: availableCharacters) {
                 // Check if the character can be elited, based on points cost
                 checkIfEliteIsAllowed(remainingPoints, character);
 
                 // Already selected characters are always available in the list
-                if (selectedCharacters.contains(character)) {
+                if (this.selectedCharacters.contains(character)) {
                     continue;
                 }
 
                 // Remove any other characters which are either too expensive or don't match the
                 // faction of the already selected characters
-                for(CharacterSelectionInfo selectedCharacter: selectedCharacters) {
+                for(CharacterSelectionInfo selectedCharacter: this.selectedCharacters) {
                     if ((character.getCharacterCard().isCompatible(selectedCharacter.getCard()) && (character.getCharacterCard().getNormalPointCost() <= remainingPoints))) {
                         character.makeAvailableForSelection();
                     } else {
@@ -98,7 +98,7 @@ public class CharacterSelector {
         // Now actually move all characters marked as unavailable to the unavailableForSelection list
         filterUnavailableCharacters();
         sortList(availableCharacters);
-        sortList(selectedCharacters);
+        sortList(this.selectedCharacters);
     }
 
     private void sortList(ArrayList<CharacterSelectionInfo> list) {
@@ -132,8 +132,18 @@ public class CharacterSelector {
     }
 
     public ArrayList<CharacterSelectionInfo> getAvailable() { return availableCharacters; }
-    public ArrayList<CharacterSelectionInfo> getSelectedCharacters() { return selectedCharacters; }
-    public int getTotalCharacterPoints() { return totalCharacterPoints; }
+    public ArrayList<CharacterSelectionInfo> getSelected() { return selectedCharacters; }
+    public int getSelectionCount() { return selectedCharacters.size(); }
+
+    @Override
+    public void maxCardsReached() {
+        // OK - Managed internally
+    }
+
+    @Override
+    public void maxCardsNotReached(ArrayList<CharacterSelectionInfo> selectedCharacters) {
+        // OK - Managed internally
+    }
 
     public void addSelectionChangedListener(SelectionListener listener) { selectionChangedListeners.add(listener); }
 }

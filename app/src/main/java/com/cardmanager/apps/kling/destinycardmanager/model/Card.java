@@ -38,6 +38,7 @@ public class Card {
     public void increaseOwnedCount() { ownedCount++; }
     public void decreaseOwnedCount() { ownedCount--; }
 
+    public boolean hasClaim() { return(claim != null) && !claim.isEmpty(); }
     public String getClaim() {
         return claim;
     }

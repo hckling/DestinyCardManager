@@ -26,8 +26,6 @@ import java.util.List;
  */
 
 public class SelectableDeckCardListAdapter extends ArrayAdapter<CardSelectionInfo> {
-    private static final int MAX_SELECTABLE = 2;
-
     public SelectableDeckCardListAdapter(Context context, int resource, List<CardSelectionInfo> objects) {
         super(context, resource, objects);
     }
@@ -48,6 +46,12 @@ public class SelectableDeckCardListAdapter extends ArrayAdapter<CardSelectionInf
             showGuiAction(card, convertView);
         } else {
             hideGuiAction(convertView);
+        }
+
+        if (card.getCard().hasClaim()) {
+            showGuiClaim(card, convertView);
+        } else {
+            hideGuiClaim(convertView);
         }
 
         if (card.getCard().hasEffect()) {
@@ -83,7 +87,7 @@ public class SelectableDeckCardListAdapter extends ArrayAdapter<CardSelectionInf
             public void onClick(View v) {
                 card.select();
 
-                btnAdd.setEnabled(card.getCount() < Math.min(card.getCard().getOwnedCount(), MAX_SELECTABLE));
+                btnAdd.setEnabled(card.canBeSelected());
                 btnRemove.setEnabled(card.getCount() > 0);
 
                 updateGuiDefault(card, localConvertView);
@@ -96,12 +100,25 @@ public class SelectableDeckCardListAdapter extends ArrayAdapter<CardSelectionInf
                 card.deselect();
 
                 btnRemove.setEnabled(card.getCount() > 0);
-                btnAdd.setEnabled(card.getCount() < Math.min(card.getCard().getOwnedCount(), MAX_SELECTABLE));
+                btnAdd.setEnabled(card.canBeSelected());
                 updateGuiDefault(card, localConvertView);
             }
         });
 
         return convertView;
+    }
+
+    private void hideGuiClaim(View convertView) {
+        LinearLayout llClaim = (LinearLayout) convertView.findViewById(R.id.llClaim);
+        llClaim.setVisibility(View.GONE);
+    }
+
+    private void showGuiClaim(CardSelectionInfo card, View convertView) {
+        LinearLayout llClaim = (LinearLayout) convertView.findViewById(R.id.llClaim);
+        llClaim.setVisibility(View.VISIBLE);
+
+        TextView tvClaim = (TextView) convertView.findViewById(R.id.tvClaim);
+        tvClaim.setText(card.getCard().getClaim());
     }
 
     private void hideGuiAction(View convertView) {
@@ -219,7 +236,7 @@ public class SelectableDeckCardListAdapter extends ArrayAdapter<CardSelectionInf
         // Selection count
         if (card.getCount() > 0) {
             tvCardCount.setVisibility(View.VISIBLE);
-            tvCardCount.setText("(" + String.valueOf(card.getCount()) + " of " + String.valueOf(card.getCard().getOwnedCount() + ")"));
+            tvCardCount.setText("(" + String.valueOf(card.getCount()) + " of " + String.valueOf(card.getMaxSelectable() + ")"));
             root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.cardBackground));
 
         } else {
@@ -252,7 +269,7 @@ public class SelectableDeckCardListAdapter extends ArrayAdapter<CardSelectionInf
         Button btnAdd = (Button) convertView.findViewById(R.id.btnAdd);
         Button btnRemove = (Button) convertView.findViewById(R.id.btnRemove);
 
-        btnAdd.setEnabled(card.getCount() < 2 && card.getCount() < card.getCard().getOwnedCount() && card.isAvailableForSelection());
+        btnAdd.setEnabled(card.canBeSelected() && card.isAvailableForSelection());
         btnRemove.setEnabled(card.getCount() > 0);
     }
 }

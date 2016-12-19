@@ -7,12 +7,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.cardmanager.apps.kling.destinycardmanager.R;
@@ -24,6 +23,7 @@ import com.cardmanager.apps.kling.destinycardmanager.model.CardSet;
 import com.cardmanager.apps.kling.destinycardmanager.model.CardSetBuilder;
 import com.cardmanager.apps.kling.destinycardmanager.model.CharacterSelector;
 import com.cardmanager.apps.kling.destinycardmanager.model.Deck;
+import com.cardmanager.apps.kling.destinycardmanager.model.NameDeckDialogFragment;
 import com.cardmanager.apps.kling.destinycardmanager.model.SelectionListener;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -36,12 +36,13 @@ import java.util.ArrayList;
  * Created by danie on 2016-12-14.
  */
 
-public class BuildDeckPagerActivity extends FragmentActivity {
-    protected static final int NUMBER_OF_PAGES = 4;
+public class BuildDeckPagerActivity extends FragmentActivity implements NameDeckDialogFragment.NoticeDialogListener {
+    protected static final int NUMBER_OF_PAGES = 5;
     protected static final int CHARACTER_PAGE = 0;
-    protected static final int UPGRADE_PAGE = 1;
-    protected static final int SUPPORT_PAGE = 2;
-    protected static final int EVENT_PAGE = 3;
+    protected static final int BATTLEFIELD_PAGE = 1;
+    protected static final int UPGRADE_PAGE = 2;
+    protected static final int SUPPORT_PAGE = 3;
+    protected static final int EVENT_PAGE = 4;
 
     Deck deck = new Deck();
     ArrayList<Card> allCards = new ArrayList<>();
@@ -71,23 +72,39 @@ public class BuildDeckPagerActivity extends FragmentActivity {
             }
         });
 
+        Button btnSave = (Button) findViewById(R.id.btnSaveDeck);
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveDeck();
+            }
+        });
+
         updateDeckInfo();
     }
 
-    private void updateDeckInfo() {
-        TextView tvCardCount = (TextView) findViewById(R.id.tvCardCount);
-        tvCardCount.setText(String.valueOf(deck.getDeckCardCount()));
+    private void saveDeck() {
+        NameDeckDialogFragment d = new NameDeckDialogFragment();
+        d.show(getFragmentManager(), "NameDeckDialogFragment");
+    }
 
-        TextView tvDiceCount = (TextView) findViewById(R.id.tvDiceCount);
+    private void updateDeckInfo() {
+        Button btnSave = (Button) findViewById(R.id.btnSaveDeck);
+        btnSave.setEnabled(deck.isValid());
+
+        TextView tvCardCount = (TextView) findViewById(R.id.tvCards);
+        tvCardCount.setText(String.valueOf(deck.getDeckCardCount() + " / " + String.valueOf(Deck.MAX_DECK_SIZE)));
+
+        TextView tvDiceCount = (TextView) findViewById(R.id.tvDice);
         tvDiceCount.setText(String.valueOf(deck.getDiceCount()));
 
-        TextView tvCharacterPoints = (TextView) findViewById(R.id.tvCharacterPoints);
+        TextView tvCharacterPoints = (TextView) findViewById(R.id.tvPoints);
         tvCharacterPoints.setText(String.valueOf(deck.getTotalCharacterPoints()) + " / " + String.valueOf(CharacterSelector.MAX_POINTS));
 
         TextView tvFaction = (TextView) findViewById(R.id.tvFaction);
         tvFaction.setText(deck.getFaction());
 
-        TextView tvMeleeAttack = (TextView) findViewById(R.id.tvMeleeAttack);
+        /*TextView tvMeleeAttack = (TextView) findViewById(R.id.tvMeleeAttack);
         tvMeleeAttack.setText(String.format("%2.0f", deck.getMeleeAttackRating()));
 
         TextView tvRangedAttack = (TextView) findViewById(R.id.tvRangedAttack);
@@ -109,7 +126,7 @@ public class BuildDeckPagerActivity extends FragmentActivity {
         tvDefense.setText(String.format("%2.0f", deck.getDisruptRating()));
 
         TextView tvFocus = (TextView) findViewById(R.id.tvFocus);
-        tvResources.setText(String.format("%2.0f", deck.getFocusRating()));
+        tvResources.setText(String.format("%2.0f", deck.getFocusRating()));*/
     }
 
     private void readOwnedCardsFromDb() {
@@ -141,6 +158,14 @@ public class BuildDeckPagerActivity extends FragmentActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onNameEntered(String name) {
+        deck.setName(name);
+
+        CardDatabase db = new CardDatabase(getApplicationContext());
+        db.saveDeck(deck);
     }
 
     public static class SelectCardsFragment extends ListFragment {
@@ -191,6 +216,8 @@ public class BuildDeckPagerActivity extends FragmentActivity {
             switch(pageNumber) {
                 case CHARACTER_PAGE: view = createSelectCharacterView(inflater, container, savedInstanceState);
                     break;
+                case BATTLEFIELD_PAGE: view = createSelectBattlefieldView(inflater, container, savedInstanceState);
+                    break;
                 case UPGRADE_PAGE: view = createSelectUpgradesView(inflater, container, savedInstanceState);
                     break;
                 case SUPPORT_PAGE: view = createSelectSupportsView(inflater, container, savedInstanceState);
@@ -233,6 +260,14 @@ public class BuildDeckPagerActivity extends FragmentActivity {
             return v;
         }
 
+        private View createSelectBattlefieldView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            View v = inflater.inflate(R.layout.select_deck_cards, container, false);
+            TextView tvHeader = (TextView) v.findViewById(R.id.tvCardsTitle);
+            tvHeader.setText("Select battlefield");
+
+            return v;
+        }
+
         @Override
         public void onActivityCreated(Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
@@ -241,6 +276,10 @@ public class BuildDeckPagerActivity extends FragmentActivity {
                 case CHARACTER_PAGE:
                     setListAdapter(new SelectableCharacterListAdapter(getActivity(),
                             R.layout.select_character_list_item, deck.getAvailableCharacters()));
+                    break;
+                case BATTLEFIELD_PAGE:
+                    setListAdapter(new SelectableDeckCardListAdapter(getActivity(),
+                            R.layout.select_character_list_item, deck.getAvailableBattlefields()));
                     break;
                 case UPGRADE_PAGE:
                     setListAdapter(new SelectableDeckCardListAdapter(getActivity(),

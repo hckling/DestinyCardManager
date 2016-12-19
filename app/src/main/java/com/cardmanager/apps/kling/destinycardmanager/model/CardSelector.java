@@ -7,7 +7,7 @@ import java.util.Comparator;
  * Created by danie on 2016-12-16.
  */
 
-public class CardSelector {
+public class CardSelector implements Selector<CardSelectionInfo> {
     protected ArrayList<CardSelectionInfo> availableCards = new ArrayList<>();
     protected ArrayList<CardSelectionInfo> selectedCards = new ArrayList<>();
     protected ArrayList<CardSelectionInfo> unavailableCards = new ArrayList<>();
@@ -94,12 +94,12 @@ public class CardSelector {
         }
     }
 
-    public void addSelectionListener(SelectionListener listener) { selectionListeners.add(listener); };
+    public void addSelectionChangedListener(SelectionListener listener) { selectionListeners.add(listener); };
 
     public ArrayList<CardSelectionInfo> getSelected() { return selectedCards; }
     public ArrayList<CardSelectionInfo> getAvailable() { return availableCards; }
 
-    public int getSelectedCardCount () {
+    public int getSelectionCount () {
         int result = 0;
 
         for (CardSelectionInfo c: selectedCards) {
@@ -109,7 +109,7 @@ public class CardSelector {
         return result;
     }
 
-    public void preventNewSelection() {
+    public void maxCardsReached() {
         // Remove all cards from availableCards which are not in selectedCards
         int i = 0;
         while(i < availableCards.size()) {
@@ -126,7 +126,7 @@ public class CardSelector {
         }
     }
 
-    public void allowNewSelection(ArrayList<CharacterSelectionInfo> selectedCharacters) {
+    public void maxCardsNotReached(ArrayList<CharacterSelectionInfo> selectedCharacters) {
         for(CardSelectionInfo c: selectedCards) {
             c.makeAvailableForSelection();
         }

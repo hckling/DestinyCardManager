@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Deck {
     private String name;
     private int deckCardCount = 0;
-    private final int MAX_DECK_SIZE = 30;
+    public static final int MAX_DECK_SIZE = 30;
 
     private ArrayList<Card> allBattlefields = new ArrayList<>();
     private ArrayList<CharacterCard> allCharacters = new ArrayList<>();
@@ -17,15 +17,23 @@ public class Deck {
     private ArrayList<Card> allSupport = new ArrayList<>();
     private ArrayList<Card> allEvents = new ArrayList<>();
 
-    CharacterSelector characterSelector;
-    CardSelector upgradeSelector;
-    CardSelector supportSelector;
-    CardSelector eventSelector;
-    CardSelector battlefieldSelector;
+    Selector<CharacterSelectionInfo> characterSelector;
+    Selector<CardSelectionInfo> upgradeSelector;
+    Selector<CardSelectionInfo> supportSelector;
+    Selector<CardSelectionInfo> eventSelector;
+    Selector<CardSelectionInfo> battlefieldSelector;
 
     private ArrayList<CardSelectionInfo> selectableBattlefields = new ArrayList<>();
     public ArrayList<SelectionListener> availableCardsChanged = new ArrayList<>();
     private ArrayList<SelectionListener> deckChangedListener = new ArrayList<>();
+
+    public Card getSelectedBattlefield() {
+        if (battlefieldSelector.getSelectionCount() > 0) {
+            return battlefieldSelector.getSelected().get(0).getCard();
+        } else {
+            return null;
+        }
+    }
 
     public String getName() {return name; }
     public void setName(String name) { this.name = name; }
@@ -35,22 +43,22 @@ public class Deck {
 
         deckCardCount = 0;
 
-        deckCardCount += upgradeSelector.getSelectedCardCount();
-        deckCardCount += eventSelector.getSelectedCardCount();
-        deckCardCount += supportSelector.getSelectedCardCount();
+        deckCardCount += upgradeSelector.getSelectionCount();
+        deckCardCount += eventSelector.getSelectionCount();
+        deckCardCount += supportSelector.getSelectionCount();
 
         raiseDeckChanged();
 
         if (deckCardCount == MAX_DECK_SIZE) {
-            upgradeSelector.preventNewSelection();
-            eventSelector.preventNewSelection();
-            supportSelector.preventNewSelection();
+            upgradeSelector.maxCardsReached();
+            eventSelector.maxCardsReached();
+            supportSelector.maxCardsReached();
 
             raiseAvailableCardsChanged();
         } else if (wasAtMaxSize) {
-            upgradeSelector.allowNewSelection(characterSelector.getSelectedCharacters());
-            eventSelector.allowNewSelection(characterSelector.getSelectedCharacters());
-            supportSelector.allowNewSelection(characterSelector.getSelectedCharacters());
+            upgradeSelector.maxCardsNotReached(characterSelector.getSelected());
+            eventSelector.maxCardsNotReached(characterSelector.getSelected());
+            supportSelector.maxCardsNotReached(characterSelector.getSelected());
 
             raiseAvailableCardsChanged();
         }
@@ -59,7 +67,7 @@ public class Deck {
     public ArrayList<CardSelectionInfo> getAllSelectedCards() {
         ArrayList<CardSelectionInfo> result = new ArrayList<>();
 
-        result.addAll(characterSelector.getSelectedCharacters());
+        result.addAll(characterSelector.getSelected());
         result.addAll(upgradeSelector.getSelected());
         result.addAll(supportSelector.getSelected());
         result.addAll(eventSelector.getSelected());
@@ -94,7 +102,7 @@ public class Deck {
         });
 
         upgradeSelector = new CardSelector(allUpgrades);
-        upgradeSelector.addSelectionListener(new SelectionListener() {
+        upgradeSelector.addSelectionChangedListener(new SelectionListener() {
             @Override
             public void selectionChanged() {
                 cardSelectionChanged();
@@ -102,7 +110,7 @@ public class Deck {
         });
 
         supportSelector = new CardSelector(allSupport);
-        supportSelector.addSelectionListener(new SelectionListener() {
+        supportSelector.addSelectionChangedListener(new SelectionListener() {
             @Override
             public void selectionChanged() {
                 cardSelectionChanged();
@@ -110,21 +118,32 @@ public class Deck {
         });
 
         eventSelector = new CardSelector(allEvents);
-        eventSelector.addSelectionListener(new SelectionListener() {
+        eventSelector.addSelectionChangedListener(new SelectionListener() {
             @Override
             public void selectionChanged() {
                 cardSelectionChanged();
             }
         });
 
-        battlefieldSelector = new CardSelector(allBattlefields);
+        battlefieldSelector = new BattlefieldSelector(allBattlefields);
+        battlefieldSelector.addSelectionChangedListener(new SelectionListener() {
+            @Override
+            public void selectionChanged() {
+                battlefieldSelectionChanged();
+            }
+        });
+    }
+
+    private void battlefieldSelectionChanged() {
+        raiseAvailableCardsChanged();
+        raiseDeckChanged();
     }
 
     public void characterSelectionChanged() {
-        characterSelector.filterBySelection();
-        upgradeSelector.filterByCharacterSelection(characterSelector.getSelectedCharacters());
-        supportSelector.filterByCharacterSelection(characterSelector.getSelectedCharacters());
-        eventSelector.filterByCharacterSelection(characterSelector.getSelectedCharacters());
+        characterSelector.filterByCharacterSelection(null);
+        upgradeSelector.filterByCharacterSelection(characterSelector.getSelected());
+        supportSelector.filterByCharacterSelection(characterSelector.getSelected());
+        eventSelector.filterByCharacterSelection(characterSelector.getSelected());
 
         raiseAvailableCardsChanged();
         raiseDeckChanged();
@@ -148,14 +167,22 @@ public class Deck {
     public ArrayList<CardSelectionInfo> getAvailableEvents() { return eventSelector.getAvailable(); }
     public ArrayList<CardSelectionInfo> getAvailableBattlefields() { return battlefieldSelector.getAvailable(); }
 
-    public int getTotalCharacterPoints() { return characterSelector.getTotalCharacterPoints(); }
+    public int getTotalCharacterPoints() {
+        int result = 0;
+
+        for(CharacterSelectionInfo c: characterSelector.getSelected()) {
+            result += c.getPoints();
+        }
+
+        return result;
+    }
 
     public void addAvailableCardsChangedListener(SelectionListener listener) { availableCardsChanged.add(listener); }
     public void addDeckChangedListener(SelectionListener listener) { deckChangedListener.add(listener); }
 
     public String getFaction() {
-        if (characterSelector.getSelectedCharacters().size() > 0) {
-            return characterSelector.getSelectedCharacters().get(0).getCharacterCard().getFaction().toString();
+        if (characterSelector.getSelected().size() > 0) {
+            return characterSelector.getSelected().get(0).getCharacterCard().getFaction().toString();
         } else {
             return "-";
         }
@@ -170,6 +197,10 @@ public class Deck {
         }
 
         return result;
+    }
+
+    public boolean isValid() {
+        return (getSelectedBattlefield() != null) && (characterSelector.getSelectionCount() > 0);
     }
 
     public double getMeleeAttackRating() {

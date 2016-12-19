@@ -46,6 +46,7 @@
                 android:paddingRight="8dp"/>
         </LinearLayout>
 
+        <!-- Card type -->
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -77,6 +78,7 @@
                 android:paddingRight="8dp"/>
         </LinearLayout>
 
+        <!-- Action -->
         <LinearLayout
             android:id="@+id/llAction"
             android:orientation="horizontal"
@@ -105,6 +107,36 @@
                 android:paddingBottom="2dp"/>
         </LinearLayout>
 
+        <!-- Claim -->
+        <LinearLayout
+            android:id="@+id/llClaim"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="4dp"
+            android:paddingLeft="4dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp">
+            <TextView
+                android:text="Claim:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="4dp"
+                android:textSize="4pt"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/tvClaim"
+                android:text="Just a test claim thingy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="4pt"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"/>
+        </LinearLayout>
+
+        <!-- Effect -->
         <TextView
             android:id="@+id/tvEffect"
             android:text=""

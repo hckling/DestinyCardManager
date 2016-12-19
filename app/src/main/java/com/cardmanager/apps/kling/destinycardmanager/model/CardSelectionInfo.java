@@ -42,6 +42,15 @@ public class CardSelectionInfo {
 
         raiseSelectionChanged();
     };
+    public boolean canBeSelected() { return getCount() < getMaxSelectable(); }
+
+    public int getMaxSelectable() {
+        if (card.getType() == CardType.BATTLEFIELD) {
+            return Math.min(card.getOwnedCount(), 1);
+        } else {
+            return Math.min(card.getOwnedCount(), 2);
+        }
+    }
 
     public boolean isSelected() { return count > 0; }
 
