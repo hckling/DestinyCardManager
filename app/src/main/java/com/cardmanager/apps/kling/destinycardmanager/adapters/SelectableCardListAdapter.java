@@ -1,18 +1,15 @@
 package com.cardmanager.apps.kling.destinycardmanager.adapters;
 
 import android.content.Context;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.cardmanager.apps.kling.destinycardmanager.R;
 import com.cardmanager.apps.kling.destinycardmanager.model.Card;
-import com.cardmanager.apps.kling.destinycardmanager.model.CardSet;
 
 import java.util.ArrayList;
 

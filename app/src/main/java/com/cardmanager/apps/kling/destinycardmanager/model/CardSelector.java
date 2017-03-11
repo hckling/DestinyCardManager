@@ -137,4 +137,14 @@ public class CardSelector implements Selector<CardSelectionInfo> {
 
         filterByCharacterSelection(selectedCharacters);
     }
+
+    @Override
+    public void select(CardSelectionInfo item) {
+        for (CardSelectionInfo c : this.availableCards) {
+            if (c.getCard().getCardNumber() == item.getCard().getCardNumber()) {
+                for (int i = 0; i < item.getCount(); i++)
+                    c.select();
+            }
+        }
+    }
 }

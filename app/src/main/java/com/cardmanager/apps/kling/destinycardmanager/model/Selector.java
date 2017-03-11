@@ -18,4 +18,5 @@ public interface Selector<T> {
     void maxCardsReached();
     void maxCardsNotReached(ArrayList<CharacterSelectionInfo> selectedCharacters);
 
+    void select(T item);
 }

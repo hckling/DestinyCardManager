@@ -27,6 +27,8 @@ public class DiceCard extends Card {
                     result += d.getValue();
                 case MELEE_DAMAGE_MODIFIER:
                     result += d.getValue() / 2;
+                default:
+                    result += 0;
             }
         }
 
@@ -44,6 +46,9 @@ public class DiceCard extends Card {
                     break;
                 case RANGED_DAMAGE_MODIFIER:
                     result += d.getValue() / 2;
+                    break;
+                default:
+                    result += 0;
                     break;
             }
         }
@@ -74,6 +79,9 @@ public class DiceCard extends Card {
                 case RESOURCE_MODIFIER:
                     result += d.getValue() / 2;
                     break;
+                default:
+                    result += 0;
+                    break;
             }
         }
 
@@ -88,6 +96,9 @@ public class DiceCard extends Card {
             switch(d.getValueType()) {
                 case SHIELD:
                     result += d.getValue();
+                    break;
+                default:
+                    result += 0;
                     break;
             }
         }
@@ -104,6 +115,9 @@ public class DiceCard extends Card {
                 case FOCUS:
                     result += d.getValue();
                     break;
+                default:
+                    result += 0;
+                    break;
             }
         }
 
@@ -119,6 +133,9 @@ public class DiceCard extends Card {
                 case DISRUPT:
                     result += d.getValue();
                     break;
+                default:
+                    result += 0;
+                    break;
             }
         }
 
@@ -133,6 +150,9 @@ public class DiceCard extends Card {
             switch(d.getValueType()) {
                 case DISCARD:
                     result += d.getValue();
+                    break;
+                default:
+                    result += 0;
                     break;
             }
         }

@@ -22,7 +22,7 @@ import com.cardmanager.apps.kling.destinycardmanager.model.Card;
 import com.cardmanager.apps.kling.destinycardmanager.model.CardSet;
 import com.cardmanager.apps.kling.destinycardmanager.model.CardSetBuilder;
 import com.cardmanager.apps.kling.destinycardmanager.model.CharacterSelector;
-import com.cardmanager.apps.kling.destinycardmanager.model.Deck;
+import com.cardmanager.apps.kling.destinycardmanager.model.DeckBuilder;
 import com.cardmanager.apps.kling.destinycardmanager.model.NameDeckDialogFragment;
 import com.cardmanager.apps.kling.destinycardmanager.model.SelectionListener;
 
@@ -44,7 +44,7 @@ public class BuildDeckPagerActivity extends FragmentActivity implements NameDeck
     protected static final int SUPPORT_PAGE = 3;
     protected static final int EVENT_PAGE = 4;
 
-    Deck deck = new Deck();
+    DeckBuilder deckBuilder = new DeckBuilder();
     ArrayList<Card> allCards = new ArrayList<>();
 
     ViewPager pager;
@@ -58,14 +58,14 @@ public class BuildDeckPagerActivity extends FragmentActivity implements NameDeck
         parseCards();
         readOwnedCardsFromDb();
 
-        deck.setAvailableCards(allCards);
+        deckBuilder.setAvailableCards(allCards);
 
-        adapter = new DeckBuildingPagerAdapter(getSupportFragmentManager(), deck);
+        adapter = new DeckBuildingPagerAdapter(getSupportFragmentManager(), deckBuilder);
 
         pager = (ViewPager) findViewById(R.id.vpMain);
         pager.setAdapter(adapter);
 
-        deck.addDeckChangedListener(new SelectionListener() {
+        deckBuilder.addDeckChangedListener(new SelectionListener() {
             @Override
             public void selectionChanged() {
                 updateDeckInfo();
@@ -90,43 +90,43 @@ public class BuildDeckPagerActivity extends FragmentActivity implements NameDeck
 
     private void updateDeckInfo() {
         Button btnSave = (Button) findViewById(R.id.btnSaveDeck);
-        btnSave.setEnabled(deck.isValid());
+        btnSave.setEnabled(deckBuilder.isValid());
 
         TextView tvCardCount = (TextView) findViewById(R.id.tvCards);
-        tvCardCount.setText(String.valueOf(deck.getDeckCardCount() + " / " + String.valueOf(Deck.MAX_DECK_SIZE)));
+        tvCardCount.setText(String.valueOf(deckBuilder.getDeckCardCount() + " / " + String.valueOf(DeckBuilder.MAX_DECK_SIZE)));
 
         TextView tvDiceCount = (TextView) findViewById(R.id.tvDice);
-        tvDiceCount.setText(String.valueOf(deck.getDiceCount()));
+        tvDiceCount.setText(String.valueOf(deckBuilder.getDiceCount()));
 
         TextView tvCharacterPoints = (TextView) findViewById(R.id.tvPoints);
-        tvCharacterPoints.setText(String.valueOf(deck.getTotalCharacterPoints()) + " / " + String.valueOf(CharacterSelector.MAX_POINTS));
+        tvCharacterPoints.setText(String.valueOf(deckBuilder.getTotalCharacterPoints()) + " / " + String.valueOf(CharacterSelector.MAX_POINTS));
 
         TextView tvFaction = (TextView) findViewById(R.id.tvFaction);
-        tvFaction.setText(deck.getFaction());
+        tvFaction.setText(deckBuilder.getFaction());
 
         /*TextView tvMeleeAttack = (TextView) findViewById(R.id.tvMeleeAttack);
-        tvMeleeAttack.setText(String.format("%2.0f", deck.getMeleeAttackRating()));
+        tvMeleeAttack.setText(String.format("%2.0f", deckBuilder.getMeleeAttackRating()));
 
         TextView tvRangedAttack = (TextView) findViewById(R.id.tvRangedAttack);
-        tvRangedAttack.setText(String.format("%2.0f", deck.getRangedAttackRating()));
+        tvRangedAttack.setText(String.format("%2.0f", deckBuilder.getRangedAttackRating()));
 
         TextView tvCost = (TextView) findViewById(R.id.tvCost);
-        tvCost.setText(String.format("%2.0f", deck.getCostRating()));
+        tvCost.setText(String.format("%2.0f", deckBuilder.getCostRating()));
 
         TextView tvDefense = (TextView) findViewById(R.id.tvDefense);
-        tvDefense.setText(String.format("%2.0f", deck.getDefenceRating()));
+        tvDefense.setText(String.format("%2.0f", deckBuilder.getDefenceRating()));
 
         TextView tvResources = (TextView) findViewById(R.id.tvResources);
-        tvResources.setText(String.format("%2.0f", deck.getIncomeRating()));
+        tvResources.setText(String.format("%2.0f", deckBuilder.getIncomeRating()));
 
         TextView tvDiscard = (TextView) findViewById(R.id.tvDiscard);
-        tvCost.setText(String.format("%2.0f", deck.getDiscardRating()));
+        tvCost.setText(String.format("%2.0f", deckBuilder.getDiscardRating()));
 
         TextView tvDisrupt = (TextView) findViewById(R.id.tvDisrupt);
-        tvDefense.setText(String.format("%2.0f", deck.getDisruptRating()));
+        tvDefense.setText(String.format("%2.0f", deckBuilder.getDisruptRating()));
 
         TextView tvFocus = (TextView) findViewById(R.id.tvFocus);
-        tvResources.setText(String.format("%2.0f", deck.getFocusRating()));*/
+        tvResources.setText(String.format("%2.0f", deckBuilder.getFocusRating()));*/
     }
 
     private void readOwnedCardsFromDb() {
@@ -162,17 +162,17 @@ public class BuildDeckPagerActivity extends FragmentActivity implements NameDeck
 
     @Override
     public void onNameEntered(String name) {
-        deck.setName(name);
+        deckBuilder.setName(name);
 
         CardDatabase db = new CardDatabase(getApplicationContext());
-        db.saveDeck(deck);
+        db.saveDeck(deckBuilder.getDeck());
     }
 
     public static class SelectCardsFragment extends ListFragment {
         int pageNumber;
-        Deck deck;
+        DeckBuilder deck;
 
-        public void setDeck(Deck deck) {
+        public void setDeck(DeckBuilder deck) {
             this.deck = deck;
 
             deck.addAvailableCardsChangedListener(new SelectionListener() {
@@ -299,9 +299,9 @@ public class BuildDeckPagerActivity extends FragmentActivity implements NameDeck
     }
 
     public static class DeckBuildingPagerAdapter extends FragmentPagerAdapter {
-        Deck deck;
+        DeckBuilder deck;
 
-        public DeckBuildingPagerAdapter(FragmentManager fm, Deck deck) {
+        public DeckBuildingPagerAdapter(FragmentManager fm, DeckBuilder deck) {
             super(fm);
 
             this.deck = deck;

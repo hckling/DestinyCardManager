@@ -145,5 +145,15 @@ public class CharacterSelector implements Selector<CharacterSelectionInfo> {
         // OK - Managed internally
     }
 
+    @Override
+    public void select(CharacterSelectionInfo item) {
+        for (CardSelectionInfo c : this.availableCharacters) {
+            if (c.getCard().getCardNumber() == item.getCard().getCardNumber()) {
+                for (int i = 0; i < item.getCount(); i++)
+                    c.select();
+            }
+        }
+    }
+
     public void addSelectionChangedListener(SelectionListener listener) { selectionChangedListeners.add(listener); }
 }

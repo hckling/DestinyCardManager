@@ -3,283 +3,77 @@ package com.cardmanager.apps.kling.destinycardmanager.model;
 import java.util.ArrayList;
 
 /**
- * Created by danie on 2016-11-24.
+ * Created by dankli on 2017-03-08.
  */
 
 public class Deck {
-    private String name;
-    private int deckCardCount = 0;
-    public static final int MAX_DECK_SIZE = 30;
+    String name = "";
+    long id = -1;
 
-    private ArrayList<Card> allBattlefields = new ArrayList<>();
-    private ArrayList<CharacterCard> allCharacters = new ArrayList<>();
-    private ArrayList<Card> allUpgrades = new ArrayList<>();
-    private ArrayList<Card> allSupport = new ArrayList<>();
-    private ArrayList<Card> allEvents = new ArrayList<>();
+    private ArrayList<CharacterSelectionInfo> selectedCharacters = new ArrayList<>();
+    private CardSelectionInfo selectedBattlefield = null;
+    private ArrayList<CardSelectionInfo> selectedEvents = new ArrayList<>();
+    private ArrayList<CardSelectionInfo> selectedEquipment = new ArrayList<>();
+    private ArrayList<CardSelectionInfo> selectedSupport = new ArrayList<>();
 
-    Selector<CharacterSelectionInfo> characterSelector;
-    Selector<CardSelectionInfo> upgradeSelector;
-    Selector<CardSelectionInfo> supportSelector;
-    Selector<CardSelectionInfo> eventSelector;
-    Selector<CardSelectionInfo> battlefieldSelector;
-
-    private ArrayList<CardSelectionInfo> selectableBattlefields = new ArrayList<>();
-    public ArrayList<SelectionListener> availableCardsChanged = new ArrayList<>();
-    private ArrayList<SelectionListener> deckChangedListener = new ArrayList<>();
-
-    public Card getSelectedBattlefield() {
-        if (battlefieldSelector.getSelectionCount() > 0) {
-            return battlefieldSelector.getSelected().get(0).getCard();
-        } else {
-            return null;
-        }
+    public Deck(String name) {
+        this.name = name;
     }
 
-    public String getName() {return name; }
-    public void setName(String name) { this.name = name; }
-
-    private void cardSelectionChanged() {
-        boolean wasAtMaxSize = deckCardCount == MAX_DECK_SIZE;
-
-        deckCardCount = 0;
-
-        deckCardCount += upgradeSelector.getSelectionCount();
-        deckCardCount += eventSelector.getSelectionCount();
-        deckCardCount += supportSelector.getSelectionCount();
-
-        raiseDeckChanged();
-
-        if (deckCardCount == MAX_DECK_SIZE) {
-            upgradeSelector.maxCardsReached();
-            eventSelector.maxCardsReached();
-            supportSelector.maxCardsReached();
-
-            raiseAvailableCardsChanged();
-        } else if (wasAtMaxSize) {
-            upgradeSelector.maxCardsNotReached(characterSelector.getSelected());
-            eventSelector.maxCardsNotReached(characterSelector.getSelected());
-            supportSelector.maxCardsNotReached(characterSelector.getSelected());
-
-            raiseAvailableCardsChanged();
-        }
+    public Deck(String name, long id) {
+        this.name = name;
+        this.id = id;
     }
 
-    public ArrayList<CardSelectionInfo> getAllSelectedCards() {
-        ArrayList<CardSelectionInfo> result = new ArrayList<>();
-
-        result.addAll(characterSelector.getSelected());
-        result.addAll(upgradeSelector.getSelected());
-        result.addAll(supportSelector.getSelected());
-        result.addAll(eventSelector.getSelected());
-
-        return result;
+    public String getName() {
+        return name;
     }
 
-
-    public void setAvailableCards(ArrayList<Card> availableCards) {
-        // Split the cards by type (maybe some other class should do this...)
-        for (Card card: availableCards) {
-            if (card.getType() == CardType.CHARACTER) {
-                allCharacters.add((CharacterCard) card);
-            } else if (card.getType() == CardType.UPGRADE) {
-                allUpgrades.add(card);
-            } else if (card.getType() == CardType.EVENT) {
-                allEvents.add(card);
-            } else if (card.getType() == CardType.SUPPORT) {
-                allSupport.add(card);
-            } else if (card.getType() == CardType.BATTLEFIELD) {
-                allBattlefields.add(card);
-            }
-        }
-
-        // Create selectable cards from the cards in the user's deck
-        characterSelector = new CharacterSelector(allCharacters);
-        characterSelector.addSelectionChangedListener(new SelectionListener() {
-            @Override
-            public void selectionChanged() {
-                characterSelectionChanged();
-            }
-        });
-
-        upgradeSelector = new CardSelector(allUpgrades);
-        upgradeSelector.addSelectionChangedListener(new SelectionListener() {
-            @Override
-            public void selectionChanged() {
-                cardSelectionChanged();
-            }
-        });
-
-        supportSelector = new CardSelector(allSupport);
-        supportSelector.addSelectionChangedListener(new SelectionListener() {
-            @Override
-            public void selectionChanged() {
-                cardSelectionChanged();
-            }
-        });
-
-        eventSelector = new CardSelector(allEvents);
-        eventSelector.addSelectionChangedListener(new SelectionListener() {
-            @Override
-            public void selectionChanged() {
-                cardSelectionChanged();
-            }
-        });
-
-        battlefieldSelector = new BattlefieldSelector(allBattlefields);
-        battlefieldSelector.addSelectionChangedListener(new SelectionListener() {
-            @Override
-            public void selectionChanged() {
-                battlefieldSelectionChanged();
-            }
-        });
+    public long getId() {
+        return id;
     }
 
-    private void battlefieldSelectionChanged() {
-        raiseAvailableCardsChanged();
-        raiseDeckChanged();
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public void characterSelectionChanged() {
-        characterSelector.filterByCharacterSelection(null);
-        upgradeSelector.filterByCharacterSelection(characterSelector.getSelected());
-        supportSelector.filterByCharacterSelection(characterSelector.getSelected());
-        eventSelector.filterByCharacterSelection(characterSelector.getSelected());
-
-        raiseAvailableCardsChanged();
-        raiseDeckChanged();
+    public void addCharacter(CharacterSelectionInfo character) {
+        selectedCharacters.add(character);
     }
 
-    private void raiseDeckChanged() {
-        for (SelectionListener listener: deckChangedListener) {
-            listener.selectionChanged();
-        }
+    public ArrayList<CharacterSelectionInfo> getSelectedCharacters() {
+        return selectedCharacters;
     }
 
-    private void raiseAvailableCardsChanged() {
-        for (SelectionListener listener: availableCardsChanged) {
-            listener.selectionChanged();
-        }
+    public void selectBattlefield(CardSelectionInfo battlefield) {
+        selectedBattlefield = battlefield;
     }
 
-    public ArrayList<CharacterSelectionInfo> getAvailableCharacters() { return characterSelector.getAvailable(); }
-    public ArrayList<CardSelectionInfo> getAvailableUpgrades() { return upgradeSelector.getAvailable(); }
-    public ArrayList<CardSelectionInfo> getAvailableSupport() { return supportSelector.getAvailable(); }
-    public ArrayList<CardSelectionInfo> getAvailableEvents() { return eventSelector.getAvailable(); }
-    public ArrayList<CardSelectionInfo> getAvailableBattlefields() { return battlefieldSelector.getAvailable(); }
-
-    public int getTotalCharacterPoints() {
-        int result = 0;
-
-        for(CharacterSelectionInfo c: characterSelector.getSelected()) {
-            result += c.getPoints();
-        }
-
-        return result;
+    public CardSelectionInfo getSelectedBattlefield() {
+        return selectedBattlefield;
     }
 
-    public void addAvailableCardsChangedListener(SelectionListener listener) { availableCardsChanged.add(listener); }
-    public void addDeckChangedListener(SelectionListener listener) { deckChangedListener.add(listener); }
-
-    public String getFaction() {
-        if (characterSelector.getSelected().size() > 0) {
-            return characterSelector.getSelected().get(0).getCharacterCard().getFaction().toString();
-        } else {
-            return "-";
-        }
-    }
-    public int getDeckCardCount() { return deckCardCount; }
-
-    public int getDiceCount() {
-        int result = 0;
-
-        for (CardSelectionInfo c: getAllSelectedCards()) {
-            result += c.getDiceCount();
-        }
-
-        return result;
+    public void addEvent(CardSelectionInfo event) {
+        selectedEvents.add(event);
     }
 
-    public boolean isValid() {
-        return (getSelectedBattlefield() != null) && (characterSelector.getSelectionCount() > 0);
+    public ArrayList<CardSelectionInfo> getSelectedEvents() {
+        return selectedEvents;
     }
 
-    public double getMeleeAttackRating() {
-        double result = 0;
-
-        for(CardSelectionInfo c: getAllSelectedCards()) {
-            result += c.getMeleeAttackRating();
-        }
-
-        return result;
+    public void addUpgrade(CardSelectionInfo equipment) {
+        selectedEquipment.add(equipment);
     }
 
-    public double getRangedAttackRating() {
-        double result = 0;
-
-        for(CardSelectionInfo c: getAllSelectedCards()) {
-            result += c.getRangedAttackRating();
-        }
-
-        return result;
+    public ArrayList<CardSelectionInfo> getSelectedUpgrades() {
+        return selectedEquipment;
     }
 
-    public double getCostRating() {
-        double result = 0;
-
-        for(CardSelectionInfo c: getAllSelectedCards()) {
-            result += c.getCostRating();
-        }
-
-        return result;
+    public void addSupport(CardSelectionInfo support) {
+        selectedSupport.add(support);
     }
 
-    public double getIncomeRating() {
-        double result = 0;
-
-        for(CardSelectionInfo c: getAllSelectedCards()) {
-            result += c.getIncomeRating();
-        }
-
-        return result;
-    }
-
-    public double getDefenceRating() {
-        double result = 0;
-
-        for (CardSelectionInfo c: getAllSelectedCards()) {
-            result += c.getDefenceRating();
-        }
-
-        return result;
-    }
-
-    public double getFocusRating() {
-        double result = 0;
-
-        for (CardSelectionInfo c: getAllSelectedCards()) {
-            result += c.getFocusRating();
-        }
-
-        return result;
-    }
-
-    public double getDisruptRating() {
-        double result = 0;
-
-        for (CardSelectionInfo c: getAllSelectedCards()) {
-            result += c.getDisruptRating();
-        }
-
-        return result;
-    }
-
-    public double getDiscardRating() {
-        double result = 0;
-
-        for (CardSelectionInfo c: getAllSelectedCards()) {
-            result += c.getDiscardRating();
-        }
-
-        return result;
+    public ArrayList<CardSelectionInfo> getSelectedSupport() {
+        return selectedSupport;
     }
 }

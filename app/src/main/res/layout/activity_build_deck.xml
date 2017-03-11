@@ -121,7 +121,7 @@
         android:choiceMode="singleChoice">
 
     </ExpandableListView>
-    <!-- Deck details (detailed) -->
+    <!-- DeckBuilder details (detailed) -->
 
 
     <android.support.v4.view.ViewPager

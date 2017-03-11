@@ -54,6 +54,9 @@ public class CharacterCard extends DiceCard {
                     result += d.getValue();
                 case MELEE_DAMAGE_MODIFIER:
                     result += d.getValue() / 2;
+                default:
+                    result += 0;
+                    break;
             }
         }
 

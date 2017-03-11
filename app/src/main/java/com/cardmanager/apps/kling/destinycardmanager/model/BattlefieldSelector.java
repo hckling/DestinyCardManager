@@ -112,4 +112,14 @@ public class BattlefieldSelector implements Selector<CardSelectionInfo> {
     public void maxCardsNotReached(ArrayList<CharacterSelectionInfo> selectedCharacters) {
         // Not relevant for battlefields
     }
+
+    @Override
+    public void select(CardSelectionInfo item) {
+        for (CardSelectionInfo c : this.availableBattlefields) {
+            if (c.getCard().getCardNumber() == item.getCard().getCardNumber()) {
+                for (int i = 0; i < item.getCount(); i++)
+                    c.select();
+            }
+        }
+    }
 }

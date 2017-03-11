@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.cardmanager.apps.kling.destinycardmanager.model.Card;
+import com.cardmanager.apps.kling.destinycardmanager.model.CardSelectionInfo;
+import com.cardmanager.apps.kling.destinycardmanager.model.CharacterCard;
 import com.cardmanager.apps.kling.destinycardmanager.model.Deck;
 
 import java.util.ArrayList;
@@ -17,14 +19,14 @@ import java.util.ArrayList;
 
 public class CardDatabase extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "CardManager";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private final String CARD_NUMBER = "cardNumber";
     private final String OWNED_COUNT = "ownedCount";
     private final String OWNED_CARDS_TABLE_NAME = "cards";
     private final String OWNED_CARDS_TABLE_CREATE =
             "CREATE TABLE " + OWNED_CARDS_TABLE_NAME + " (" +
-                    CARD_NUMBER + " INTEGER primary key, " +
-                    OWNED_COUNT + " INTEGER);";
+                    CARD_NUMBER + " INTEGER PRIMARY KEY ASC, " +
+                    OWNED_COUNT + " INT NOT NULL);";
 
     private final static String DECK_TABLE_NAME = "decks";
     private final String ID = "id";
@@ -35,24 +37,33 @@ public class CardDatabase extends SQLiteOpenHelper {
     private final String DECK_ID = "deckId";
     private final String IS_ELITE = "isElite";
 
-    private final String DECK_CARDS = "deck_cards";
+    private final static String DECK_CARDS_TABLE_NAME = "deck_cards";
+    private final static String CARD_COUNT = "count";
 
     private final String DECK_TABLE_CREATE =
             "CREATE TABLE " + DECK_TABLE_NAME + " (" +
-                    ID + " INT PRIMARY KEY AUTOINCREMENT, " +
+                    ID + " INTEGER PRIMARY KEY ASC, " +
                     DECK_NAME + " VARCHAR(255) NOT NULL, " +
-                    "FOREIGN KEY(" + BATTLEFIELD_ID + ") REFERENCES " + OWNED_CARDS_TABLE_NAME + "(" + CARD_NUMBER + ") INT NOT NULL, ";
+                    BATTLEFIELD_ID + " INT NOT NULL, " +
+                    "FOREIGN KEY(" + BATTLEFIELD_ID + ") REFERENCES " + OWNED_CARDS_TABLE_NAME + "(" + CARD_NUMBER + "));";
 
     private final String DECK_CHARACTERS_TABLE_CREATE =
             "CREATE TABLE " + DECK_CHARACTERS_TABLE_NAME + " (" +
-                    "FOREIGN KEY(" + DECK_ID + ") REFERENCES " + DECK_TABLE_NAME + "(" + DECK_ID + ") INT PRIMARY KEY NOT NULL, " +
-                    "FOREIGN KEY(" + CARD_NUMBER + ") REFERENCES " + OWNED_CARDS_TABLE_NAME + "(" + CARD_NUMBER + ") INT NOT NULL, " +
-                    IS_ELITE + " BOOLEAN NOT NULL);";
+                    ID + " INTEGER PRIMARY KEY ASC, " +
+                    DECK_ID + " INT NOT NULL, " +
+                    CARD_NUMBER + " INT NOT NULL, " +
+                    IS_ELITE + " BOOLEAN NOT NULL, " +
+                    "FOREIGN KEY(" + DECK_ID + ") REFERENCES " + DECK_TABLE_NAME + "(" + DECK_ID + "), " +
+                    "FOREIGN KEY(" + CARD_NUMBER + ") REFERENCES " + OWNED_CARDS_TABLE_NAME + "(" + CARD_NUMBER + "));";
 
     private final String DECK_CARDS_TABLE_CREATE =
-            "CREATE TABLE " + DECK_CARDS + " (" +
-                    "FOREIGN KEY(" + DECK_ID + ") REFERENCES " + DECK_TABLE_NAME + "(" + DECK_ID + ") INT PRIMARY KEY NOT NULL, " +
-                    "FOREIGN KEY(" + CARD_NUMBER + ") REFERENCES " + OWNED_CARDS_TABLE_NAME + "(" + CARD_NUMBER + ") INT NOT NULL);";
+            "CREATE TABLE " + DECK_CARDS_TABLE_NAME + " (" +
+                    ID + " INTEGER PRIMARY KEY ASC, " +
+                    DECK_ID + " INT NOT NULL, " +
+                    CARD_NUMBER + " INT NOT NULL, " +
+                    CARD_COUNT + " INT NOT NULL, " +
+                    "FOREIGN KEY(" + DECK_ID + ") REFERENCES " + DECK_TABLE_NAME + "(" + DECK_ID + "), " +
+                    "FOREIGN KEY(" + CARD_NUMBER + ") REFERENCES " + OWNED_CARDS_TABLE_NAME + "(" + CARD_NUMBER + "));";
 
     public CardDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -68,7 +79,9 @@ public class CardDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        if (newVersion > oldVersion) {
+            db.execSQL("ALTER TABLE " + DECK_CARDS_TABLE_NAME + " ADD COLUMN " + CARD_COUNT + " INT NOT NULL DEFAULT 0");
+        }
     }
 
     public void updateCards(ArrayList<Card> cards) {
@@ -91,7 +104,7 @@ public class CardDatabase extends SQLiteOpenHelper {
         }
     }
 
-    public void updateDatabase(ArrayList<Card> cards) {
+    public void saveCardCollection(ArrayList<Card> cards) {
         SQLiteDatabase wd = getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -115,12 +128,113 @@ public class CardDatabase extends SQLiteOpenHelper {
         }
     }
 
+    public void deleteDeck(Deck deck) {
+        SQLiteDatabase wd = getWritableDatabase();
+        wd.delete(DECK_CHARACTERS_TABLE_NAME, DECK_ID + "=" + deck.getId(), null);
+        wd.delete(DECK_CARDS_TABLE_NAME, DECK_ID + "=" + deck.getId(), null);
+        wd.delete(DECK_TABLE_NAME, ID + "=" + deck.getId(), null);
+    }
+
     public void saveDeck(Deck deck) {
         SQLiteDatabase wd = getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        /*values.put();
-        values.put(DECK_NAME, deck.getName());
-        values.put(BATTLEFIELD_ID, deck.getSelectedBattleField());*/
+        try {
+            values.put(DECK_NAME, deck.getName());
+            values.put(BATTLEFIELD_ID, deck.getSelectedBattlefield().getCard().getCardNumber());
+
+            long result = wd.insertWithOnConflict(DECK_TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+            deck.setId(result);
+
+            saveCharacterSelection(deck, wd);
+            saveCardSelection(deck, wd);
+        } finally {
+            wd.close();
+        }
+    }
+
+    private void saveCharacterSelection(Deck deck, SQLiteDatabase wd) {
+        for (int i = 0; i < deck.getSelectedCharacters().size(); i++) {
+            ContentValues values = new ContentValues();
+
+            values.put(DECK_ID, deck.getId());
+            values.put(CARD_NUMBER, deck.getSelectedCharacters().get(i).getCard().getCardNumber());
+            values.put(IS_ELITE, deck.getSelectedCharacters().get(i).isElite());
+
+            long result = wd.insertWithOnConflict(DECK_CHARACTERS_TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        }
+    }
+
+    private void saveCardSelection(Deck deck, SQLiteDatabase wd) {
+        ArrayList<CardSelectionInfo> allCards = new ArrayList<>();
+
+        allCards.add(deck.getSelectedBattlefield());
+        allCards.addAll(deck.getSelectedEvents());
+        allCards.addAll(deck.getSelectedSupport());
+        allCards.addAll(deck.getSelectedUpgrades());
+
+        for (int i = 0; i < allCards.size(); i++) {
+            ContentValues values = new ContentValues();
+
+            values.put(DECK_ID, deck.getId());
+            values.put(CARD_NUMBER, allCards.get(i).getCard().getCardNumber());
+            values.put(CARD_COUNT, allCards.get(i).getCount());
+
+            long result = wd.insertWithOnConflict(DECK_CARDS_TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        }
+    }
+
+    public ArrayList<Deck> getDecks() {
+        SQLiteDatabase rd = getReadableDatabase();
+        String query = "SELECT " + ID + ", " + DECK_NAME + " FROM " + DECK_TABLE_NAME + ";";
+
+        ArrayList<Deck> decks = new ArrayList<>();
+
+        try {
+            Cursor cursor = rd.rawQuery(query, null);
+
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+
+                while(!cursor.isAfterLast()) {
+                    String deckName = cursor.getString(cursor.getColumnIndex(DECK_NAME));
+                    long id = cursor.getLong(cursor.getColumnIndex(ID));
+
+                    Deck d = new Deck(deckName, id);
+
+                    getCharacters(d, rd);
+                    getCards(d, rd);
+
+                    decks.add(d);
+
+                    cursor.moveToNext();
+                }
+            }
+        } finally {
+            rd.close();
+        }
+
+        return decks;
+    }
+
+    private void getCharacters(Deck d, SQLiteDatabase rd) {
+        String query = "SELECT " + CARD_NUMBER + ", " + IS_ELITE + " FROM " + DECK_CHARACTERS_TABLE_NAME + " WHERE " + DECK_ID + "=" + d.getId();
+
+        Cursor c = rd.rawQuery(query, null);
+
+        c.moveToFirst();
+
+        while(!c.isAfterLast()) {
+            int cardNumber = c.getInt(c.getColumnIndex(CARD_NUMBER));
+            boolean isElite = c.getShort(c.getColumnIndex(IS_ELITE)) > 0;
+
+            CharacterCard card =
+
+            c.moveToNext();
+        }
+    }
+
+    private void getCards(Deck d, SQLiteDatabase rd) {
+
     }
 }
