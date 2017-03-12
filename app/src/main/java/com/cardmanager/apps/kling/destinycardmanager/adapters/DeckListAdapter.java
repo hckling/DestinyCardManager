@@ -14,15 +14,15 @@ import android.widget.TextView;
 import com.cardmanager.apps.kling.destinycardmanager.R;
 import com.cardmanager.apps.kling.destinycardmanager.activities.BuildDeckPagerActivity;
 import com.cardmanager.apps.kling.destinycardmanager.database.CardDatabase;
+import com.cardmanager.apps.kling.destinycardmanager.model.CardSelectionInfo;
+import com.cardmanager.apps.kling.destinycardmanager.model.CharacterSelectionInfo;
 import com.cardmanager.apps.kling.destinycardmanager.model.Deck;
 
 import java.util.ArrayList;
 
-/**
- * Created by dankli on 2017-03-08.
- */
-
 public class DeckListAdapter extends ArrayAdapter<Deck> {
+
+    private DeckSelectionListener deckSelectionListener;
 
     public DeckListAdapter(Context context, ArrayList<Deck> objects) {
         super(context, 0, objects);
@@ -41,14 +41,18 @@ public class DeckListAdapter extends ArrayAdapter<Deck> {
         TextView tvCharacters = (TextView) convertView.findViewById(R.id.tvCharacters);
 
         tvDeckName.setText(deck.getName());
-        tvCharacters.setText("unknown");
+        String characters = "";
+        for (CharacterSelectionInfo csi : deck.getSelectedCharacters()) {
+            characters += csi.getCharacterCard().getName() + "\n";
+        }
+        tvCharacters.setText(characters);
+
+        TextView tvPoints = (TextView) convertView.findViewById(R.id.txtTotalPoints);
+        tvPoints.setText(String.valueOf(deck.getTotalPoints()));
 
         Button btnEdit = (Button) convertView.findViewById(R.id.btnEditDeck);
         btnEdit.setOnClickListener((v) -> {
-            Intent intent = new Intent(this.getContext().getApplicationContext(), BuildDeckPagerActivity.class);
-            Bundle options = new Bundle();
-            options.putLong("deckId", deck.getId());
-            this.getContext().getApplicationContext().startActivity(intent);
+            deckSelectionListener.onDeckEditRequested(deck.getId());
         });
 
         Button btnDelete = (Button) convertView.findViewById(R.id.btnDeleteDeck);
@@ -58,5 +62,9 @@ public class DeckListAdapter extends ArrayAdapter<Deck> {
         });
 
         return convertView;
+    }
+
+    public void addDeckSelectionListener(DeckSelectionListener listener) {
+        this.deckSelectionListener = listener;
     }
 }

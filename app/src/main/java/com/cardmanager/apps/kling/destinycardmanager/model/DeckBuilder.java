@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 
 public class DeckBuilder {
-    private String name;
+    private String name = "";
     private int deckCardCount = 0;
     public static final int MAX_DECK_SIZE = 30;
 
@@ -309,6 +309,8 @@ public class DeckBuilder {
     }
 
     public void loadFromDeck(Deck deck) {
+        this.name = deck.getName();
+
         for (CharacterSelectionInfo c : deck.getSelectedCharacters()) {
             characterSelector.select(c);
         }

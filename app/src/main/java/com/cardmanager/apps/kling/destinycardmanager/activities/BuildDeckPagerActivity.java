@@ -22,6 +22,7 @@ import com.cardmanager.apps.kling.destinycardmanager.model.Card;
 import com.cardmanager.apps.kling.destinycardmanager.model.CardSet;
 import com.cardmanager.apps.kling.destinycardmanager.model.CardSetBuilder;
 import com.cardmanager.apps.kling.destinycardmanager.model.CharacterSelector;
+import com.cardmanager.apps.kling.destinycardmanager.model.Deck;
 import com.cardmanager.apps.kling.destinycardmanager.model.DeckBuilder;
 import com.cardmanager.apps.kling.destinycardmanager.model.NameDeckDialogFragment;
 import com.cardmanager.apps.kling.destinycardmanager.model.SelectionListener;
@@ -60,6 +61,14 @@ public class BuildDeckPagerActivity extends FragmentActivity implements NameDeck
 
         deckBuilder.setAvailableCards(allCards);
 
+
+        if (getIntent().hasExtra("deckId")) {
+            long deckId = getIntent().getExtras().getLong("deckId");
+            Deck deck = getDeckFromDb(deckId);
+
+            deckBuilder.loadFromDeck(deck);
+        }
+
         adapter = new DeckBuildingPagerAdapter(getSupportFragmentManager(), deckBuilder);
 
         pager = (ViewPager) findViewById(R.id.vpMain);
@@ -83,9 +92,19 @@ public class BuildDeckPagerActivity extends FragmentActivity implements NameDeck
         updateDeckInfo();
     }
 
+    private Deck getDeckFromDb(long deckId) {
+        CardDatabase db = new CardDatabase(getApplicationContext());
+
+        return db.getDeck(deckId);
+    }
+
     private void saveDeck() {
-        NameDeckDialogFragment d = new NameDeckDialogFragment();
-        d.show(getFragmentManager(), "NameDeckDialogFragment");
+        if (deckBuilder.getName().isEmpty()) {
+            NameDeckDialogFragment d = new NameDeckDialogFragment();
+            d.show(getFragmentManager(), "NameDeckDialogFragment");
+        } else {
+            saveDeckToDB();
+        }
     }
 
     private void updateDeckInfo() {
@@ -164,6 +183,10 @@ public class BuildDeckPagerActivity extends FragmentActivity implements NameDeck
     public void onNameEntered(String name) {
         deckBuilder.setName(name);
 
+        saveDeckToDB();
+    }
+
+    private void saveDeckToDB() {
         CardDatabase db = new CardDatabase(getApplicationContext());
         db.saveDeck(deckBuilder.getDeck());
     }

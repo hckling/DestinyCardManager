@@ -115,10 +115,10 @@ public class BattlefieldSelector implements Selector<CardSelectionInfo> {
 
     @Override
     public void select(CardSelectionInfo item) {
-        for (CardSelectionInfo c : this.availableBattlefields) {
-            if (c.getCard().getCardNumber() == item.getCard().getCardNumber()) {
-                for (int i = 0; i < item.getCount(); i++)
-                    c.select();
+        for (int i = 0; i < availableBattlefields.size(); i++) {
+            if (availableBattlefields.get(i).getCard().getCardNumber() == item.getCard().getCardNumber()) {
+                availableBattlefields.get(i).select();
+                break;
             }
         }
     }

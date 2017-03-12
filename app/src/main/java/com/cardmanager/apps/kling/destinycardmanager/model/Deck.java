@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class Deck {
     String name = "";
     long id = -1;
+    int totalPoints = 0;
 
     private ArrayList<CharacterSelectionInfo> selectedCharacters = new ArrayList<>();
     private CardSelectionInfo selectedBattlefield = null;
@@ -39,7 +40,16 @@ public class Deck {
 
     public void addCharacter(CharacterSelectionInfo character) {
         selectedCharacters.add(character);
+        updateTotalPoints();
     }
+
+    private void updateTotalPoints() {
+        for (CharacterSelectionInfo c : selectedCharacters) {
+            totalPoints += c.getPoints();
+        }
+    }
+
+    public int getTotalPoints() { return totalPoints; }
 
     public ArrayList<CharacterSelectionInfo> getSelectedCharacters() {
         return selectedCharacters;

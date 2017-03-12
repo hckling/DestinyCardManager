@@ -14,6 +14,7 @@ import com.cardmanager.apps.kling.destinycardmanager.model.CharacterSelectionInf
 import com.cardmanager.apps.kling.destinycardmanager.model.Deck;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by danie on 2016-12-04.
@@ -55,6 +56,7 @@ public class CardDatabase extends SQLiteOpenHelper {
                     DECK_ID + " INT NOT NULL, " +
                     CARD_NUMBER + " INT NOT NULL, " +
                     IS_ELITE + " BOOLEAN NOT NULL, " +
+                    CARD_COUNT + " INT NOT NULL DEFAULT 1, " +
                     "FOREIGN KEY(" + DECK_ID + ") REFERENCES " + DECK_TABLE_NAME + "(" + DECK_ID + "), " +
                     "FOREIGN KEY(" + CARD_NUMBER + ") REFERENCES " + OWNED_CARDS_TABLE_NAME + "(" + CARD_NUMBER + "));";
 
@@ -162,6 +164,7 @@ public class CardDatabase extends SQLiteOpenHelper {
             values.put(DECK_ID, deck.getId());
             values.put(CARD_NUMBER, deck.getSelectedCharacters().get(i).getCard().getCardNumber());
             values.put(IS_ELITE, deck.getSelectedCharacters().get(i).isElite());
+            values.put(CARD_COUNT, deck.getSelectedCharacters().get(i).getCount());
 
             long result = wd.insertWithOnConflict(DECK_CHARACTERS_TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
         }
@@ -220,7 +223,7 @@ public class CardDatabase extends SQLiteOpenHelper {
     }
 
     private void getCharacters(Deck d, SQLiteDatabase rd) {
-        String query = "SELECT " + CARD_NUMBER + ", " + IS_ELITE + " FROM " + DECK_CHARACTERS_TABLE_NAME + " WHERE " + DECK_ID + "=" + d.getId();
+        String query = "SELECT " + CARD_NUMBER + ", " + CARD_COUNT + ", " + IS_ELITE + " FROM " + DECK_CHARACTERS_TABLE_NAME + " WHERE " + DECK_ID + "=" + d.getId();
 
         Cursor c = rd.rawQuery(query, null);
 
@@ -229,10 +232,15 @@ public class CardDatabase extends SQLiteOpenHelper {
         while(!c.isAfterLast()) {
             int cardNumber = c.getInt(c.getColumnIndex(CARD_NUMBER));
             boolean isElite = c.getShort(c.getColumnIndex(IS_ELITE)) > 0;
+            int count = c.getInt(c.getColumnIndex(CARD_COUNT));
 
             CharacterCard card = (CharacterCard) CardSetBuilder.getCard(cardNumber);
 
             CharacterSelectionInfo selectionInfo = new CharacterSelectionInfo(card);
+
+            for (int i = 0; i < count; i++)
+                selectionInfo.select();
+
             if (isElite)
                 selectionInfo.makeElite();
 
@@ -263,6 +271,34 @@ public class CardDatabase extends SQLiteOpenHelper {
             d.addCard(cardSelectionInfo);
 
             c.moveToNext();
+        }
+    }
+
+    public Deck getDeck(long deckId) {
+        SQLiteDatabase rd = getReadableDatabase();
+        String query = "SELECT " + ID + ", " + DECK_NAME + " FROM " + DECK_TABLE_NAME + " WHERE ID=" + deckId;
+
+        try {
+            Cursor c = rd.rawQuery(query, null);
+
+            if (c.getCount() != 1) {
+                // Something is wrong...
+                return null;
+            } else {
+                c.moveToFirst();
+
+                String deckName = c.getString(c.getColumnIndex(DECK_NAME));
+                long id = c.getLong(c.getColumnIndex(ID));
+
+                Deck d = new Deck(deckName, id);
+
+                getCharacters(d, rd);
+                getCards(d, rd);
+
+                return d;
+            }
+        } finally {
+            rd.close();
         }
     }
 }

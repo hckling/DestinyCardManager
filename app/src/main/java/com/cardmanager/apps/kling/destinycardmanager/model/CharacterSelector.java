@@ -147,10 +147,13 @@ public class CharacterSelector implements Selector<CharacterSelectionInfo> {
 
     @Override
     public void select(CharacterSelectionInfo item) {
-        for (CardSelectionInfo c : this.availableCharacters) {
-            if (c.getCard().getCardNumber() == item.getCard().getCardNumber()) {
-                for (int i = 0; i < item.getCount(); i++)
-                    c.select();
+        for (int i = 0; i < availableCharacters.size(); i++) {
+            CharacterSelectionInfo c = availableCharacters.get(i);
+            if (c.getCard().getCardNumber() == item.getCard().getCardNumber() && c.getCount() == 0) {
+                c.select();
+                if (item.isElite())
+                    c.makeElite();
+                break;
             }
         }
     }

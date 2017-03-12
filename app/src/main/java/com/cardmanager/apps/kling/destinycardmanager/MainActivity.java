@@ -59,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Deck> decks = db.getDecks();
 
         DeckListAdapter adapter = new DeckListAdapter(this.getApplicationContext(), decks);
+        adapter.addDeckSelectionListener(deckId -> {
+            Intent intent = new Intent(getApplicationContext(), BuildDeckPagerActivity.class);
+            intent.putExtra("deckId", deckId);
+            startActivity(intent);
+        });
         lvDecks.setAdapter(adapter);
     }
 
