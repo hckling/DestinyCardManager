@@ -45,6 +45,19 @@ public class CardSetBuilder {
         return null;
     }
 
+    public static Card getCard(int cardNumber) {
+        for(CardSet cs: cardSets) {
+            for (Card c : cs.getCards()) {
+                if (c.getCardNumber() == cardNumber)
+                {
+                    return c;
+                }
+            }
+        }
+
+        return null;
+    }
+
     private static CardSet parseSet(XmlPullParser parser) throws IOException, XmlPullParserException, ParseException {
         CardSet cardSet = new CardSet();
         cardSet.setName(parser.getAttributeValue(null, "name"));

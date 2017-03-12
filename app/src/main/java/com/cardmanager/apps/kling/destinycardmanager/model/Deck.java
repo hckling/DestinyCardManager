@@ -53,6 +53,25 @@ public class Deck {
         return selectedBattlefield;
     }
 
+    public void addCard(CardSelectionInfo card) {
+        switch(card.getCard().getType()) {
+            case EVENT: addEvent(card);
+                break;
+            case UPGRADE: addUpgrade(card);
+                break;
+            case SUPPORT: addSupport(card);
+                break;
+            case CHARACTER:
+                if (CharacterSelectionInfo.class.isInstance(card)) {
+                    addCharacter((CharacterSelectionInfo) card);
+                }
+                break;
+            case BATTLEFIELD: selectBattlefield(card);
+                break;
+        }
+    }
+
+
     public void addEvent(CardSelectionInfo event) {
         selectedEvents.add(event);
     }

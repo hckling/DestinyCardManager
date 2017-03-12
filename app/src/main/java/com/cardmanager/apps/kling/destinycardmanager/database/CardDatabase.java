@@ -8,7 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.cardmanager.apps.kling.destinycardmanager.model.Card;
 import com.cardmanager.apps.kling.destinycardmanager.model.CardSelectionInfo;
+import com.cardmanager.apps.kling.destinycardmanager.model.CardSetBuilder;
 import com.cardmanager.apps.kling.destinycardmanager.model.CharacterCard;
+import com.cardmanager.apps.kling.destinycardmanager.model.CharacterSelectionInfo;
 import com.cardmanager.apps.kling.destinycardmanager.model.Deck;
 
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ import java.util.ArrayList;
 
 public class CardDatabase extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "CardManager";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 5;
     private final String CARD_NUMBER = "cardNumber";
     private final String OWNED_COUNT = "ownedCount";
     private final String OWNED_CARDS_TABLE_NAME = "cards";
@@ -228,13 +230,39 @@ public class CardDatabase extends SQLiteOpenHelper {
             int cardNumber = c.getInt(c.getColumnIndex(CARD_NUMBER));
             boolean isElite = c.getShort(c.getColumnIndex(IS_ELITE)) > 0;
 
-            CharacterCard card =
+            CharacterCard card = (CharacterCard) CardSetBuilder.getCard(cardNumber);
+
+            CharacterSelectionInfo selectionInfo = new CharacterSelectionInfo(card);
+            if (isElite)
+                selectionInfo.makeElite();
+
+            d.addCharacter(selectionInfo);
 
             c.moveToNext();
         }
     }
 
     private void getCards(Deck d, SQLiteDatabase rd) {
+        String query = "SELECT " + CARD_NUMBER + ", " + CARD_COUNT + " FROM " + DECK_CARDS_TABLE_NAME + " WHERE " + DECK_ID + "=" + d.getId();
 
+        Cursor c = rd.rawQuery(query, null);
+
+        c.moveToFirst();
+
+        while(!c.isAfterLast()) {
+            int cardNumber = c.getInt(c.getColumnIndex(CARD_NUMBER));
+            int count = c.getShort(c.getColumnIndex(CARD_COUNT));
+
+            Card card = CardSetBuilder.getCard(cardNumber);
+            CardSelectionInfo cardSelectionInfo = new CardSelectionInfo(card);
+
+            for(int i = 0; i < count; i++) {
+                cardSelectionInfo.select();
+            }
+
+            d.addCard(cardSelectionInfo);
+
+            c.moveToNext();
+        }
     }
 }

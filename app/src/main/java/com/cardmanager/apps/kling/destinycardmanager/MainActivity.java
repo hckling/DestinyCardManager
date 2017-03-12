@@ -11,9 +11,14 @@ import com.cardmanager.apps.kling.destinycardmanager.activities.SelectCardsActiv
 import com.cardmanager.apps.kling.destinycardmanager.adapters.DeckListAdapter;
 import com.cardmanager.apps.kling.destinycardmanager.database.CardDatabase;
 import com.cardmanager.apps.kling.destinycardmanager.model.CardSet;
+import com.cardmanager.apps.kling.destinycardmanager.model.CardSetBuilder;
 import com.cardmanager.apps.kling.destinycardmanager.model.Deck;
 import com.cardmanager.apps.kling.destinycardmanager.model.DeckBuilder;
 
+import org.xmlpull.v1.XmlPullParser;
+
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -39,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), BuildDeckPagerActivity.class);
             startActivity(intent);
         });
-
+        parseCards();
         loadDecks();
     }
 
@@ -55,5 +60,16 @@ public class MainActivity extends AppCompatActivity {
 
         DeckListAdapter adapter = new DeckListAdapter(this.getApplicationContext(), decks);
         lvDecks.setAdapter(adapter);
+    }
+
+    private void parseCards() {
+        XmlPullParser parser = getApplicationContext().getResources().getXml(R.xml.cards);
+        try {
+            CardSetBuilder.readCardsXml(parser);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }
