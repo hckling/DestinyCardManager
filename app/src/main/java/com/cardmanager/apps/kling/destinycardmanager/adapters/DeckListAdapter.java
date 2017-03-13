@@ -1,14 +1,17 @@
 package com.cardmanager.apps.kling.destinycardmanager.adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.cardmanager.apps.kling.destinycardmanager.R;
@@ -50,18 +53,36 @@ public class DeckListAdapter extends ArrayAdapter<Deck> {
         TextView tvPoints = (TextView) convertView.findViewById(R.id.txtTotalPoints);
         tvPoints.setText(String.valueOf(deck.getTotalPoints()));
 
-        Button btnEdit = (Button) convertView.findViewById(R.id.btnEditDeck);
-        btnEdit.setOnClickListener((v) -> {
-            deckSelectionListener.onDeckEditRequested(deck.getId());
-        });
+        ImageButton tvDeleteButton = (ImageButton) convertView.findViewById(R.id.imgBtnDeleteDeck);
 
-        Button btnDelete = (Button) convertView.findViewById(R.id.btnDeleteDeck);
-        btnDelete.setOnClickListener((v) -> {
-            CardDatabase db = new CardDatabase(getContext());
-            db.deleteDeck(deck);
-        });
+        tvDeleteButton.setOnClickListener((v -> {
+            confirmDeletion(v, deck);
+        }));
 
         return convertView;
+    }
+
+    private void confirmDeletion(View v, Deck deck) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(v.getRootView().getContext());
+
+        builder.setCancelable(true);
+        builder.setTitle("Confirm deletion");
+        builder.setMessage("Are you sure you want to delete " + deck.getName() + "?");
+        builder.setPositiveButton(android.R.string.yes,
+                (dialog, which) -> {
+                    deleteDeck(deck);
+                });
+
+        builder.setNegativeButton(android.R.string.no, (dialog, which) -> {
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void deleteDeck(Deck deck) {
+        CardDatabase db = new CardDatabase(getContext());
+        db.deleteDeck(deck);
     }
 
     public void addDeckSelectionListener(DeckSelectionListener listener) {

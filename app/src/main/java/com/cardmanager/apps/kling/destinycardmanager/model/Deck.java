@@ -44,6 +44,8 @@ public class Deck {
     }
 
     private void updateTotalPoints() {
+        totalPoints = 0;
+
         for (CharacterSelectionInfo c : selectedCharacters) {
             totalPoints += c.getPoints();
         }

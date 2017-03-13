@@ -3,6 +3,8 @@ package com.cardmanager.apps.kling.destinycardmanager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -59,11 +61,30 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Deck> decks = db.getDecks();
 
         DeckListAdapter adapter = new DeckListAdapter(this.getApplicationContext(), decks);
-        adapter.addDeckSelectionListener(deckId -> {
+        lvDecks.setOnItemClickListener((parent, view, position, id) -> {
+            Deck d = decks.get(position);
+
             Intent intent = new Intent(getApplicationContext(), BuildDeckPagerActivity.class);
-            intent.putExtra("deckId", deckId);
+            intent.putExtra("deckId", d.getId());
             startActivity(intent);
         });
+
+        lvDecks.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Deck d = decks.get(position);
+
+                Intent intent = new Intent(getApplicationContext(), BuildDeckPagerActivity.class);
+                intent.putExtra("deckId", d.getId());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         lvDecks.setAdapter(adapter);
     }
 
