@@ -14,7 +14,7 @@ public class Deck {
     private ArrayList<CharacterSelectionInfo> selectedCharacters = new ArrayList<>();
     private CardSelectionInfo selectedBattlefield = null;
     private ArrayList<CardSelectionInfo> selectedEvents = new ArrayList<>();
-    private ArrayList<CardSelectionInfo> selectedEquipment = new ArrayList<>();
+    private ArrayList<CardSelectionInfo> selectedUpgrades = new ArrayList<>();
     private ArrayList<CardSelectionInfo> selectedSupport = new ArrayList<>();
 
     public Deck(String name) {
@@ -92,12 +92,12 @@ public class Deck {
         return selectedEvents;
     }
 
-    public void addUpgrade(CardSelectionInfo equipment) {
-        selectedEquipment.add(equipment);
+    public void addUpgrade(CardSelectionInfo upgrade) {
+        selectedUpgrades.add(upgrade);
     }
 
     public ArrayList<CardSelectionInfo> getSelectedUpgrades() {
-        return selectedEquipment;
+        return selectedUpgrades;
     }
 
     public void addSupport(CardSelectionInfo support) {
@@ -106,5 +106,19 @@ public class Deck {
 
     public ArrayList<CardSelectionInfo> getSelectedSupport() {
         return selectedSupport;
+    }
+
+    public int getTotalNumberOfSelectedCards() {
+        return getNumberOfSelectedCards(selectedEvents) + getNumberOfSelectedCards(selectedUpgrades) + getNumberOfSelectedCards(selectedSupport);
+    }
+
+    private int getNumberOfSelectedCards(ArrayList<CardSelectionInfo> selectionInfoList) {
+        int result = 0;
+
+        for (CardSelectionInfo c : selectionInfoList) {
+            result += c.getCount();
+        }
+
+        return result;
     }
 }

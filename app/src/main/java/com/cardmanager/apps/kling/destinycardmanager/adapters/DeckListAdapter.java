@@ -41,17 +41,16 @@ public class DeckListAdapter extends ArrayAdapter<Deck> {
         }
 
         TextView tvDeckName = (TextView) convertView.findViewById(R.id.tvDeckName);
-        TextView tvCharacters = (TextView) convertView.findViewById(R.id.tvCharacters);
 
         tvDeckName.setText(deck.getName());
-        String characters = "";
-        for (CharacterSelectionInfo csi : deck.getSelectedCharacters()) {
-            characters += csi.getCharacterCard().getName() + "\n";
-        }
-        tvCharacters.setText(characters);
+
+        showCharacters(convertView, deck.getSelectedCharacters());
 
         TextView tvPoints = (TextView) convertView.findViewById(R.id.txtTotalPoints);
         tvPoints.setText(String.valueOf(deck.getTotalPoints()));
+
+        TextView tvCards = (TextView) convertView.findViewById(R.id.txtNumberOfCards);
+        tvCards.setText(String.valueOf(deck.getTotalNumberOfSelectedCards()));
 
         ImageButton tvDeleteButton = (ImageButton) convertView.findViewById(R.id.imgBtnDeleteDeck);
 
@@ -60,6 +59,55 @@ public class DeckListAdapter extends ArrayAdapter<Deck> {
         }));
 
         return convertView;
+    }
+
+    private void showCharacters(View v, ArrayList<CharacterSelectionInfo> characters) {
+        TextView character1 = (TextView) v.findViewById(R.id.tvCharacter1);
+        character1.setVisibility(View.GONE);
+
+        TextView character2 = (TextView) v.findViewById(R.id.tvCharacter2);
+        character2.setVisibility(View.GONE);
+
+        TextView character3 = (TextView) v.findViewById(R.id.tvCharacter3);
+        character3.setVisibility(View.GONE);
+
+        TextView character4 = (TextView) v.findViewById(R.id.tvCharacter4);
+        character4.setVisibility(View.GONE);
+
+        TextView character5 = (TextView) v.findViewById(R.id.tvCharacter5);
+        character5.setVisibility(View.GONE);
+
+        TextView character6 = (TextView) v.findViewById(R.id.tvCharacter6);
+        character6.setVisibility(View.GONE);
+
+
+        if (characters.size() > 0) {
+            character1.setText(characters.get(0).getCard().getName());
+            character1.setVisibility(View.VISIBLE);
+        }
+        if (characters.size() > 1) {
+            character2.setText(characters.get(1).getCard().getName());
+            character2.setVisibility(View.VISIBLE);
+        }
+        if (characters.size() > 2) {
+            character3.setText(characters.get(2).getCard().getName());
+            character3.setVisibility(View.VISIBLE);
+        }
+
+        if (characters.size() > 3) {
+            character4.setText(characters.get(3).getCard().getName());
+            character4.setVisibility(View.VISIBLE);
+        }
+
+        if (characters.size() > 4) {
+            character5.setText(characters.get(4).getCard().getName());
+            character5.setVisibility(View.VISIBLE);
+        }
+
+        if (characters.size() > 5) {
+            character6.setText(characters.get(5).getCard().getName());
+            character6.setVisibility(View.VISIBLE);
+        }
     }
 
     private void confirmDeletion(View v, Deck deck) {
