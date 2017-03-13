@@ -21,9 +21,44 @@
 				<diceResult value="2" type="rangedDamage"/>
 				<diceResult value="1" type="rangedDamage"/>
 			</dice>
-			<effect></effect>
 			<quote>Members of this new generation of stormtroopers are trained from birth and fed a steady diet of First Order propaganda to ensure absolute loyalty.</quote>
 		</card>		
+		<card name="General Grevious" type="character" color="red" faction="villain" cardNr="3" rarity="rare" health="10" normalCost="13" eliteCost="18" isUnique="true">
+			<dice>
+				<diceResult value="0" type="blank"/>
+				<diceResult value="1" type="resource"/>
+				<diceResult value="1" type="disrupt"/>
+				<diceResult value="3" type="meleeDamage" cost="1"/>
+				<diceResult value="2" type="meleeDamage"/>
+				<diceResult value="2" type="meleeDamage"/>
+			</dice>
+			<effect>Before an opponent's character is defeated, you may move one of their non-ability upgrades to this character</effect>
+		</card>
+		<card name="General Veers" type="character" color="red" faction="villain" cardNr="4" rarity="rare" health="9" normalCost="11" eliteCost="14" isUnique="true">
+			<dice>
+				<diceResult value="0" type="blank"/>
+				<diceResult value="1" type="resource"/>
+				<diceResult value="1" type="shield"/>
+				<diceResult value="2" type="rangedDamageModifier"/>
+				<diceResult value="2" type="rangedDamage"/>
+				<diceResult value="1" type="rangedDamage"/>
+			</dice>
+			<action>Remove this die to turn one of your support die to any side</action>
+			<qoute>"General, prepare your troops for a surface attack." - Dart Vader</qoute>
+		</card>
+		
+		<card name="AT-ST" type="support" subtype="vehicle" color="red" faction="villain" cardNr="5" rarity="legendary" cost="6" isUnique="false">
+			<dice>
+				<diceResult value="0" type="special"/>
+				<diceResult value="0" type="special"/>
+				<diceResult value="2" type="shield"/>
+				<diceResult value="5" type="rangedDamage" cost="1"/>
+				<diceResult value="4" type="rangedDamage"/>
+				<diceResult value="3" type="rangedDamage"/>
+			</dice>
+			<specialEffect>Discard a support from play</specialEffect>
+			<quote>The All Terrain Scout Transport filled both support and reconnaissance roles in the Galactic Empire's war machine.</quote>
+		</card>
 		<card name="First Order TIE Fighter" type="support" subtype="vehicle" color="red" faction="villain" cardNr="6" rarity="rare" cost="3" isUnique="false">
 			<dice>
 				<diceResult value="0" type="blank"/>
@@ -34,8 +69,18 @@
 				<diceResult value="1" type="rangedDamage"/>
 			</dice>
 			<specialEffect>Remove all shields from all of an opponent's characters</specialEffect>
-			<effect></effect>
-			<quote></quote>
+		</card>
+		<card name="Commanding Presence" type="upgrade" subtype="ability" color="red" faction="villain" cardNr="7" rarity="legendary" cost="3" isUnique="false">
+			<dice>
+				<diceResult value="0" type="special"/>
+				<diceResult value="0" type="special"/>
+				<diceResult value="1" type="resource"/>
+				<diceResult value="2" type="disrupt"/>
+				<diceResult value="2" type="focus"/>
+				<diceResult value="1" type="focus"/>
+			</dice>
+			<restriction>Red character only</restriction>
+			<specialEffect>Choose a Red die. If it is your die, resolve it, increasing its value by 2. If it is an opponent's die, remove it.</specialEffect>			
 		</card>
 		<card name="F-11D Rifle" type="upgrade" subtype="weapon" color="red" faction="villain" cardNr="8" rarity="starter" cost="2" isUnique="false">
 			<dice>
@@ -48,7 +93,6 @@
 			</dice>
 			<abilities redeploy="Yes"/>
 			<specialEffect>Force an opponent to deal 2 damage to their characters, distributing the damage as they wish.</specialEffect>
-			<quote></quote>
 		</card>
 		<card name="Count Dooku" unique="yes" type="character" color="blue" faction="villain" cardNr="9" rarity="rare" health="10" normalCost="11" eliteCost="15" isUnique="true">
 			<dice>
@@ -60,8 +104,6 @@
 				<diceResult value="1" type="meleeDamage"/>
 			</dice>
 			<effect>Before this character is dealt 1 or more damage, you may discard a card from your hand to give him 1 shield.</effect>
-			<specialEffect></specialEffect>
-			<quote></quote>
 		</card>
 		<card name="Darth Vader" unique="yes" type="character" color="blue" faction="villain" cardNr="10" rarity="legendary" health="13" normalCost="16" eliteCost="21" isUnique="true">
 			<dice>
@@ -73,7 +115,6 @@
 				<diceResult value="2" type="meleeDamage"/>
 			</dice>
 			<effect>After you activate this character, you may force an opponent to choose and discard a card from their hand.</effect>
-			<specialEffect></specialEffect>
 			<quote>"If you will not fight, then you will meet your destiny."</quote>
 		</card>
 		<card name="Kylo Ren" unique="yes" type="character" color="blue" faction="villain" cardNr="11" rarity="starter" health="11" normalCost="10" eliteCost="13" isUnique="true">
@@ -85,9 +126,43 @@
 				<diceResult value="2" type="meleeDamage" cost="1"/>
 				<diceResult value="1" type="meleeDamage"/>
 			</dice>
-			<effect></effect>
 			<specialEffect>Choose an opponent's character, then look at a random card in that opponent's hand. Deal damage to the selected character equal to the cost of the card you just looked at.</specialEffect>
-			<quote></quote>
+		</card>
+		<card name="Nightsister" type="character" color="blue" faction="villain" cardNr="12" rarity="rare" health="7" normalCost="8" isUnique="false">
+			<dice>
+				<diceResult value="0" type="blank"/>
+				<diceResult value="1" type="resource"/>
+				<diceResult value="1" type="discard"/>
+				<diceResult value="1" type="disrupt"/>
+				<diceResult value="2" type="rangedDamage"/>
+				<diceResult value="1" type="rangedDamage"/>
+			</dice>
+			<action>Reroll a die. Deal 1 damage to this character.</action>
+			<quote>Nightsisters are skilled at twisting the force to their own ends.</quote>
+		</card>
+		<card name="Force Choke" type="upgrade" subtype="ability" color="blue" faction="villain" cardNr="13" rarity="legendary" cost="2" isUnique="false">
+			<dice>
+				<diceResult value="0" type="blank"/>
+				<diceResult value="0" type="special"/>
+				<diceResult value="0" type="special"/>
+				<diceResult value="1" type="resource"/>
+				<diceResult value="1" type="discard"/>
+				<diceResult value="2" type="disrupt"/>
+			</dice>
+			<restriction>Blue character only</restriction>
+			<specialEffect>Deal 1 unblockable damage to another character. Then you may turn one of its character or upgrade dice to any side.</specialEffect>
+		</card>
+		<card name="Immobilize" type="upgrade" subtype="ability" color="blue" faction="villain" cardNr="14" rarity="rare" cost="2" isUnique="false">
+			<dice>
+				<diceResult value="0" type="blank"/>
+				<diceResult value="1" type="resource"/>
+				<diceResult value="2" type="shield"/>
+				<diceResult value="1" type="shield"/>
+				<diceResult value="1" type="shield"/>
+				<diceResult value="1" type="disrupt"/>
+			</dice>
+			<restriction>Blue character only</restriction>
+			<action>Remove this die to turn a die to a side showing a blank (-).</action>
 		</card>
 		<card name="Kylo Ren's Lightsaber" unique="yes" type="upgrade" subtype="weapon" color="blue" faction="villain" cardNr="15" rarity="legendary" cost="3" isUnique="true">
 			<dice>
@@ -99,9 +174,7 @@
 				<diceResult value="3" type="meleeDamage" cost="1"/>
 			</dice>
 			<restriction>Blue character only</restriction>
-			<effect></effect>
 			<specialEffect>Deal 2 damage to a character. If any of this damage is blocked by shields, reroll this die instead of removing it from your pool.</specialEffect>
-			<quote></quote>
 		</card>
 		<card name="Sith holocron" type="upgrade" subtype="equipment" color="blue" faction="villain" cardNr="16" rarity="rare" cost="0" isUnique="false">
 			<dice>
@@ -112,9 +185,40 @@
 				<diceResult value="1" type="resourceModifier"/>
 				<diceResult value="1" type="focus"/>
 			</dice>
-			<effect></effect>
 			<specialEffect>Switch this upgrade with a blue effect upgrade in your hand, ignoring its play restrictions. Then you may spend 1 resource to roll its die into your pool, if able.</specialEffect>
-			<quote></quote>
+		</card>
+		<card name="Infantry grenades" type="upgrade" subtype="weapon" color="grey" faction="villain" cardNr="17" rarity="rare" cost="2" isUnique="false">
+			<dice>
+				<diceResult value="0" type="blank"/>
+				<diceResult value="0" type="blank"/>
+				<diceResult value="0" type="special"/>
+				<diceResult value="1" type="resource"/>
+				<diceResult value="2" type="rangedDamageModifier" cost="1"/>
+				<diceResult value="1" type="rangedDamage"/>
+			</dice>
+			<specialEffect>Deal 2 damage to each of an opponent's characters. Discard this upgrade from play.</specialEffect>
+		</card>
+		<card name="Speeder bike scout" type="support" subtype="vehicle" color="grey" faction="villain" cardNr="18" rarity="rare" cost="3" isUnique="false">
+			<dice>
+				<diceResult value="0" type="blank"/>
+				<diceResult value="0" type="special"/>
+				<diceResult value="1" type="shield"/>
+				<diceResult value="1" type="disrupt"/>
+				<diceResult value="3" type="rangedDamage" cost="1"/>
+				<diceResult value="2" type="rangedDamage"/>
+			</dice>
+			<specialEffect>Remove a die. You may take one additional action.</specialEffect>
+		</card>
+		<card name="Bala-Tik" type="character" color="yellow" faction="villain" cardNr="19" rarity="rare" health="8" normalCost="8" eliteCost="11" isUnique="true">
+			<dice>
+				<diceResult value="0" type="blank"/>
+				<diceResult value="1" type="resource"/>
+				<diceResult value="1" type="shield"/>
+				<diceResult value="1" type="focus"/>
+				<diceResult value="2" type="rangedDamageModifier"/>
+				<diceResult value="1" type="rangedDamage"/>
+			</dice>
+			<effect>After an opponent's character is defeated, you may ready this character.</effect>
 		</card>
 		<card name="Jabba the Hutt" unique="yes" type="character" color="yellow" faction="villain" cardNr="20" rarity="legendary" health="11" normalCost="11" eliteCost="14" isUnique="true">
 			<dice>
@@ -126,7 +230,6 @@
 				<diceResult value="1" type="focus"/>
 			</dice>
 			<effect>After you activate this character, you may reroll a yellow die.</effect>
-			<specialEffect></specialEffect>
 			<quote>"I shall enjoy watching you die."</quote>
 		</card>
 		<card name="Jango Fett" unique="yes" type="character" color="yellow" faction="villain" cardNr="21" rarity="rare" health="10" normalCost="12" eliteCost="16" isUnique="true">
@@ -139,8 +242,41 @@
 				<diceResult value="1" type="rangedDamage"/>
 			</dice>
 			<effect>After an opponent activates a character, you may activate this character.</effect>
-			<specialEffect></specialEffect>
 			<quote>"There can be no mistakes this time."</quote>
+		</card>
+		<card name="Tusken Raider" type="character" color="yellow" faction="villain" cardNr="22" rarity="rare" health="8" normalCost="9" isUnique="false">
+			<dice>
+				<diceResult value="0" type="blank"/>
+				<diceResult value="1" type="resource"/>
+				<diceResult value="1" type="shield"/>
+				<diceResult value="3" type="meleeDamage" cost="1"/>
+				<diceResult value="1" type="meleeDamage"/>
+				<diceResult value="1" type="rangedDamage"/>
+			</dice>
+			<effect>After you activate this character, you may discar a card from your hand to resolve one of its character or upgrade dice.</effect>			
+		</card>		
+		<card name="Crime Lord" type="upgrade" subtype="ability" color="yellow" faction="villain" cardNr="23" rarity="legendary" cost="4" isUnique="false">
+			<dice>
+				<diceResult value="0" type="special"/>
+				<diceResult value="0" type="special"/>
+				<diceResult value="2" type="resource"/>
+				<diceResult value="2" type="shield"/>
+				<diceResult value="3" type="disrupt" cost="1"/>
+				<diceResult value="2" type="focus"/>
+			</dice>
+			<restriction>Yellow character only</restriction>
+			<specialEffect>Spend 5 resources to choose a character. That character is defeated after this round ends.</specialEffect>
+		</card>		
+		<card name="Flame Thrower" type="upgrade" subtype="weapon" color="yellow" faction="villain" cardNr="24" rarity="rare" cost="3" isUnique="false">
+			<dice>
+				<diceResult value="0" type="blank"/>
+				<diceResult value="0" type="special"/>
+				<diceResult value="1" type="resource"/>
+				<diceResult value="1" type="disrupt"/>
+				<diceResult value="4" type="meleeDamage" cost="1"/>
+				<diceResult value="2" type="meleeDamage"/>
+			</dice>
+			<specialEffect>Deal 1 damage each to up to 3 different characters.</specialEffect>
 		</card>
 		<card name="Gaffi stick" type="upgrade" subtype="weapon" color="yellow" faction="villain" cardNr="25" rarity="rare" cost="2" isUnique="false">
 			<dice>
@@ -153,7 +289,6 @@
 			</dice>
 			<abilities redeploy="yes"/>
 			<specialEffect>Remove one of your dice showing melee damage to deal 3 damage to a character.</specialEffect>
-			<quote></quote>
 		</card>
 		<card name="On the hunt" type="upgrade" subtype="ability" color="yellow" faction="villain" cardNr="26" rarity="rare" cost="1" isUnique="false">
 			<dice>
@@ -164,9 +299,7 @@
 				<diceResult value="1" type="meleeDamageModifier"/>
 				<diceResult value="1" type="rangedDamageModifier"/>
 			</dice>
-			<effect></effect>
 			<specialEffect>Remove all shields from a character. You may spend 1 resource to remove one of it's character or upgrade dice.</specialEffect>
-			<quote></quote>
 		</card>
 		<card name="Admiral Ackbar" unique="yes" type="character" color="red" faction="hero" cardNr="27" rarity="rare" health="9" normalCost="10" eliteCost="14" isUnique="true">
 			<dice>
@@ -178,8 +311,6 @@
 				<diceResult value="1" type="rangedDamage"/>
 			</dice>
 			<effect>After an opponent plays or discards the last card from their hand, they choose and deal 2 damage to one of their characters.</effect>
-			<specialEffect></specialEffect>
-			<quote></quote>
 		</card>
 		<card name="Leia Organa" unique="yes" type="character" color="red" faction="hero" cardNr="28" rarity="rare" health="11" normalCost="12" eliteCost="16" isUnique="true">
 			<dice>
@@ -191,23 +322,52 @@
 				<diceResult value="1" type="rangedDamage"/>
 			</dice>
 			<action>Remove this die to reroll up to two of your dice.</action>
-			<effect></effect>
-			<specialEffect></specialEffect>
 			<quote>"Someone has to save our skins."</quote>
 		</card>
 		<card name="Poe Dameron" unique="yes" type="character" color="red" faction="hero" cardNr="29" rarity="legendary" health="12" normalCost="14" eliteCost="18" isUnique="true">
 			<dice>
 				<diceResult value="0" type="blank"/>
-				<diceResult value="1" type="special"/>
+				<diceResult value="0" type="special"/>
 				<diceResult value="1" type="resource"/>
 				<diceResult value="2" type="disrupt"/>
 				<diceResult value="3" type="rangedDamage" cost="1"/>
 				<diceResult value="2" type="rangedDamage"/>
 			</dice>
-			<action></action>
-			<effect></effect>
 			<specialEffect>Discard a card from your hand to resolve one of its die, if able. THen, if it was a vehicle card, you may pay its cost to play it from your discard pile.</specialEffect>
-			<quote></quote>
+		</card>
+		<card name="Rebel Trooper" type="character" color="red" faction="hero" cardNr="30" rarity="rare" health="7" normalCost="8" isUnique="false">
+			<dice>
+				<diceResult value="0" type="blank"/>
+				<diceResult value="1" type="resource"/>
+				<diceResult value="1" type="shield"/>
+				<diceResult value="1" type="rangedDamageModifier"/>
+				<diceResult value="2" type="rangedDamage" cost="1"/>
+				<diceResult value="1" type="rangedDamage"/>
+			</dice>
+			<effect>Guardian. (Before you activate this character, you may resolve an opponent's dice showing damage against it.)</effect>
+		</card>
+		<card name="Launch Bay" type="support" color="red" faction="hero" cardNr="31" rarity="legendary" cost="5" isUnique="false">
+			<dice>
+				<diceResult value="0" type="blank"/>
+				<diceResult value="0" specialValue="X" type="discard"/>
+				<diceResult value="0" specialValue="X" type="shield"/>
+				<diceResult value="0" specialValue="X" type="disrupt"/>
+				<diceResult value="0" specialValue="X" type="rangedDamage"/>
+				<diceResult value="0" specialValue="X" type="rangedDamage"/>
+			</dice>
+			<effect>The X on this die is equal to the number of cards in your hand.</effect>
+		</card>
+		<card name="Black One" type="support" subtype="vehicle" color="red" faction="hero" cardNr="32" rarity="legendary" cost="4" isUnique="true">
+			<dice>
+				<diceResult value="0" type="blank"/>
+				<diceResult value="0" type="special"/>
+				<diceResult value="2" type="shield"/>
+				<diceResult value="1" type="disrupt"/>
+				<diceResult value="3" type="rangedDamage"/>
+				<diceResult value="2" type="rangedDamage"/>
+			</dice>
+			<specialEffect>Deal 1 damage to a character. Reroll this die instead of removing it from your pool.</specialEffect>
+			<quote>Poe Dameron's X-Wing was modified to be even more versatile than the standard T-70.</quote>
 		</card>
 		<card name="Scout" type="upgrade" subtype="ability" color="red" faction="hero" cardNr="33" rarity="rare" cost="1" isUnique="false">
 			<dice>
@@ -218,9 +378,18 @@
 				<diceResult value="2" type="disrupt" cost="1"/>
 				<diceResult value="1" type="focus"/>
 			</dice>
-			<effect></effect>
 			<specialEffect>Look at an opponent's hand and discard the cheapest card from it (you choose in the case of a tie).</specialEffect>
-			<quote></quote>
+		</card>
+		<card name="Survival Gear" type="upgrade" subtype="equipment" color="red" faction="hero" cardNr="34" rarity="rare" cost="2" isUnique="false">
+			<dice>
+				<diceResult value="1" type="resourceModifier"/>
+				<diceResult value="1" type="resource"/>
+				<diceResult value="2" type="shield"/>
+				<diceResult value="1" type="shield"/>
+				<diceResult value="1" type="focus"/>
+				<diceResult value="1" type="meleeDamage"/>
+			</dice>
+			<quote>To hide from the Empire, the rebels must often brave harsh environments.</quote>
 		</card>
 		<card name="Luke Skywalker" unique="yes" type="character" color="blue" faction="hero" cardNr="35" rarity="legendary" health="12" normalCost="15" eliteCost="20" isUnique="true">
 			<dice>
@@ -231,10 +400,19 @@
 				<diceResult value="3" type="meleeDamage"/>
 				<diceResult value="2" type="meleeDamage"/>
 			</dice>
-			<action></action>
 			<effect>After you activate this character, draw a card.</effect>
-			<specialEffect></specialEffect>
 			<quote>"I am a jedi, like my father before me."</quote>
+		</card>
+		<card name="Padawan" type="character" color="blue" faction="hero" cardNr="36" rarity="rare" health="7" normalCost="8" isUnique="false">
+			<dice>
+				<diceResult value="0" type="blank"/>
+				<diceResult value="1" type="resource"/>
+				<diceResult value="1" type="focus"/>
+				<diceResult value="2" type="meleeDamage"/>
+				<diceResult value="1" type="meleeDamage"/>
+				<diceResult value="1" type="meleeDamage"/>
+			</dice>
+			<effect>While this character does not have an upgrade, the cost to attach a weapon to it is decreased by 1.</effect>
 		</card>
 		<card name="Qui-Gon Jinn" unique="yes" type="character" color="blue" faction="hero" cardNr="37" rarity="rare" health="11" normalCost="13" eliteCost="17" isUnique="true">
 			<dice>
@@ -245,9 +423,7 @@
 				<diceResult value="2" type="meleeDamage"/>
 				<diceResult value="1" type="meleeDamage"/>
 			</dice>
-			<action></action>
 			<effect>Before this character gains 1 or more shields, you may remove 1 of his shields to deal 1 damage to a character.</effect>
-			<specialEffect></specialEffect>
 			<quote>"Your focus determines your reality."</quote>
 		</card>
 		<card name="Rey" unique="yes" type="character" color="blue" faction="hero" cardNr="38" rarity="starter" health="10" normalCost="9" eliteCost="12" isUnique="true">
@@ -259,9 +435,7 @@
 				<diceResult value="2" type="meleeDamageModifier"/>
 				<diceResult value="1" type="meleeDamage"/>
 			</dice>
-			<action></action>
 			<effect>After you play an upgrade on this character, you may take one additional action.</effect>
-			<specialEffect></specialEffect>
 			<quote>"I think I can handle myself."</quote>
 		</card>
 		<card name="Force protection" type="upgrade" subtype="ability" color="blue" faction="hero" cardNr="39" rarity="rare" cost="3" isUnique="false">
@@ -274,9 +448,7 @@
 				<diceResult value="1" type="disrupt"/>
 			</dice>
 			<restriction>Blue character only.</restriction>
-			<effect></effect>
 			<specialEffect>Give 3 shields to your characters, distributed as you wish.</specialEffect>
-			<quote></quote>
 		</card>
 		<card name="Jedi robes" type="upgrade" subtype="equipment" color="blue" faction="hero" cardNr="40" rarity="rare" cost="2" isUnique="false">
 			<dice>
@@ -287,10 +459,31 @@
 				<diceResult value="1" type="focus"/>
 				<diceResult value="1" type="focus"/>
 			</dice>
-			<restriction></restriction>
 			<effect>After you play this upgrade, give attached character one shield, or 2 shields instead if it is the first turn of the game.</effect>
-			<specialEffect></specialEffect>
-			<quote></quote>
+		</card>
+		<card name="Luke Skywalker's Lightsaber" type="upgrade" subtype="weapon" color="blue" faction="hero" cardNr="41" rarity="legendary" cost="3" isUnique="true">
+			<dice>
+				<diceResult value="0" type="blank"/>
+				<diceResult value="1" type="special"/>
+				<diceResult value="1" type="resource"/>
+				<diceResult value="2" type="shield"/>
+				<diceResult value="3" type="meleeDamageModifier"/>
+				<diceResult value="3" type="meleeDamage" cost="1"/>
+			</dice>
+			<restriction>Blue character only.</restriction>
+			<specialEffect>Give a character 2 shields or deal 2 unblockable damage to a character.</specialEffect>
+		</card>
+		<card name="One With The Force" type="upgrade" subtype="ability" color="blue" faction="hero" cardNr="42" rarity="legendary" cost="4" isUnique="false">
+			<dice>
+				<diceResult value="2" type="resource"/>
+				<diceResult value="2" type="shield"/>
+				<diceResult value="3" type="disrupt"/>
+				<diceResult value="3" type="focus"/>
+				<diceResult value="2" type="focus"/>
+				<diceResult value="3" type="rangedDamage" cost="1"/>
+			</dice>
+			<restriction>Blue character only.</restriction>
+			<effect>Before attached character is defeated, this upgrade becomes a support for the rest of the game (it starts ready).</effect>
 		</card>
 		<card name="BB-8" unique="yes" type="support" subtype="droid" color="grey" faction="hero" cardNr="43" rarity="rare" cost="1" isUnique="true">
 			<dice>
@@ -301,8 +494,6 @@
 				<diceResult value="1" type="disrupt"/>
 				<diceResult value="1" type="focus"/>
 			</dice>
-			<restriction></restriction>
-			<effect></effect>
 			<specialEffect>Reroll this die and one of your other dice. Do not remove this die from your pool after resolving this effect.</specialEffect>
 			<quote>"Orange and white, one of a kind." - Poe Dameron</quote>
 		</card>
@@ -315,10 +506,7 @@
 				<diceResult value="1" type="meleeDamage"/>
 				<diceResult value="1" type="meleeDamage"/>
 			</dice>
-			<restriction></restriction>
-			<effect></effect>
 			<specialEffect>Remove a die showing damage (melee or ranged).</specialEffect>
-			<quote></quote>
 		</card>
 		<card name="Finn" unique="yes" type="character" color="yellow" faction="hero" cardNr="45" rarity="starter" health="10" normalCost="13" eliteCost="16" isUnique="true">
 			<dice>
@@ -329,9 +517,7 @@
 				<diceResult value="2" type="rangedDamage"/>
 				<diceResult value="1" type="rangedDamage"/>
 			</dice>
-			<action></action>
 			<effect>You can attach any weapon to this character, ignoring play restrictions. \n You can include Red Villain weapons and vehicles in your deck.</effect>
-			<specialEffect></specialEffect>
 			<quote>"I am not going back."</quote>
 		</card>
 		<card name="Han Solo" unique="yes" type="character" color="yellow" faction="hero" cardNr="46" rarity="legendary" health="10" normalCost="14" eliteCost="18" isUnique="true">
@@ -343,11 +529,32 @@
 				<diceResult value="3" type="rangedDamage" cost="1"/>
 				<diceResult value="2" type="rangedDamage"/>
 			</dice>
-			<action></action>
 			<effect>After you play a card with the Ambush keyword, you may give this character 1 shield.</effect>
-			<specialEffect></specialEffect>
 			<quote>"You know, sometimes I amaze even myself."</quote>
 		</card>
+		<card name="Hired Gun" type="character" color="yellow" faction="hero" cardNr="47" rarity="rare" health="9" normalCost="8" isUnique="false">
+			<dice>
+				<diceResult value="0" type="blank"/>
+				<diceResult value="1" type="resource"/>
+				<diceResult value="1" type="resource"/>
+				<diceResult value="1" type="disrupt"/>
+				<diceResult value="3" type="rangedDamage" cost="1"/>
+				<diceResult value="2" type="rangedDamage" cost="1"/>
+			</dice>
+			<quote>"You needn't worry about your reward. If money is all that you love, then that's what you'll receive." - Leia Organa</quote>
+		</card>	
+		<card name="Padme Amidala" type="character" color="yellow" faction="hero" cardNr="48" rarity="rare" health="10" normalCost="10" eliteCost="14" isUnique="true">
+			<dice>
+				<diceResult value="0" type="blank"/>
+				<diceResult value="0" type="special"/>
+				<diceResult value="0" type="special"/>
+				<diceResult value="1" type="resource"/>
+				<diceResult value="1" type="disrupt"/>
+				<diceResult value="2" type="focus"/>
+			</dice>
+			<specialEffect>Discard the top card of an opponent's deck or spend 1 resource to discard the top 2 cards of an opponent's deck.</specialEffect>
+			<quote>"My fate will be no different to that of our people."</quote>
+		</card>			
 		<card name="Millennium Falcon" unique="yes" type="support" subtype="vehicle" color="yellow" faction="hero" cardNr="49" rarity="legendary" cost="5" isUnique="true">
 			<dice>
 				<diceResult value="0" type="special"/>
@@ -357,12 +564,21 @@
 				<diceResult value="4" type="rangedDamage"/>
 				<diceResult value="3" type="rangedDamage"/>
 			</dice>
-			<restriction></restriction>
-			<effect></effect>
 			<specialEffect>Play a Yellow event from your discard pile or hand for free.</specialEffect>
 			<quote>"She may not look like much, but she's got it where it counts." - Han Solo</quote>
 		</card>
-		<card name="DL-44 Heavy blaster pistol" type="upgrade" subtype="weapon" color="yellow" faction="hero" cardNr="51" rarity="rare" cost="3" isUnique="false">
+		<card name="Diplomatic Immunity" type="upgrade" subtype="ability" color="yellow" faction="hero" cardNr="50" rarity="rare" cost="4" isUnique="false">
+			<dice>
+				<diceResult value="2" type="disrupt"/>
+				<diceResult value="4" type="shield"/>
+				<diceResult value="3" type="shield"/>
+				<diceResult value="2" type="shield"/>
+				<diceResult value="1" type="shield"/>
+				<diceResult value="2" type="focus"/>
+			</dice>
+			<effect>The shields from this die can be given to any of your characters distributed as you wish.</effect>
+		</card>
+		<card name="DL-44 Heavy Blaster Pistol" type="upgrade" subtype="weapon" color="yellow" faction="hero" cardNr="51" rarity="rare" cost="3" isUnique="false">
 			<dice>
 				<diceResult value="0" type="blank"/>
 				<diceResult value="0" type="blank"/>
@@ -371,11 +587,19 @@
 				<diceResult value="3" type="rangedDamage" cost="1"/>
 				<diceResult value="3" type="rangedDamage"/>
 			</dice>
-			<restriction></restriction>
 			<abilities ambush="yes"/>
 			<effect>After you play this upgrade, force an opponent to choose and remove one of their dice.</effect>
-			<specialEffect></specialEffect>
-			<quote></quote>
+		</card>
+		<card name="Infiltrate" type="upgrade" subtype="ability" color="yellow" faction="hero" cardNr="52" rarity="rare" cost="1" isUnique="false">
+			<dice>
+				<diceResult value="0" type="blank"/>
+				<diceResult value="0" type="special"/>
+				<diceResult value="0" type="special"/>
+				<diceResult value="1" type="resource"/>
+				<diceResult value="1" type="shield"/>
+				<diceResult value="1" type="disrupt"/>
+			</dice>
+			<specialEffect>Reroll up to 2 of an opponent's dice.</specialEffect>
 		</card>
 		<card name="Outpost" type="support" subtype="" color="red" faction="neutral" cardNr="53" rarity="rare" cost="2" isUnique="false">
 			<dice>
@@ -386,13 +610,43 @@
 				<diceResult value="1" type="disrupt"/>
 				<diceResult value="1" type="focus"/>
 			</dice>
-			<restriction></restriction>
 			<abilities ambush="no" redeploy="no"/>
-			<effect></effect>
 			<specialEffect>Resolve the battlefield ability as if you had just claimed it.</specialEffect>
-			<quote></quote>
 		</card>
-		
+		<card name="DH-17 Blaster Pistol" type="upgrade" subtype="weapon" color="red" faction="neutral" cardNr="54" rarity="rare" cost="1" isUnique="false">
+			<dice>
+				<diceResult value="0" type="blank"/>
+				<diceResult value="0" type="blank"/>
+				<diceResult value="1" type="shield"/>
+				<diceResult value="2" type="rangedDamageModifier"/>
+				<diceResult value="2" type="rangedDamage" cost="1"/>
+				<diceResult value="1" type="rangedDamage"/>
+			</dice>
+			<quote>The weapon of choice for rebel soldiers and imperial officers alike during the Galactic Civil War.</quote>
+		</card>		
+		<card name="IQA-11 Blaster Rifle" type="upgrade" subtype="weapon" color="red" faction="neutral" cardNr="55" rarity="rare" cost="3" isUnique="false">
+			<dice>
+				<diceResult value="0" type="blank"/>
+				<diceResult value="0" type="special"/>
+				<diceResult value="1" type="resource"/>
+				<diceResult value="2" type="disrupt"/>
+				<diceResult value="3" type="rangedDamageModifier"/>
+				<diceResult value="2" type="rangedDamage"/>
+			</dice>
+			<specialEffect>Deal 2 unblockable damage to a character.</specialEffect>
+		</card>		
+		<card name="Promotion" type="upgrade" subtype="ability" color="red" faction="neutral" cardNr="56" rarity="rare" cost="1" isUnique="false">
+			<dice>
+				<diceResult value="0" type="blank"/>
+				<diceResult value="1" type="resource"/>
+				<diceResult value="1" type="shield"/>
+				<diceResult value="1" type="focus"/>
+				<diceResult value="1" type="meleeDamageModifier"/>
+				<diceResult value="1" type="rangedDamage"/>
+			</dice>
+			<restriction>Red character only.</restriction>
+			<effect>After you play this upgrade, you may draw a card.</effect>
+		</card>		
 		<card name="Force throw" type="upgrade" subtype="ability" color="blue" faction="neutral" cardNr="57" rarity="starter" cost="3" isUnique="false">
 			<dice>
 				<diceResult value="0" type="blank"/>
@@ -404,9 +658,7 @@
 			</dice>
 			<restriction>Blue character only.</restriction>
 			<abilities ambush="no" redeploy="no"/>
-			<effect></effect>
 			<specialEffect>Remove a die to deal a character damage equal to the value showing on that die (specials and blanks are zeroes).</specialEffect>
-			<quote></quote>
 		</card>
 		<card name="Force training" type="upgrade" subtype="ability" color="blue" faction="neutral" cardNr="58" rarity="rare" cost="2" isUnique="false">
 			<dice>
@@ -419,9 +671,7 @@
 			</dice>
 			<restriction>Spot a blue character.</restriction>
 			<abilities ambush="no" redeploy="no"/>
-			<effect></effect>
 			<specialEffect>Choose and do two of the following: deal 1 damage to a character, or gain 1 resource, or give a character 1 shield.</specialEffect>
-			<quote></quote>
 		</card>
 		<card name="Lightsaber" type="upgrade" subtype="weapon" color="blue" faction="neutral" cardNr="59" rarity="starter" cost="3" isUnique="false">
 			<dice>
@@ -432,9 +682,7 @@
 				<diceResult value="2" type="meleeDamageModifier"/>
 				<diceResult value="3" type="meleeDamage" cost="1"/>
 			</dice>
-			<restriction></restriction>
 			<abilities ambush="no" redeploy="yes"/>
-			<effect></effect>
 			<specialEffect>Deal 2 unblockable damage to a character.</specialEffect>
 			<quote>"An elegant weapon for a more civilized age." - Obi-Wan Kenobi</quote>
 		</card>
@@ -449,9 +697,7 @@
 			</dice>
 			<restriction>Blue character only</restriction>
 			<abilities ambush="no" redeploy="no"/>
-			<effect></effect>
 			<specialEffect>Deal an opponent's character one damage for each card in that opponent's hand.</specialEffect>
-			<quote></quote>
 		</card>
 		<card name="Comlink" type="upgrade" subtype="equipment" color="grey" faction="neutral" cardNr="61" rarity="rare" cost="2" isUnique="false">
 			<dice>
@@ -462,12 +708,43 @@
 				<diceResult value="1" type="focus"/>
 				<diceResult value="1" type="focus"/>
 			</dice>
-			<restriction></restriction>
 			<abilities ambush="no" redeploy="no"/>
 			<effect>After you play this upgrade you may reroll any number of your dice or any number of an opponent's dice.</effect>
-			<specialEffect></specialEffect>
-			<quote></quote>
 		</card>
+		<card name="Datapad" type="upgrade" subtype="equipment" color="grey" faction="neutral" cardNr="62" rarity="rare" cost="1" isUnique="false">
+			<dice>
+				<diceResult value="0" type="blank"/>
+				<diceResult value="0" type="blank"/>
+				<diceResult value="0" type="special"/>
+				<diceResult value="1" type="resourceModifier"/>
+				<diceResult value="1" type="resourceModifier"/>
+				<diceResult value="1" type="resource"/>
+			</dice>
+			<effect>After you play this upgrade you may reroll any number of your dice or any number of an opponent's dice.</effect>
+			<specialEffect>Turn one of your dice to a side not showing damage (melee or ranged).</specialEffect>
+		</card>
+		<card name="Holdout Blaster" type="upgrade" subtype="weapon" color="grey" faction="neutral" cardNr="63" rarity="rare" cost="2" isUnique="false">
+			<dice>
+				<diceResult value="0" type="blank"/>
+				<diceResult value="1" type="resource"/>
+				<diceResult value="1" type="shield"/>
+				<diceResult value="2" type="rangedDamageModifier"/>
+				<diceResult value="2" type="rangedDamage" cost="1"/>
+				<diceResult value="1" type="rangedDamage"/>
+			</dice>
+			<abilities ambush="yes" redeploy="yes"/>
+		</card>					
+		<card name="Black Market" type="support" color="yellow" faction="neutral" cardNr="64" rarity="rare" cost="3" isUnique="false">
+			<dice>
+				<diceResult value="0" type="blank"/>
+				<diceResult value="0" type="special"/>
+				<diceResult value="1" type="resource"/>
+				<diceResult value="2" type="shield"/>
+				<diceResult value="2" type="focus"/>
+				<diceResult value="2" type="rangedDamageModifier"/>
+			</dice>
+			<specialEffect> Draw 2 cards. You may play an upgrade from your hand, decreasing its cost by 1.</specialEffect>
+		</card>			
 		<card name="Cunning" type="upgrade" subtype="ability" color="yellow" faction="neutral" cardNr="65" rarity="rare" cost="2" isUnique="false">
 			<dice>
 				<diceResult value="0" type="blank"/>
@@ -479,9 +756,7 @@
 			</dice>
 			<restriction>Yellow character only.</restriction>
 			<abilities ambush="no" redeploy="no"/>
-			<effect></effect>
 			<specialEffect>Resolve a special ability on another card in play as if it were your card.</specialEffect>
-			<quote></quote>
 		</card>
 		<card name="Jetpack" type="upgrade" subtype="equipment" color="yellow" faction="neutral" cardNr="66" rarity="rare" cost="2" isUnique="false">
 			<dice>
@@ -492,231 +767,490 @@
 				<diceResult value="3" type="rangedDamageModifier"/>
 				<diceResult value="2" type="rangedDamageModifier"/>
 			</dice>
-			<restriction></restriction>
 			<abilities ambush="no" redeploy="no"/>
-			<effect></effect>
 			<specialEffect>Remove a die showing melee damage and give attached character a shield.</specialEffect>
-			<quote></quote>
+		</card>
+		<card name="Thermal Detonator" type="upgrade" subtype="weapon" color="yellow" faction="neutral" cardNr="67" rarity="legendary" cost="3" isUnique="false">
+			<dice>
+				<diceResult value="0" type="blank"/>
+				<diceResult value="0" type="special" cost="1"/>
+				<diceResult value="0" type="special"/>
+				<diceResult value="1" type="resource"/>
+				<diceResult value="2" type="discard"/>
+				<diceResult value="1" type="discard"/>
+			</dice>
+			<restriction>To play, spot a yellow character.</restriction>
+			<abilities ambush="no" redeploy="no"/>
+			<specialEffect>Deal 3 damage to each of an opponent's characters. Discard this upgrade from play.</specialEffect>
+		</card>
+		<card name="Cannon Fodder" type="event" color="red" faction="villain" cardNr="68" rarity="common" cost="0" isUnique="false">
+			<abilities ambush="no" redeploy="no"/>
+			<effect>Deal one of your non-unique characters damage equal to the value of an opponent's die showing damage (melee or ranged). Then remove that die.</effect>
+		</card>
+		<card name="Closing The Net" type="event" color="red" faction="villain" cardNr="69" rarity="common" cost="1" isUnique="false">
+			<abilities ambush="no" redeploy="no"/>
+			<effect>Force an opponent to choose and remove one of their dice. You may place this event on the bottom of your deck instead of discarding it.</effect>
 		</card>
 		<card name="Endless ranks" type="event" color="red" faction="villain" cardNr="70" rarity="uncommon" cost="5" isUnique="false">
-			<restriction></restriction>
 			<abilities ambush="no" redeploy="no"/>
 			<effect>Return one of your defeated non-unique red characters to the game with no damage on it.</effect>
-			<specialEffect></specialEffect>
 			<quote>Battle droids are less effective than flesh and blood soldiers, but they are also much cheaper to replace.</quote>
 		</card>
 		<card name="Occupation" type="event" color="red" faction="villain" cardNr="71" rarity="common" cost="2" isUnique="false">
 			<restriction>Play only if you control the battlefield.</restriction>
 			<abilities ambush="no" redeploy="no"/>
 			<effect>Force an opponent to lose all their resources.</effect>
-			<specialEffect></specialEffect>
-			<quote></quote>
+		</card>
+		<card name="Probe" type="event" color="red" faction="villain" cardNr="72" rarity="common" cost="0" isUnique="false">
+			<abilities ambush="no" redeploy="no"/>
+			<effect>Look at two random cards from your opponent's hand and discard any of these cards that are events.</effect>
+		</card>
+		<card name="Sweep the Area" type="event" color="red" faction="villain" cardNr="73" rarity="common" cost="0" isUnique="false">
+			<abilities ambush="no" redeploy="no"/>
+			<effect>Count the number of ready Red characters you have. Reroll that many of an opponent's dice.</effect>
 		</card>
 		<card name="Tactical mastery" type="event" color="red" faction="villain" cardNr="74" rarity="uncommon" cost="1" isUnique="false">
 			<restriction>Spot a red character</restriction>
 			<abilities ambush="no" redeploy="no"/>
 			<effect>Spot a red character to take up to 2 additional actions.</effect>
-			<specialEffect></specialEffect>
-			<quote></quote>
 		</card>
 		<card name="The best defense" type="event" color="red" faction="villain" cardNr="75" rarity="uncommon" cost="1" isUnique="false">
-			<restriction></restriction>
 			<abilities ambush="no" redeploy="no"/>
 			<effect>Deal one of your red characters 3 damage to remove up to 2 of an opponent's dice.</effect>
-			<specialEffect></specialEffect>
 			<quote>"There they are! Blast them!"</quote>
 		</card>
+		<card name="Drudge Work" type="support" color="red" faction="villain" cardNr="76" rarity="common" cost="0" isUnique="false">
+			<abilities ambush="no" redeploy="no"/>
+			<action>Exhaust this support and one of your characters to gain 1 resource.</action>
+		</card>
+		<card name="Local Garrison" type="support" color="red" faction="villain" cardNr="77" rarity="uncommon" cost="3" isUnique="false">
+			<abilities ambush="no" redeploy="no"/>
+			<effect>Each opponent gains 1 fewer resource during each upkeep phase to a minimum of 1.</effect>
+		</card>
+		<card name="Personal Escort" type="upgrade" subtype="ability" color="red" faction="villain" cardNr="78" rarity="common" cost="1" isUnique="false">
+			<abilities ambush="no" redeploy="no"/>
+			<effect>Attached character has the Guardian keyword.</effect>
+		</card>
 		<card name="Abandon all hope" type="event" color="blue" faction="villain" cardNr="79" rarity="uncommon" cost="2" isUnique="false">
-			<restriction></restriction>
 			<abilities ambush="no" redeploy="no"/>
 			<effect>Force an opponent to choose to eother lose all of their resources or discard all cards in their hand.</effect>
-			<specialEffect></specialEffect>
-			<quote></quote>
 		</card>
 		<card name="Boundless ambition" type="event" color="blue" faction="villain" cardNr="80" rarity="common" cost="1" isUnique="false">
-			<restriction></restriction>
 			<abilities ambush="no" redeploy="no"/>
 			<effect>Draw cards up to your hand size.</effect>
-			<specialEffect></specialEffect>
-			<quote></quote>
 		</card>
 		<card name="Enrage" type="event" color="blue" faction="villain" cardNr="81" rarity="common" cost="0" isUnique="false">
-			<restriction></restriction>
 			<abilities ambush="no" redeploy="no"/>
 			<effect>Deal 1 damage to one of your Blue characters to gain one resource.</effect>
-			<specialEffect></specialEffect>
-			<quote></quote>
 		</card>
 		<card name="Intimidate" type="event" color="blue" faction="villain" cardNr="82" rarity="common" cost="0" isUnique="false">
-			<restriction></restriction>
+			<restriction />
 			<abilities ambush="no" redeploy="no"/>
 			<effect>Remove all shields from a character.</effect>
-			<specialEffect></specialEffect>
-			<quote></quote>
-		</card>
+			<specialEffect />
+			<quote />
+		</card>		
+		<card name="Force Strike" type="event" color="blue" faction="villain" cardNr="83" rarity="uncommon" cost="1" isUnique="false">
+			<restriction />
+			<abilities ambush="no" redeploy="no"/>
+			<effect>Turn one of your Blue dice to the side showing melee damage. Then you may resolve that die.</effect>
+			<specialEffect />
+			<quote />
+		</card>		
+		<card name="Intimidate" type="event" color="blue" faction="villain" cardNr="84" rarity="common" cost="0" isUnique="false">
+			<restriction />
+			<abilities ambush="no" redeploy="no"/>
+			<effect>Remove all shields from a character.</effect>
+			<specialEffect />
+			<quote />
+		</card>		
 		<card name="Isolation" type="event" color="blue" faction="villain" cardNr="85" rarity="common" cost="1" isUnique="false">
 			<restriction>Spot a blue character</restriction>
 			<abilities ambush="no" redeploy="no"/>
 			<effect>Spot a blue character to remove a character die.</effect>
-			<specialEffect></specialEffect>
-			<quote></quote>
+			<specialEffect />
+			<quote />
 		</card>
-		<card name="Power of the dark side" type="support" color="blue" faction="villain" cardNr="88" rarity="starter" cost="2" isUnique="false">
-			<restriction></restriction>
+		<card name="No Mercy" type="event" color="blue" faction="villain" cardNr="86" rarity="uncommon" cost="2" isUnique="false">
+			<abilities ambush="no" redeploy="no"/>
+			<effect>Discard any number of Blue cards from your hand. Then resolve one of your dice showing damage (melee or ranged), increasing its value by 1 for each card you just discarded.</effect>
+			<specialEffect />
+			<quote />
+		</card>		
+		<card name="Pulling the Strings" type="event" color="blue" faction="villain" cardNr="87" rarity="common" cost="0" isUnique="false">
+			<abilities ambush="no" redeploy="no"/>
+			<effect>DLook at the top 3 cards of any deck. Then place those cards on the top and/or bottom of that deck in any order.</effect>
+			<specialEffect />
+			<quote />
+		</card>
+		<card name="Emperor's Favor" type="support" color="blue" faction="villain" cardNr="88" rarity="uncommon" cost="1" isUnique="true">
+			<restriction />
+			<effect>Your hand size is increased by 1.</effect>			
+		</card>		
+		<card name="Power of the dark side" type="support" color="blue" faction="villain" cardNr="89" rarity="starter" cost="2" isUnique="false">
+			<restriction />
 			<abilities ambush="no" redeploy="no"/>
 			<action>Exhaust this support to reroll one of your dice. If that die rolls a blank, deal 2 unblockable damage to a character.</action>
-			<effect></effect>
-			<specialEffect></specialEffect>
+			<effect />
+			<specialEffect />
 			<quote>"If you only knew the power of the dark side." - Darth Vader</quote>
 		</card>
+		<card name="Hidden in Shadow" type="upgrade" subtype="ability" color="blue" faction="villain" cardNr="90" rarity="uncommon" cost="1" isUnique="false">
+			<action>If attached character has no shields, exhaust this upgrade to give it 1 shield.</action>			
+		</card>
+		<card name="Nowhere to Run" type="event" color="grey" faction="villain" cardNr="91" rarity="uncommon" cost="2" isUnique="false">
+			<effect>Turn each of your dice showing a blank to any side.</effect>			
+		</card>
+		<card name="Ace in the Hole" type="event" color="yellow" faction="villain" cardNr="92" rarity="uncommon" cost="0" isUnique="false">
+			<effect>Discard a Yellow upgrade from your hand to roll its die into your pool, if able. Set aside that die after it is resolved or removed.</effect>			
+		</card>
+		<card name="Armed to the Teeth" type="event" color="yellow" faction="villain" cardNr="93" rarity="common" cost="0" isUnique="false">
+			<effect>Discard any number of upgrades from one of your Yellow characters. Then deal damage to a character equal to the number of upgrades you just discarded.</effect>			
+		</card>
+		<card name="Confiscation" type="event" color="yellow" faction="villain" cardNr="94" rarity="uncommon" cost="0" isUnique="false">
+			<effect>Spend resources equal to the cost of an opponent's upgrade in play to return that upgrade to their hand.</effect>			
+		</card>
+		<card name="Fight Dirty" type="event" color="yellow" faction="villain" cardNr="95" rarity="uncommon" cost="1" isUnique="false">
+			<effect>Remove any number of your Yellow dice. Then deal damage to a character equal to the number of dice you just removed.</effect>			
+		</card>
 		<card name="Go for the kill" type="event" color="yellow" faction="villain" cardNr="96" rarity="common" cost="0" isUnique="false">
-			<restriction></restriction>
+			<restriction />
 			<abilities ambush="no" redeploy="no"/>
 			<effect>Resolve one of your dice showing ranged damage, treating this damage as unblockable.</effect>
-			<specialEffect></specialEffect>
-			<quote></quote>
+			<specialEffect />
+			<quote />
 		</card>
-		<card name="My kind of scum" type="support" color="yellow" faction="villain" cardNr="100" rarity="common" cost="1" isUnique="false">
-			<restriction></restriction>
+		<card name="He Doesn't Like You" type="event" color="yellow" faction="villain" cardNr="97" rarity="common" cost="0" isUnique="false">
+			<effect>Remove one of your dice to remove an opponent's die.</effect>			
+			<quote>"I don't like you, either."</quote>
+		</card>		
+		<card name="Lying in Wait" type="event" color="yellow" faction="villain" cardNr="98" rarity="common" cost="1" isUnique="false">
+			<effect>Force an opponent to choose and discard cards from their hand down to the number of cards you have in your hand.</effect>			
+		</card>
+		<card name="Backup Muscle" type="support" color="yellow" faction="villain" cardNr="99" rarity="common" cost="1" isUnique="false">
+			<effect>When you play this support, place 3 damage on it.</effect>			
+			<action>Exhaust this support to move 1 damage from it to a character (this ignores shields).</action>
+		</card>
+		<card name="My Kind of Scum" type="support" color="yellow" faction="villain" cardNr="100" rarity="common" cost="1" isUnique="false">
+			<restriction />
 			<abilities ambush="no" redeploy="no"/>
-			<action></action>
+			<action />
 			<effect>After you resolve a die showing disrupt, you may exhaust this support to gain resources equal to the number of resources your opponents just lost.</effect>
-			<specialEffect></specialEffect>
-			<quote></quote>
+			<specialEffect />
+			<quote />
+		</card>
+		<card name="Underworld Connections" type="support" color="yellow" faction="villain" cardNr="101" rarity="uncommon" cost="2" isUnique="false">
+			<effect />
+			<action>Exhaust this support to gain 1 resource.</action>
+		</card>		
+		<card name="Prized Possession" type="upgrade" color="yellow" faction="villain" cardNr="102" rarity="uncommon" cost="4" isUnique="true">
+			<effect>After you play this upgrade, you may remove an opponent's character die and place it here. It is not rolled by any character and does not return to its character unless this upgrade leaves play.</effect>
+			<action />
 		</card>
 		<card name="Commando raid" type="event" color="red" faction="hero" cardNr="103" rarity="uncommon" cost="1" isUnique="false">
-			<restriction></restriction>
+			<restriction />
 			<abilities ambush="no" redeploy="no"/>
-			<action></action>
+			<action />
 			<effect>Resolve one of your red dice showing discard, increasing its value by 2. Then draw a card.</effect>
-			<quote></quote>
+			<quote />
 		</card>
 		<card name="Defensive position" type="event" color="red" faction="hero" cardNr="104" rarity="common" cost="1" isUnique="false">
 			<restriction>Play only if you control the battlefield</restriction>
 			<abilities ambush="no" redeploy="no"/>
-			<action></action>
+			<action />
 			<effect>Remove all of an opponent's dice showing a value of 2 or higher.</effect>
-			<quote></quote>
+			<quote />
+		</card>
+		<card name="Field Medic" type="event" color="red" faction="hero" cardNr="105" rarity="common" cost="1" isUnique="false">
+			<effect>Remove 2 damage from a character.</effect>			
 		</card>
 		<card name="Hit and run" type="event" color="red" faction="hero" cardNr="106" rarity="common" cost="0" isUnique="false">
 			<restriction>Play only if you control the battlefield</restriction>
 			<abilities ambush="yes" redeploy="no"/>
-			<action></action>
+			<action />
 			<effect>Activate one of your red characters.</effect>
-			<quote></quote>
+			<quote />
+		</card>
+		<card name="It's a Trap!" type="event" color="red" faction="hero" cardNr="107" rarity="uncommon" cost="1" isUnique="false">
+			<abilities ambush="yes"/>
+			<effect>Choose a symbol showing on an opponent's die. Then turn any number of your Red dice to sides showing that symbol.</effect>	
+		</card>
+		<card name="Natural Talent" type="event" color="red" faction="hero" cardNr="108" rarity="common" cost="1" isUnique="false">
+			<effect>Resolve one of your dice, increasing its value by 1.</effect>	
+		</card>
+		<card name="Rearm" type="event" color="red" faction="hero" cardNr="109" rarity="uncommon" cost="0" isUnique="false">
+			<effect>Play a Red upgrade from your discard pile, decreasing its cost by 1</effect>	
+		</card>
+		<card name="Retreat" type="event" color="red" faction="hero" cardNr="110" rarity="uncommon" cost="2" isUnique="false">
+			<effect>Your opponent may take 1 action. Then end the action phase.</effect>	
+		</card>
+		<card name="Strategic Planning" type="event" color="red" faction="hero" cardNr="111" rarity="uncommon" cost="1" isUnique="false">
+			<effect>Ready or exhaust a support.</effect>	
+		</card>
+		<card name="Surgical Strike" type="event" color="red" faction="hero" cardNr="112" rarity="common" cost="1" isUnique="false">
+			<effect>Remove any number of your Red dice showing ranged damage, increasing each of their values by 1, to discard a support from play that costs equal to or less than the combined value of those dice.</effect>	
+		</card>
+		<card name="Resistance HQ" type="support" color="red" faction="hero" cardNr="113" rarity="uncommon" cost="2" isUnique="true">
+			<action>Exhaust this support and discard a card from your hand to give a character 1 shield. Then ready this support unless an opponent spends 1 resource.</action>
+			<effect />
+		</card>
+		<card name="Anticipate" type="event" color="blue" faction="hero" cardNr="114" rarity="uncommon" cost="2" isUnique="false">
+			<effect>Force an opponent to choose and resolve any number of their dice in the order of their choice. Then remove all of their dice they did not resolve.</effect>	
 		</card>
 		<card name="Defensive stance" type="event" color="blue" faction="hero" cardNr="115" rarity="common" cost="1" isUnique="false">
-			<restriction></restriction>
+			<restriction />
 			<abilities ambush="no" redeploy="no"/>
-			<action></action>
+			<action />
 			<effect>Give a character 2 shields.</effect>
-			<quote></quote>
+			<quote />
 		</card>
 		<card name="Force misdirection" type="event" color="blue" faction="hero" cardNr="116" rarity="common" cost="1" isUnique="false">
-			<restriction></restriction>
+			<restriction />
 			<abilities ambush="no" redeploy="no"/>
-			<action></action>
+			<action />
 			<effect>Choose a symbol showing on one of your blue dice. Then remove all of an opponent's dice showing that symbol.</effect>
-			<quote></quote>
+			<quote />
+		</card>
+		<card name="Heroism" type="event" color="blue" faction="hero" cardNr="117" rarity="common" cost="0" isUnique="false">
+			<effect>Deal one of your unique characters damage equal to the value of an opponent's die showing damage (ranged or melee). Then remove that die.</effect>	
+		</card>
+		<card name="Noble Sacrifice" type="event" color="blue" faction="hero" cardNr="118" rarity="common" cost="0" isUnique="false">
+			<effect>Defeat one of your Blue characters to exhaust a character.</effect>	
+		</card>
+		<card name="Patience" type="event" color="blue" faction="hero" cardNr="119" rarity="common" cost="1" isUnique="false">
+			<effect>Remove any number of your dice. Then discard cards from the top of an opponent's deck equal to the number of dice you just removed.</effect>	
+		</card>
+		<card name="Return of the Jedi" type="event" color="blue" faction="hero" cardNr="120" rarity="uncommon" cost="1" isUnique="false">
+			<effect>Add a blue event from your discard pile to your hand.</effect>	
+			<quote>"Pass on what you have learned." - Yoda</quote>
 		</card>
 		<card name="Riposte" type="event" color="blue" faction="hero" cardNr="121" rarity="common" cost="0" isUnique="false">
-			<restriction></restriction>
+			<restriction />
 			<abilities ambush="no" redeploy="no"/>
-			<action></action>
+			<action />
 			<effect>Remove any number of shields from one of your characters. Then deal damage to a character equal to the number of shields you just removed.</effect>
-			<quote></quote>
+			<quote />
+		</card>
+		<card name="Willpower" type="event" color="blue" faction="hero" cardNr="122" rarity="uncommon" cost="1" isUnique="false">
+			<effect>Move 1 damage from one of your exhausted characters to an opponent's exhausted character (this ignores shields).</effect>	
+		</card>		
+		<card name="Jedi Council" type="support" color="blue" faction="hero" cardNr="123" rarity="uncommon" cost="2" isUnique="true">
+			<action>Exhaust this support to look at the top 2 cards of a player's deck. Then you may discard one of those cards and have that player draw the other.</action>	
+		</card>
+		<card name="Awakening" type="support" color="blue" faction="hero" cardNr="124" rarity="starter" cost="1" isUnique="false">
+			<action>Exhaust this support to resolve one of your dice showing a modified side (a side with a +) as if it was not modified (did not have the +).</action>	
+		</card>
+		<card name="The Force is Strong" type="support" color="blue" faction="hero" cardNr="125" rarity="common" cost="1" isUnique="false">
+			<action>Exhaust this support and discard a Blue card from your hand to play another copy of that card from your hand for free.</action>	
 		</card>
 		<card name="Daring escape" type="event" color="grey" faction="hero" cardNr="126" rarity="uncommon" cost="2" isUnique="false">
-			<restriction></restriction>
+			<restriction />
 			<abilities ambush="yes" redeploy="no"/>
-			<action></action>
+			<action />
 			<effect>Reroll any number of an opponent's dice. Then remove all of their dice showing blanks.</effect>
-			<quote></quote>
+			<quote />
 		</card>
 		<card name="Don't get cocky" type="event" color="yellow" faction="hero" cardNr="127" rarity="common" cost="0" isUnique="false">
-			<restriction></restriction>
+			<restriction />
 			<abilities ambush="no" redeploy="no"/>
-			<action></action>
+			<action />
 			<effect>Each player draws 2 cards.</effect>
 			<quote>"I got one! I got one!" - Luke Skywalker</quote>
 		</card>
 		<card name="Draw attention" type="event" color="yellow" faction="hero" cardNr="128" rarity="common" cost="0" isUnique="false">
-			<restriction></restriction>
+			<restriction />
 			<abilities ambush="no" redeploy="no"/>
-			<action></action>
+			<action />
 			<effect>Move up to 2 damage from one of your characters to another one of your characters (this ignores shields).</effect>
-			<quote></quote>
+			<quote />
 		</card>
 		<card name="Hyperspace jump" type="event" color="yellow" faction="hero" cardNr="129" rarity="uncommon" cost="3" isUnique="false">
-			<restriction></restriction>
+			<restriction />
 			<abilities ambush="no" redeploy="no"/>
-			<action></action>
+			<action />
 			<effect>End the action phase. You may switch the battlefield with the battlefield that is not being used.</effect>
-			<quote></quote>
+			<quote />
 		</card>
-		<card name="Let the wookie win" type="event" color="yellow" faction="hero" cardNr="130" rarity="uncommon" cost="1" isUnique="false">
-			<restriction></restriction>
+		<card name="Let The Wookie Win" type="event" color="yellow" faction="hero" cardNr="130" rarity="uncommon" cost="1" isUnique="false">
+			<restriction />
 			<abilities ambush="no" redeploy="no"/>
-			<action></action>
+			<action />
 			<effect>Force an opponent to either deal one of their exhausted characters 2 damage or chose and remove 2 of their dice.</effect>
-			<quote></quote>
+			<quote />
 		</card>
-		<card name="Play the odds" type="support" color="yellow" faction="hero" cardNr="135" rarity="uncommon" cost="1" isUnique="false">
-			<restriction></restriction>
+		<card name="Negotiate" type="event" color="yellow" faction="hero" cardNr="131" rarity="common" cost="1" isUnique="false">
+			<restriction />
+			<abilities ambush="no" redeploy="no"/>
+			<action />
+			<effect>Remove one of your character dice to force an opponent to choose and remove 2 of their dice.</effect>
+			<quote />
+		</card>
+		<card name="Scavenge" type="event" color="yellow" faction="hero" cardNr="132" rarity="common" cost="0" isUnique="false">
+			<action />
+			<effect>Discard the top 3 cards of your deck. Then you may add an upgrade or support from your discard pile to your hand.</effect>			
+		</card>		
+		<card name="Shoot First" type="event" color="yellow" faction="hero" cardNr="133" rarity="uncommon" cost="1" isUnique="false">
+			<abilities ambush="yes" redeploy="no"/>
+			<effect>Resolve one of your Yellow dice showing ranged damage. Then remove an opponent's die showing ranged damage.</effect>
+		</card>
+		<card name="Smuggling" type="event" color="yellow" faction="hero" cardNr="134" rarity="common" cost="0" isUnique="false">
+			<effect>Spot a Yellow character and discard a card from your hand to gain 1 resource.</effect>
+		</card>
+		<card name="Play the Odds" type="support" color="yellow" faction="hero" cardNr="135" rarity="uncommon" cost="1" isUnique="false">
+			<restriction />
 			<abilities ambush="no" redeploy="no"/>
 			<action>Exhaust this support to reroll one of your Yellow dice. If it rolls a resource, gain 1 resource.</action>
-			<effect></effect>
-			<quote></quote>
+			<effect />
+			<quote />
 		</card>
-		<card name="Second chance" type="upgrade" subtype="ability" color="yellow" faction="hero" cardNr="137" rarity="uncommon" cost="3" isUnique="false">
+		<card name="Street Informants" type="support" color="yellow" faction="hero" cardNr="136" rarity="common" cost="0" isUnique="false">
+			<abilities ambush="yes" redeploy="no"/>
+			<action>Exhaust this support to look at an opponent's hand.</action>
+		</card>
+		<card name="Second Chance" type="upgrade" subtype="ability" color="yellow" faction="hero" cardNr="137" rarity="uncommon" cost="3" isUnique="false">
 			<restriction>Yellow character only</restriction>
 			<abilities ambush="no" redeploy="no"/>
-			<action></action>
+			<action />
 			<effect>Before attached character would be defeated, instead heal 5 damage from it and discard this upgrade from play.</effect>
-			<quote></quote>
+			<quote />
+		</card>		
+		<card name="Award Ceremony" type="event" color="red" faction="neutral" cardNr="138" rarity="common" cost="1" isUnique="false">
+			<effect>Spot a Red character to draw cards equal to the number of exhausted characters you have.</effect>			
+		</card>
+		<card name="Dug In" type="event" color="red" faction="neutral" cardNr="139" rarity="uncommon" cost="1" isUnique="false">
+			<restriction>Play only if you control the battlefield.</restriction>
+			<effect>Give 3 shields to your characters, distributed as you wish.</effect>			
+		</card>
+		<card name="Firepower" type="event" color="red" faction="neutral" cardNr="140" rarity="common" cost="1" isUnique="false">
+			<effect>Resolve one of your Red dice showing ranged damage, increasing its value by 1, or by 2 instead if you are resolving a vehicle die.</effect>			
+		</card>
+		<card name="Leadership" type="event" color="red" faction="neutral" cardNr="141" rarity="uncommon" cost="1" isUnique="false">
+			<effect>Exhaust one of your unique Red characters to ready another character.</effect>			
+		</card>
+		<card name="Logistics" type="event" color="red" faction="neutral" cardNr="142" rarity="uncommon" cost="0" isUnique="false">
+			<effect>Spot a red character to resolve a die with the resource symbol, increasing its value by 1.</effect>			
 		</card>
 		<card name="Squad tactics" type="event" color="red" faction="neutral" cardNr="143" rarity="common" cost="0" isUnique="false">
-			<restriction></restriction>
+			<restriction />
 			<abilities ambush="no" redeploy="no"/>
-			<action></action>
+			<action />
 			<effect>Activate any number of your non-unique characters at once.</effect>
-			<quote></quote>
+			<quote />
 		</card>
+		<card name="Supporting Fire" type="support" color="red" faction="neutral" cardNr="144" rarity="uncommon" cost="2" isUnique="false">
+			<action>Exhaust this support to resolve one of your dice showing ranged damage, increasing its value by 1.</action>			
+		</card>	
+		<card name="Deflect" type="event" color="blue" faction="neutral" cardNr="145" rarity="common" cost="1" isUnique="false">
+			<effect>Spot a Blue character to remove a die showing ranged damage and deal half of that damage, rounded up, to a character.</effect>			
+		</card>		
 		<card name="Disturbance in the force" type="event" color="blue" faction="neutral" cardNr="146" rarity="common" cost="1" isUnique="false">
-			<restriction></restriction>
+			<restriction />
 			<abilities ambush="no" redeploy="no"/>
-			<action></action>
+			<action />
 			<effect>Reroll all dice</effect>
 			<quote>"I fear something terrible has happened, as if millions of voices suddenly cried out and were silenced." - Obi-Wan Kenobi</quote>
 		</card>
 		<card name="Mind trick" type="event" color="blue" faction="neutral" cardNr="147" rarity="uncommon" cost="2" isUnique="false">
-			<restriction></restriction>
+			<restriction />
 			<abilities ambush="no" redeploy="no"/>
-			<action></action>
+			<action />
 			<effect>Spot a blue character to force an opponent to split their dice pool into 2 groups of any sice. Choose one group and remove all dice in it.</effect>
-			<quote></quote>
+			<quote />
 		</card>
-		<card name="Use the force" type="event" color="blue" faction="neutral" cardNr="149" rarity="starter" cost="1" isUnique="false">
-			<restriction></restriction>
+		<card name="The Power of the Force" type="event" color="blue" faction="neutral" cardNr="148" rarity="common" cost="1" isUnique="false">
+			<effect>Resolve one of your dice, treating its value as equal to the number of Blue upgrades you have in play.</effect>
+		</card>
+		<card name="Use the Force" type="event" color="blue" faction="neutral" cardNr="149" rarity="starter" cost="1" isUnique="false">
+			<restriction />
 			<abilities ambush="no" redeploy="no"/>
-			<action></action>
+			<action />
 			<effect>Spot a blue character to turn a die to any side.</effect>
 			<quote>"The force will be with you, always." - Obi-Wan Kenobi</quote>
 		</card>
-		<card name="Take cover" type="event" color="grey" faction="neutral" cardNr="157" rarity="common" cost="0" isUnique="false">
-			<restriction></restriction>
+		<card name="It Binds All Things" type="support" color="blue" faction="neutral" cardNr="150" rarity="uncommon" cost="1" isUnique="false">
+			<restriction />
 			<abilities ambush="no" redeploy="no"/>
-			<action></action>
-			<effect>Give a character 1 shield.</effect>
-			<quote></quote>
+			<action />
+			<effect>Before you play a Blue upgrade, you may exhaust this support to decrease its cost by 1.</effect>
+			<quote />
 		</card>
-		<card name="Imperial armory" type="battlefield" color="grey" faction="neutral" cardNr="168" rarity="common" isUnique="false">
+		<card name="Aim" type="event" color="grey" faction="neutral" cardNr="151" rarity="starter" cost="1" isUnique="false">
+			<effect>Turn one of your dice to a side showing ranged damage.</effect>			
+		</card>		
+		<card name="All In" type="event" color="grey" faction="neutral" cardNr="152" rarity="starter" cost="1" isUnique="false">
+			<effect>Resolve any number of your dice in the order of your choice.</effect>		
+		</card>				
+		<card name="Block" type="event" color="grey" faction="neutral" cardNr="153" rarity="common" cost="2" isUnique="false">
+			<effect>Remove all of an opponent's dice showing melee damage.</effect>		
+		</card>						
+		<card name="Close Quarters Assault" type="event" color="grey" faction="neutral" cardNr="154" rarity="starter" cost="0" isUnique="false">
+			<effect>Count the number of dice you have showing melee damage. Discard that many random cards from an opponent's hand.</effect>		
+		</card>
+		<card name="Dodge" type="event" color="grey" faction="neutral" cardNr="155" rarity="common" cost="2" isUnique="false">
+			<effect>Remove all of an opponent's dice showing ranged damage.</effect>		
+		</card>
+		<card name="Flank" type="event" color="grey" faction="neutral" cardNr="156" rarity="common" cost="1" isUnique="false">
+			<restriction>Play only if you have more ready characters than an opponent.</restriction>
+			<effect>Remove one of that opponent's dice.</effect>	
+		</card>
+		<card name="Take Cover" type="event" color="grey" faction="neutral" cardNr="157" rarity="common" cost="0" isUnique="false">
+			<restriction />
+			<abilities ambush="no" redeploy="no"/>
+			<action />
+			<effect>Give a character 1 shield.</effect>
+			<quote />
+		</card>
+		<card name="Disarm" type="event" color="yellow" faction="neutral" cardNr="158" rarity="common" cost="1" isUnique="false">
+			<effect>Remove one of your dice showing damage (ranged or melee) to discard a weapon or equipment from play that costs equal to or less than the value of that die.</effect>	
+		</card>		
+		<card name="Electroshock" type="event" color="yellow" faction="neutral" cardNr="159" rarity="uncommon" cost="1" isUnique="false">
+			<effect>Spot a Yellow character to remove a die showing a value of 2 or lower.</effect>	
+		</card>
+		<card name="Reversal" type="event" color="yellow" faction="neutral" cardNr="160" rarity="uncommon" cost="3" isUnique="false">
+			<effect>Spot a Yellow character to remove a die showing damage (ranged or melee) and deal that damage to a character.</effect>	
+		</card>
+		<card name="Scramble" type="event" color="yellow" faction="neutral" cardNr="161" rarity="uncommon" cost="0" isUnique="false">
+			<effect>Spot a Yellow character to reroll all of an opponent's dice.</effect>	
+		</card>
+		<card name="Unpredictable" type="event" color="yellow" faction="neutral" cardNr="162" rarity="common" cost="0" isUnique="false">
+			<abilities ambush="yes"/>
+			<effect>Reroll a die (yours or an opponent's).</effect>	
+		</card>
+		<card name="Infamous" type="support" color="yellow" faction="neutral" cardNr="163" rarity="uncommon" cost="1" isUnique="false">
+			<effect>Before you play a Yellow card, you may exhaust this support to give it the Ambush keyword.</effect>	
+		</card>
+		<card name="Hunker Down" type="support" color="yellow" faction="neutral" cardNr="164" rarity="common" cost="0" isUnique="false">
+			<action>Exhaust this upgrade to give attached character 1 shield.</action>
+			<effect>If attached character takes melee damage (), discard this upgrade.</effect>	
+		</card>
+		<card name="Command Center" location="Lothal" type="battlefield" color="grey" faction="neutral" cardNr="165" rarity="uncommon" isUnique="false">
+			<claim>Each opponent discards the top 2 cards of their deck.</claim>			
+		</card>
+		<card name="Echo base" location="Hoth" type="battlefield" color="grey" faction="neutral" cardNr="166" rarity="uncommon" isUnique="false">
+			<claim>Each opponent discards the top 2 cards of their deck.</claim>			
+		</card>
+		<card name="Emperor's Throne Room" location="Death Star II" type="battlefield" color="grey" faction="neutral" cardNr="167" rarity="uncommon" isUnique="false">
+			<claim>Turn one of your dice to a side showing a special ability. Then you may resolve that die.</claim>			
+		</card>
+		<card name="Frozen Wastes" location="Starkiller Base" type="battlefield" color="grey" faction="neutral" cardNr="168" rarity="starter" isUnique="false">
+			<claim> Remove one character die.</claim>			
+		</card>
+		<card name="Imperial armory" location="Death Star" type="battlefield" color="grey" faction="neutral" cardNr="169" rarity="common" isUnique="false">
 			<claim>Play an upgrade from your hand, decreasing its cost by 1.</claim>
 		</card>
-		<card name="Separatist base" type="battlefield" color="grey" faction="neutral" cardNr="168" rarity="common" isUnique="false">
+		<card name="Jedi Temple" location="Coruscant" type="battlefield" color="grey" faction="neutral" cardNr="170" rarity="common" isUnique="false">
+			<claim>Look at an opponent's hand and discard up to 2 events of your choice from it.</claim>
+		</card>
+		<card name="Rebel War Room" location="Yavin IV" type="battlefield" color="grey" faction="neutral" cardNr="171" rarity="common" isUnique="false">
+			<claim>Resolve one of your dice. If it has a resource cost, you do not have to pay it.</claim>
+		</card>
+		<card name="Mos Eisley Spaceport" location="Tatooine" type="battlefield" color="grey" faction="neutral" cardNr="172" rarity="common" isUnique="false">
+			<claim>Return one of your upgrades in play to your hand to gain 1 resource.</claim>
+		</card>
+		<card name="Separatist base" location="Mustafar" type="battlefield" color="grey" faction="neutral" cardNr="173" rarity="common" isUnique="false">
 			<claim>Each opponent chooses and deals 1 unblockable damage to one of their characters.</claim>
 		</card>
-		<card name="Starship graveyard" type="battlefield" color="grey" faction="neutral" cardNr="174" rarity="starter" isUnique="false">
+		<card name="Starship graveyard" location="Jakku" type="battlefield" color="grey" faction="neutral" cardNr="174" rarity="starter" isUnique="false">
 			<claim>Choose a support or upgrade in your discard pile and place it on top of your deck.</claim>
 		</card>		
 	</set>
