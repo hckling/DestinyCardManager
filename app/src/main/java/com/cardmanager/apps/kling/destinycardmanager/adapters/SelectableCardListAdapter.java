@@ -42,20 +42,18 @@ public class SelectableCardListAdapter extends ArrayAdapter<Card> {
         Button add = (Button) convertView.findViewById(R.id.btnAdd);
         Button remove = (Button) convertView.findViewById(R.id.btnRemove);
 
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                card.increaseOwnedCount();
-                tvCardCount.setText(String.valueOf(card.getOwnedCount()));
-            }
+        remove.setEnabled(card.getOwnedCount() > 0);
+
+        add.setOnClickListener(v -> {
+            card.increaseOwnedCount();
+            tvCardCount.setText(String.valueOf(card.getOwnedCount()));
+            remove.setEnabled(card.getOwnedCount() > 0);
         });
 
-        remove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                card.decreaseOwnedCount();
-                tvCardCount.setText(String.valueOf(card.getOwnedCount()));
-            }
+        remove.setOnClickListener(v -> {
+            card.decreaseOwnedCount();
+            tvCardCount.setText(String.valueOf(card.getOwnedCount()));
+            remove.setEnabled(card.getOwnedCount() > 0);
         });
 
         return convertView;
