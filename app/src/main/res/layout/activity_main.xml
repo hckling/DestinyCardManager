@@ -11,31 +11,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.cardmanager.apps.kling.destinycardmanager.MainActivity">
 
-    <LinearLayout
-        android:id="@+id/navButtons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="center_horizontal">
-
-        <Button
-            android:text="Manage collection"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnManageCollection"/>
-
-        <Button
-            android:text="New deck"
-            android:id="@+id/btnNewDeck"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-
     <ListView
         android:id="@+id/lvDecks"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/navButtons"
         android:paddingBottom="16dp"/>
 
 </RelativeLayout>

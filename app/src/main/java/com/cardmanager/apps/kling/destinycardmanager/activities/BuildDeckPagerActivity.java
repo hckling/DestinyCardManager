@@ -1,5 +1,6 @@
 package com.cardmanager.apps.kling.destinycardmanager.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import com.cardmanager.apps.kling.destinycardmanager.MainActivity;
 import com.cardmanager.apps.kling.destinycardmanager.R;
 import com.cardmanager.apps.kling.destinycardmanager.adapters.SelectableCharacterListAdapter;
 import com.cardmanager.apps.kling.destinycardmanager.adapters.SelectableDeckCardListAdapter;
@@ -51,6 +53,8 @@ public class BuildDeckPagerActivity extends FragmentActivity implements NameDeck
     ViewPager pager;
     DeckBuildingPagerAdapter adapter;
 
+    private boolean editingDeck = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +71,7 @@ public class BuildDeckPagerActivity extends FragmentActivity implements NameDeck
             Deck deck = getDeckFromDb(deckId);
 
             deckBuilder.loadFromDeck(deck);
+            editingDeck = true;
         }
 
         adapter = new DeckBuildingPagerAdapter(getSupportFragmentManager(), deckBuilder);
@@ -74,27 +79,16 @@ public class BuildDeckPagerActivity extends FragmentActivity implements NameDeck
         pager = (ViewPager) findViewById(R.id.vpMain);
         pager.setAdapter(adapter);
 
-        deckBuilder.addDeckChangedListener(new SelectionListener() {
-            @Override
-            public void selectionChanged() {
-                updateDeckInfo();
-            }
-        });
+        deckBuilder.addDeckChangedListener(() -> updateDeckInfo());
 
         Button btnSave = (Button) findViewById(R.id.btnSaveDeck);
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveDeck();
-            }
-        });
+        btnSave.setOnClickListener(v -> saveDeck());
 
         updateDeckInfo();
     }
 
     private Deck getDeckFromDb(long deckId) {
-        CardDatabase db = new CardDatabase(getApplicationContext());
-
+        CardDatabase db = new CardDatabase(this);
         return db.getDeck(deckId);
     }
 
@@ -103,8 +97,15 @@ public class BuildDeckPagerActivity extends FragmentActivity implements NameDeck
             NameDeckDialogFragment d = new NameDeckDialogFragment();
             d.show(getFragmentManager(), "NameDeckDialogFragment");
         } else {
-            saveDeckToDB();
+            updateDeckInDb();
+            returnToMainActivity();
         }
+    }
+
+    private void returnToMainActivity() {
+        // return to main activity
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
     }
 
     private void updateDeckInfo() {
@@ -122,34 +123,10 @@ public class BuildDeckPagerActivity extends FragmentActivity implements NameDeck
 
         TextView tvFaction = (TextView) findViewById(R.id.tvFaction);
         tvFaction.setText(deckBuilder.getFaction());
-
-        /*TextView tvMeleeAttack = (TextView) findViewById(R.id.tvMeleeAttack);
-        tvMeleeAttack.setText(String.format("%2.0f", deckBuilder.getMeleeAttackRating()));
-
-        TextView tvRangedAttack = (TextView) findViewById(R.id.tvRangedAttack);
-        tvRangedAttack.setText(String.format("%2.0f", deckBuilder.getRangedAttackRating()));
-
-        TextView tvCost = (TextView) findViewById(R.id.tvCost);
-        tvCost.setText(String.format("%2.0f", deckBuilder.getCostRating()));
-
-        TextView tvDefense = (TextView) findViewById(R.id.tvDefense);
-        tvDefense.setText(String.format("%2.0f", deckBuilder.getDefenceRating()));
-
-        TextView tvResources = (TextView) findViewById(R.id.tvResources);
-        tvResources.setText(String.format("%2.0f", deckBuilder.getIncomeRating()));
-
-        TextView tvDiscard = (TextView) findViewById(R.id.tvDiscard);
-        tvCost.setText(String.format("%2.0f", deckBuilder.getDiscardRating()));
-
-        TextView tvDisrupt = (TextView) findViewById(R.id.tvDisrupt);
-        tvDefense.setText(String.format("%2.0f", deckBuilder.getDisruptRating()));
-
-        TextView tvFocus = (TextView) findViewById(R.id.tvFocus);
-        tvResources.setText(String.format("%2.0f", deckBuilder.getFocusRating()));*/
     }
 
     private void readOwnedCardsFromDb() {
-        CardDatabase db = new CardDatabase(getApplicationContext());
+        CardDatabase db = new CardDatabase(this);
         db.updateCards(allCards);
 
         // Remove all cards we do not yet own
@@ -182,13 +159,18 @@ public class BuildDeckPagerActivity extends FragmentActivity implements NameDeck
     @Override
     public void onNameEntered(String name) {
         deckBuilder.setName(name);
-
         saveDeckToDB();
+        returnToMainActivity();
     }
 
     private void saveDeckToDB() {
-        CardDatabase db = new CardDatabase(getApplicationContext());
+        CardDatabase db = new CardDatabase(this);
         db.saveDeck(deckBuilder.getDeck());
+    }
+
+    private void updateDeckInDb() {
+        CardDatabase db = new CardDatabase(this);
+        db.updateDeck(deckBuilder.getDeck());
     }
 
     public static class SelectCardsFragment extends ListFragment {
@@ -198,16 +180,13 @@ public class BuildDeckPagerActivity extends FragmentActivity implements NameDeck
         public void setDeck(DeckBuilder deck) {
             this.deck = deck;
 
-            deck.addAvailableCardsChangedListener(new SelectionListener() {
-                @Override
-                public void selectionChanged() {
-                    ListAdapter la = getListAdapter();
+            deck.addAvailableCardsChangedListener(() -> {
+                ListAdapter la = getListAdapter();
 
-                    if (la instanceof SelectableCharacterListAdapter) {
-                        ((SelectableCharacterListAdapter)la).notifyDataSetChanged();
-                    } else if (la instanceof SelectableDeckCardListAdapter) {
-                        ((SelectableDeckCardListAdapter)la).notifyDataSetChanged();
-                    }
+                if (la instanceof SelectableCharacterListAdapter) {
+                    ((SelectableCharacterListAdapter)la).notifyDataSetChanged();
+                } else if (la instanceof SelectableDeckCardListAdapter) {
+                    ((SelectableDeckCardListAdapter)la).notifyDataSetChanged();
                 }
             });
         }

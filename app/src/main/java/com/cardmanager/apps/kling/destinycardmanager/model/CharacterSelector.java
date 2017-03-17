@@ -149,6 +149,7 @@ public class CharacterSelector implements Selector<CharacterSelectionInfo> {
     public void select(CharacterSelectionInfo item) {
         for (int i = 0; i < availableCharacters.size(); i++) {
             CharacterSelectionInfo c = availableCharacters.get(i);
+
             if (c.getCard().getCardNumber() == item.getCard().getCardNumber() && c.getCount() == 0) {
                 c.select();
                 if (item.isElite())

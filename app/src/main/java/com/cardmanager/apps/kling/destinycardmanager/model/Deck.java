@@ -17,9 +17,7 @@ public class Deck {
     private ArrayList<CardSelectionInfo> selectedUpgrades = new ArrayList<>();
     private ArrayList<CardSelectionInfo> selectedSupport = new ArrayList<>();
 
-    public Deck(String name) {
-        this.name = name;
-    }
+    public Deck() { }
 
     public Deck(String name, long id) {
         this.name = name;

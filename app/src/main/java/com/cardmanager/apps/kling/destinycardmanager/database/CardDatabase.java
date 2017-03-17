@@ -134,15 +134,27 @@ public class CardDatabase extends SQLiteOpenHelper {
 
     public void deleteDeck(Deck deck) {
         SQLiteDatabase wd = getWritableDatabase();
-        wd.delete(DECK_CHARACTERS_TABLE_NAME, DECK_ID + "=" + deck.getId(), null);
-        wd.delete(DECK_CARDS_TABLE_NAME, DECK_ID + "=" + deck.getId(), null);
-        wd.delete(DECK_TABLE_NAME, ID + "=" + deck.getId(), null);
+        wd.beginTransaction();
+
+        try {
+            wd.delete(DECK_CHARACTERS_TABLE_NAME, DECK_ID + "=" + deck.getId(), null);
+            wd.delete(DECK_CARDS_TABLE_NAME, DECK_ID + "=" + deck.getId(), null);
+            wd.delete(DECK_TABLE_NAME, ID + "=" + deck.getId(), null);
+
+            wd.setTransactionSuccessful();
+        } catch (Exception e) {
+            // error
+        } finally {
+            wd.endTransaction();
+            wd.close();
+        }
     }
 
     public void saveDeck(Deck deck) {
         SQLiteDatabase wd = getWritableDatabase();
         ContentValues values = new ContentValues();
 
+        wd.beginTransaction();
         try {
             values.put(DECK_NAME, deck.getName());
             values.put(BATTLEFIELD_ID, deck.getSelectedBattlefield().getCard().getCardNumber());
@@ -152,7 +164,12 @@ public class CardDatabase extends SQLiteOpenHelper {
 
             saveCharacterSelection(deck, wd);
             saveCardSelection(deck, wd);
+
+            wd.setTransactionSuccessful();
+        } catch (Exception e) {
+            // error
         } finally {
+            wd.endTransaction();
             wd.close();
         }
     }
@@ -300,5 +317,34 @@ public class CardDatabase extends SQLiteOpenHelper {
         } finally {
             rd.close();
         }
+    }
+
+    public void updateDeck(Deck deck) {
+        SQLiteDatabase wd = getWritableDatabase();
+
+        wd.beginTransaction();
+
+        try {
+            // Delete all existing cards and characters from the deck
+            emptyDeck(deck, wd);
+            // Save the current deck
+            saveCurrentCards(deck, wd);
+            wd.setTransactionSuccessful();
+        } catch(Exception e) {
+            // Something went wrong
+        } finally {
+            wd.endTransaction();
+            wd.close();
+        }
+    }
+
+    private void saveCurrentCards(Deck deck, SQLiteDatabase wd) {
+        saveCharacterSelection(deck, wd);
+        saveCardSelection(deck, wd);
+    }
+
+    private void emptyDeck(Deck deck, SQLiteDatabase wd) {
+        long result = wd.delete(DECK_CHARACTERS_TABLE_NAME, DECK_ID + "=" + deck.getId(), null);
+        result = wd.delete(DECK_CARDS_TABLE_NAME, DECK_ID + "=" + deck.getId(), null);
     }
 }

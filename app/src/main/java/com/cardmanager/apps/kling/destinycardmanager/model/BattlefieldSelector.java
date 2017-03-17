@@ -115,11 +115,19 @@ public class BattlefieldSelector implements Selector<CardSelectionInfo> {
 
     @Override
     public void select(CardSelectionInfo item) {
+        CardSelectionInfo csi = findCard(item.getCard().getCardNumber());
+
+        if (csi != null)
+            csi.select();
+    }
+
+    private CardSelectionInfo findCard(int cardNumber) {
         for (int i = 0; i < availableBattlefields.size(); i++) {
-            if (availableBattlefields.get(i).getCard().getCardNumber() == item.getCard().getCardNumber()) {
-                availableBattlefields.get(i).select();
-                break;
+            if (availableBattlefields.get(i).getCard().getCardNumber() == cardNumber) {
+                return availableBattlefields.get(i);
             }
         }
+
+        return null;
     }
 }

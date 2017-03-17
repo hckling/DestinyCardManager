@@ -1,31 +1,28 @@
 package com.cardmanager.apps.kling.destinycardmanager.adapters;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
+import android.net.wifi.p2p.WifiP2pManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.cardmanager.apps.kling.destinycardmanager.R;
-import com.cardmanager.apps.kling.destinycardmanager.activities.BuildDeckPagerActivity;
 import com.cardmanager.apps.kling.destinycardmanager.database.CardDatabase;
-import com.cardmanager.apps.kling.destinycardmanager.model.CardSelectionInfo;
 import com.cardmanager.apps.kling.destinycardmanager.model.CharacterSelectionInfo;
 import com.cardmanager.apps.kling.destinycardmanager.model.Deck;
+import com.cardmanager.apps.kling.destinycardmanager.model.DeckDeletedListener;
 
 import java.util.ArrayList;
 
 public class DeckListAdapter extends ArrayAdapter<Deck> {
 
     private DeckSelectionListener deckSelectionListener;
+    private ArrayList<DeckDeletedListener> deckDeletedListeners = new ArrayList<>();
 
     public DeckListAdapter(Context context, ArrayList<Deck> objects) {
         super(context, 0, objects);
@@ -61,6 +58,10 @@ public class DeckListAdapter extends ArrayAdapter<Deck> {
         return convertView;
     }
 
+    public void addDeckDeletedListener(DeckDeletedListener listener) {
+        deckDeletedListeners.add(listener);
+    }
+
     private void showCharacters(View v, ArrayList<CharacterSelectionInfo> characters) {
         TextView character1 = (TextView) v.findViewById(R.id.tvCharacter1);
         character1.setVisibility(View.GONE);
@@ -82,32 +83,37 @@ public class DeckListAdapter extends ArrayAdapter<Deck> {
 
 
         if (characters.size() > 0) {
-            character1.setText(characters.get(0).getCard().getName());
-            character1.setVisibility(View.VISIBLE);
+            updateCharacterText(characters.get(0), character1);
         }
         if (characters.size() > 1) {
-            character2.setText(characters.get(1).getCard().getName());
-            character2.setVisibility(View.VISIBLE);
+            updateCharacterText(characters.get(1), character2);
         }
         if (characters.size() > 2) {
-            character3.setText(characters.get(2).getCard().getName());
-            character3.setVisibility(View.VISIBLE);
+            updateCharacterText(characters.get(2), character3);
         }
 
         if (characters.size() > 3) {
-            character4.setText(characters.get(3).getCard().getName());
-            character4.setVisibility(View.VISIBLE);
+            updateCharacterText(characters.get(3), character4);
         }
 
         if (characters.size() > 4) {
-            character5.setText(characters.get(4).getCard().getName());
-            character5.setVisibility(View.VISIBLE);
+            updateCharacterText(characters.get(4), character5);
         }
 
         if (characters.size() > 5) {
-            character6.setText(characters.get(5).getCard().getName());
-            character6.setVisibility(View.VISIBLE);
+            updateCharacterText(characters.get(5), character6);
         }
+    }
+
+    private void updateCharacterText(CharacterSelectionInfo character, TextView tvCharacter) {
+
+        if (character.isElite()) {
+            tvCharacter.setText(character.getCard().getName() + " (elite)");
+        } else {
+            tvCharacter.setText(character.getCard().getName());
+        }
+
+        tvCharacter.setVisibility(View.VISIBLE);
     }
 
     private void confirmDeletion(View v, Deck deck) {
@@ -131,6 +137,9 @@ public class DeckListAdapter extends ArrayAdapter<Deck> {
     private void deleteDeck(Deck deck) {
         CardDatabase db = new CardDatabase(getContext());
         db.deleteDeck(deck);
+        for(DeckDeletedListener ddl : deckDeletedListeners) {
+            ddl.onDeckDeleted(deck);
+        }
     }
 
     public void addDeckSelectionListener(DeckSelectionListener listener) {

@@ -140,11 +140,21 @@ public class CardSelector implements Selector<CardSelectionInfo> {
 
     @Override
     public void select(CardSelectionInfo item) {
-        for (CardSelectionInfo c : this.availableCards) {
-            if (c.getCard().getCardNumber() == item.getCard().getCardNumber()) {
-                for (int i = 0; i < item.getCount(); i++)
-                    c.select();
+        CardSelectionInfo c = findCard(item.getCard().getCardNumber());
+
+        if (c != null) {
+            for (int i = 0; i < item.getCount(); i++) {
+                c.select();
             }
         }
+    }
+
+    private CardSelectionInfo findCard(int cardNumber) {
+        for (CardSelectionInfo c : this.availableCards) {
+            if (c.getCard().getCardNumber() == cardNumber) {
+                return c;
+            }
+        }
+        return null;
     }
 }

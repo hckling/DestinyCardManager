@@ -3,6 +3,9 @@ package com.cardmanager.apps.kling.destinycardmanager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -35,24 +38,42 @@ public class MainActivity extends AppCompatActivity {
         db = new CardDatabase(getApplicationContext());
         setContentView(R.layout.activity_main);
 
-        Button button = (Button) findViewById(R.id.btnManageCollection);
-        button.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), SelectCardsActivity.class);
-            startActivity(intent);
-        });
-
-        Button newDeckButton = (Button) findViewById(R.id.btnNewDeck);
-        newDeckButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), BuildDeckPagerActivity.class);
-            startActivity(intent);
-        });
         parseCards();
         loadDecks();
     }
 
+    @Override
     protected void onStart() {
         super.onStart();
         loadDecks();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+
+        MenuItem mi = menu.findItem(R.id.mnuManageCollection);
+        mi.setOnMenuItemClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), SelectCardsActivity.class);
+            startActivity(intent);
+            return true;
+        });
+
+        mi = menu.findItem(R.id.mnuAddDeck);
+        mi.setOnMenuItemClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), BuildDeckPagerActivity.class);
+            startActivity(intent);
+            return true;
+        });
+
+
+        return true;
     }
 
     private void loadDecks() {
@@ -61,28 +82,16 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Deck> decks = db.getDecks();
 
         DeckListAdapter adapter = new DeckListAdapter(this.getApplicationContext(), decks);
+        adapter.addDeckDeletedListener(v -> {
+            loadDecks();
+        });
+
         lvDecks.setOnItemClickListener((parent, view, position, id) -> {
             Deck d = decks.get(position);
 
             Intent intent = new Intent(getApplicationContext(), BuildDeckPagerActivity.class);
             intent.putExtra("deckId", d.getId());
             startActivity(intent);
-        });
-
-        lvDecks.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Deck d = decks.get(position);
-
-                Intent intent = new Intent(getApplicationContext(), BuildDeckPagerActivity.class);
-                intent.putExtra("deckId", d.getId());
-                startActivity(intent);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
         });
 
         lvDecks.setAdapter(adapter);
