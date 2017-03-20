@@ -119,4 +119,14 @@ public class CharacterSelectionInfo extends CardSelectionInfo {
             return super.getDiscardRating();
         }
     }
+
+    @Override
+    public void deselect() {
+        super.deselect();
+
+        if (getCount() == 0 && isElite()){
+            makeNormal();
+            raiseSelectionChanged();
+        }
+    }
 }

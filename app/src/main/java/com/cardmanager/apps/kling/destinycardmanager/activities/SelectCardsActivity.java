@@ -1,14 +1,12 @@
 package com.cardmanager.apps.kling.destinycardmanager.activities;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ListView;
 import com.cardmanager.apps.kling.destinycardmanager.R;
 import com.cardmanager.apps.kling.destinycardmanager.adapters.SelectableCardListAdapter;
@@ -72,11 +70,7 @@ public class SelectCardsActivity extends AppCompatActivity {
         builder.setCancelable(true);
         builder.setTitle("Confirm collection change");
         builder.setMessage("Are you sure? All existing changes to the collection will be changed!");
-        builder.setPositiveButton(android.R.string.yes,
-                (dialog, which) -> {
-                    setCollectionToFullSet();
-                });
-
+        builder.setPositiveButton(android.R.string.yes, (dialog, which) -> setCollectionToFullSet());
         builder.setNegativeButton(android.R.string.no, (dialog, which) -> {
         });
 

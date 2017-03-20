@@ -284,14 +284,7 @@ public class DeckBuilder {
     }
 
     public Deck getDeck() {
-        Deck result;
-
-        if (deckId >= 0)
-        {
-            result = new Deck(this.name, deckId);
-        } else {
-            result = new Deck();
-        }
+        Deck result = new Deck(this.name, deckId);
 
         for(CharacterSelectionInfo c : characterSelector.getSelected()) {
             result.addCharacter(c);

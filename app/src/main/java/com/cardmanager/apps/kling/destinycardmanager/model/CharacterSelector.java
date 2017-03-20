@@ -1,6 +1,7 @@
 package com.cardmanager.apps.kling.destinycardmanager.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 /**
@@ -31,12 +32,7 @@ public class CharacterSelector implements Selector<CharacterSelectionInfo> {
         }
 
         for(CharacterSelectionInfo c: availableCharacters) {
-            c.addSelectionListener(new SelectionListener() {
-                @Override
-                public void selectionChanged() {
-                    raiseSelectionChanged();
-                }
-            });
+            c.addSelectionListener(() -> raiseSelectionChanged());
         }
     }
 
@@ -102,12 +98,7 @@ public class CharacterSelector implements Selector<CharacterSelectionInfo> {
     }
 
     private void sortList(ArrayList<CharacterSelectionInfo> list) {
-        list.sort(new Comparator<CharacterSelectionInfo>() {
-            @Override
-            public int compare(CharacterSelectionInfo o1, CharacterSelectionInfo o2) {
-                return o1.getCard().getCardNumber() - o2.getCard().getCardNumber();
-            }
-        });
+        Collections.sort(list, (o1, o2) -> o1.getCard().getCardNumber() - o2.getCard().getCardNumber());
     }
 
     private void checkIfEliteIsAllowed(int remainingPoints, CharacterSelectionInfo character) {

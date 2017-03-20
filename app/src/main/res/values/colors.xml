@@ -7,7 +7,8 @@
     <color name="colorRedCard">#EE0000</color>
     <color name="colorBlueCard">#0000EE</color>
     <color name="yellowCard">#f7e436</color>
-    <color name="cardBackground">#f7f6f2</color>
+    <color name="cardSelected">#f7f6f2</color>
     <color name="cardBorder">#bcbcb8</color>
     <color name="lightGrey">#CCCCCC</color>
+    <color name="transparent">#00000000</color>
 </resources>

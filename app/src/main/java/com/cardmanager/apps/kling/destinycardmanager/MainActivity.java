@@ -62,14 +62,14 @@ public class MainActivity extends AppCompatActivity {
 
         MenuItem mi = menu.findItem(R.id.mnuManageCollection);
         mi.setOnMenuItemClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), SelectCardsActivity.class);
+            Intent intent = new Intent(this, SelectCardsActivity.class);
             startActivity(intent);
             return true;
         });
 
         mi = menu.findItem(R.id.mnuAddDeck);
         mi.setOnMenuItemClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), BuildDeckPagerActivity.class);
+            Intent intent = new Intent(this, BuildDeckPagerActivity.class);
             startActivity(intent);
             return true;
         });
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         ListView lvDecks = (ListView) findViewById(R.id.lvDecks);
         ArrayList<Deck> decks = db.getDecks();
 
-        DeckListAdapter adapter = new DeckListAdapter(this.getApplicationContext(), decks);
+        DeckListAdapter adapter = new DeckListAdapter(this, decks);
         adapter.addDeckDeletedListener(v -> {
             loadDecks();
         });
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         lvDecks.setOnItemClickListener((parent, view, position, id) -> {
             Deck d = decks.get(position);
 
-            Intent intent = new Intent(getApplicationContext(), BuildDeckPagerActivity.class);
+            Intent intent = new Intent(this, BuildDeckPagerActivity.class);
             intent.putExtra("deckId", d.getId());
             startActivity(intent);
         });
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void parseCards() {
-        XmlPullParser parser = getApplicationContext().getResources().getXml(R.xml.cards);
+        XmlPullParser parser = getResources().getXml(R.xml.cards);
         try {
             CardSetBuilder.readCardsXml(parser);
         } catch (IOException e) {

@@ -114,13 +114,6 @@
             android:gravity="center"
             android:layout_gravity="center"/>
     </LinearLayout>
-    <ExpandableListView
-        android:id="@+id/elvSelectBattlefield"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:choiceMode="singleChoice">
-
-    </ExpandableListView>
     <!-- DeckBuilder details (detailed) -->
 
 

@@ -1,6 +1,7 @@
 package com.cardmanager.apps.kling.destinycardmanager.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 /**
@@ -78,12 +79,7 @@ public class CardSelector implements Selector<CardSelectionInfo> {
     }
 
     private void sortList(ArrayList<CardSelectionInfo> list) {
-        list.sort(new Comparator<CardSelectionInfo>() {
-            @Override
-            public int compare(CardSelectionInfo o1, CardSelectionInfo o2) {
-                return o1.getCard().getCardNumber() - o2.getCard().getCardNumber();
-            }
-        });
+        Collections.sort(list, (o1, o2) -> o1.getCard().getCardNumber() - o2.getCard().getCardNumber());
     }
 
     private void cardSelectionChanged() {

@@ -1,6 +1,7 @@
 package com.cardmanager.apps.kling.destinycardmanager.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 /**
@@ -55,12 +56,7 @@ public class BattlefieldSelector implements Selector<CardSelectionInfo> {
             unavailableBattlefields.clear();
         }
 
-        availableBattlefields.sort(new Comparator<CardSelectionInfo>() {
-            @Override
-            public int compare(CardSelectionInfo o1, CardSelectionInfo o2) {
-                return o1.getCard().getCardNumber() - o2.getCard().getCardNumber();
-            }
-        });
+        Collections.sort(availableBattlefields, (o1, o2) -> o1.getCard().getCardNumber() - o2.getCard().getCardNumber());
 
         raiseSelectionChanged();
     }

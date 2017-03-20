@@ -101,65 +101,59 @@ public class SelectableCharacterListAdapter extends ArrayAdapter<CharacterSelect
         }
 
         if (card.isSelected()) {
-            root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.cardBackground));
+            root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.cardSelected));
         } else {
-            root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.lightGrey));
+            root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.transparent));
         }
 
         btnRemove.setEnabled(card.isSelected());
 
-        btnAddAndPromote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (card.isSelected()) {
-                    if (card.isElite()) {
-                        card.makeNormal();
-                        btnAddAndPromote.setText("▲");
-                    } else {
-                        if (card.isEliteAllowed()) {
-                            card.makeElite();
-                            btnAddAndPromote.setText("▼");
-                        }
-                    }
-                } else {
-                    card.select();
-
-                    if ((card.getCard().getOwnedCount() > 1) && (card.isEliteAllowed())) {
-                        btnAddAndPromote.setText("▲");
-                    } else {
-                        btnAddAndPromote.setEnabled(false);
-                    }
-
-                }
-
-                tvPoints.setText(String.valueOf(card.getPoints()));
-
-                if (card.isSelected()) {
-                    root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.cardBackground));
-                } else {
-                    root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.lightGrey));
-                }
-
+        btnAddAndPromote.setOnClickListener(v -> {
+            if (card.isSelected()) {
                 if (card.isElite()) {
-                    tvElite.setVisibility(View.VISIBLE);
+                    card.makeNormal();
+                    btnAddAndPromote.setText("▲");
                 } else {
-                    tvElite.setVisibility(View.GONE);
+                    if (card.isEliteAllowed()) {
+                        card.makeElite();
+                        btnAddAndPromote.setText("▼");
+                    }
                 }
+            } else {
+                card.select();
+
+                if ((card.getCard().getOwnedCount() > 1) && (card.isEliteAllowed())) {
+                    btnAddAndPromote.setText("▲");
+                } else {
+                    btnAddAndPromote.setEnabled(false);
+                }
+
+            }
+
+            tvPoints.setText(String.valueOf(card.getPoints()));
+
+            if (card.isSelected()) {
+                root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.cardSelected));
+            } else {
+                root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.transparent));
+            }
+
+            if (card.isElite()) {
+                tvElite.setVisibility(View.VISIBLE);
+            } else {
+                tvElite.setVisibility(View.GONE);
             }
         });
 
-        btnRemove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                card.deselect();
-                btnAddAndPromote.setText("+");
-                btnAddAndPromote.setEnabled(true);
+        btnRemove.setOnClickListener(v -> {
+            card.deselect();
+            btnAddAndPromote.setText("+");
+            btnAddAndPromote.setEnabled(true);
 
-                if (card.isSelected()) {
-                    root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.cardBackground));
-                } else {
-                    root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.lightGrey));
-                }
+            if (card.isSelected()) {
+                root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.cardSelected));
+            } else {
+                root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.transparent));
             }
         });
 

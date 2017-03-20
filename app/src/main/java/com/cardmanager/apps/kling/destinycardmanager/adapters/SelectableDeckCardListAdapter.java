@@ -237,11 +237,11 @@ public class SelectableDeckCardListAdapter extends ArrayAdapter<CardSelectionInf
         if (card.getCount() > 0) {
             tvCardCount.setVisibility(View.VISIBLE);
             tvCardCount.setText("(" + String.valueOf(card.getCount()) + " of " + String.valueOf(card.getMaxSelectable() + ")"));
-            root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.cardBackground));
+            root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.cardSelected));
 
         } else {
             tvCardCount.setVisibility(View.GONE);
-            root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.lightGrey));
+            root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.transparent));
         }
 
         // Card type

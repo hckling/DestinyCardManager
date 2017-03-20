@@ -58,7 +58,8 @@ public class DeckListAdapter extends ArrayAdapter<Deck> {
         return convertView;
     }
 
-    public void addDeckDeletedListener(DeckDeletedListener listener) {
+    @NonNull
+    public void addDeckDeletedListener(@NonNull DeckDeletedListener listener) {
         deckDeletedListeners.add(listener);
     }
 
