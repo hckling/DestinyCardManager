@@ -27,7 +27,6 @@ import com.cardmanager.apps.kling.destinycardmanager.model.CharacterSelector;
 import com.cardmanager.apps.kling.destinycardmanager.model.Deck;
 import com.cardmanager.apps.kling.destinycardmanager.model.DeckBuilder;
 import com.cardmanager.apps.kling.destinycardmanager.model.NameDeckDialogFragment;
-import com.cardmanager.apps.kling.destinycardmanager.model.SelectionListener;
 
 import org.xmlpull.v1.XmlPullParser;
 
@@ -36,6 +35,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
+ * The activity handling building new decks as well as editing previously saved decks.
  * Created by danie on 2016-12-14.
  */
 
@@ -53,8 +53,6 @@ public class BuildDeckPagerActivity extends FragmentActivity implements NameDeck
     ViewPager pager;
     DeckBuildingPagerAdapter adapter;
 
-    private boolean editingDeck = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +69,6 @@ public class BuildDeckPagerActivity extends FragmentActivity implements NameDeck
             Deck deck = getDeckFromDb(deckId);
 
             deckBuilder.loadFromDeck(deck);
-            editingDeck = true;
         }
 
         adapter = new DeckBuildingPagerAdapter(getSupportFragmentManager(), deckBuilder);

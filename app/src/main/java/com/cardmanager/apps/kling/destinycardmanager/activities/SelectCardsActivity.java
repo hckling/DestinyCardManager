@@ -1,6 +1,5 @@
 package com.cardmanager.apps.kling.destinycardmanager.activities;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
+
 import com.cardmanager.apps.kling.destinycardmanager.R;
 import com.cardmanager.apps.kling.destinycardmanager.adapters.SelectableCardListAdapter;
 import com.cardmanager.apps.kling.destinycardmanager.database.CardDatabase;
@@ -22,11 +22,11 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
+ * The activity which allows the user to set up his card collection.
  * Created by danie on 2016-11-27.
  */
 
 public class SelectCardsActivity extends AppCompatActivity {
-    private ListView lv;
     private ListView listview;
     private CardDatabase db;
 

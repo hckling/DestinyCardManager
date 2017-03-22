@@ -8,13 +8,17 @@
     android:padding="2dp">
 
     <ImageView
-        android:id="@+id/imgCharacterImage"
-        android:layout_gravity="center_vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/card_default"
+        android:id="@+id/ivCharacterImage"
+        android:scaleType="centerInside"
+        android:layout_gravity="top"
+        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:adjustViewBounds="true"
+        android:src="@drawable/card_001"
         android:paddingLeft="4dp"
-        android:paddingRight="4dp"/>
+        android:paddingRight="4dp"
+        android:paddingTop="4dp"/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -34,18 +38,19 @@
 
             <TextView
                 android:id="@+id/tvCharacterName"
-                android:text="Captain Phasma"
+                style="@style/HeaderText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="8dp"
-                />
+                android:text="Captain Phasma" />
 
             <TextView
                 android:id="@+id/tvElite"
-                android:text="(elite)"
+                style="@style/HeaderText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"/>
+                android:text="(elite)"
+                android:visibility="gone" />
 
         </LinearLayout>
 
@@ -60,36 +65,41 @@
             android:paddingTop="2dp"
             android:paddingBottom="2dp"
             android:visibility="gone">
+
             <TextView
-                android:text="Action:"
+                style="@style/SubHeaderText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="4dp"
-                android:textSize="4pt"
-                android:textStyle="bold"/>
+                android:text="Action:"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/tvAction"
-                android:text="Just a test action"
+                style="@style/MainText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="4pt"
+                android:paddingBottom="2dp"
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
                 android:paddingTop="2dp"
-                android:paddingBottom="2dp"/>
+                android:text="Just a test action"
+                android:textSize="10sp" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/tvEffect"
-            android:text="Your non unique characters have the Guardian keyword."
+            style="@style/MainText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="4pt"
+            android:paddingBottom="2dp"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
             android:paddingTop="2dp"
-            android:paddingBottom="2dp"
-            android:visibility="visible"/>
+            android:text="Your non unique characters have the Guardian keyword."
+            android:textSize="10sp"
+            android:visibility="visible" />
 
         <LinearLayout
             android:id="@+id/llSpecialEffect"
@@ -103,16 +113,18 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/special_small_inverted"
                 android:layout_gravity="center"/>
+
             <TextView
                 android:id="@+id/tvSpecialEffect"
-                android:text="Force an opponent to deal 2 damage to their characters, distributing the damage as they wish."
+                style="@style/MainText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="4pt"
+                android:paddingBottom="2dp"
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
                 android:paddingTop="2dp"
-                android:paddingBottom="2dp"/>
+                android:text="Force an opponent to deal 2 damage to their characters, distributing the damage as they wish."
+                android:textSize="10sp" />
         </LinearLayout>
 
         <!-- Dice result -->
@@ -135,19 +147,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right">
+
                     <TextView
                         android:id="@+id/tvDiceResult1"
-                        android:text=""
-                        android:layout_gravity="center_vertical"
+                        style="@style/MainText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="2dp"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:textSize="4pt"
+                        android:text=""
+                        android:textSize="10sp"
                         android:textStyle="italic"
-                        android:visibility="invisible"/>
+                        android:visibility="invisible" />
                     <ImageView
                         android:id="@+id/ivDiceResult1"
                         android:src="@drawable/blank_small"
@@ -165,16 +179,17 @@
 
                     <TextView
                         android:id="@+id/tvDiceResult1cost"
-                        android:text="1"
-                        android:layout_gravity="center_vertical"
+                        style="@style/MainText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="2dp"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:textSize="4pt"
-                        android:textStyle="italic"/>
+                        android:text="1"
+                        android:textSize="10sp"
+                        android:textStyle="italic" />
                     <ImageView
                         android:id="@+id/ivDiceResult1cost"
                         android:src="@drawable/resource_small_yellow"
@@ -194,19 +209,21 @@
                     android:layout_gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:id="@+id/tvDiceResult2"
-                        android:text=""
-                        android:layout_gravity="center_vertical"
+                        style="@style/MainText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="2dp"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:textSize="4pt"
+                        android:text=""
+                        android:textSize="10sp"
                         android:textStyle="italic"
-                        android:visibility="invisible"/>
+                        android:visibility="invisible" />
                     <ImageView
                         android:id="@+id/ivDiceResult2"
                         android:src="@drawable/special_small"
@@ -223,16 +240,17 @@
 
                     <TextView
                         android:id="@+id/tvDiceResult2cost"
-                        android:text="1"
-                        android:layout_gravity="center_vertical"
+                        style="@style/MainText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="2dp"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:textSize="4pt"
-                        android:textStyle="italic"/>
+                        android:text="1"
+                        android:textSize="10sp"
+                        android:textStyle="italic" />
                     <ImageView
                         android:id="@+id/ivDiceResult2cost"
                         android:src="@drawable/resource_small_yellow"
@@ -252,18 +270,20 @@
                     android:layout_gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:id="@+id/tvDiceResult3"
-                        android:text="1"
-                        android:layout_gravity="center_vertical"
+                        style="@style/MainText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="2dp"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:textSize="4pt"
-                        android:textStyle="italic"/>
+                        android:text="1"
+                        android:textSize="10sp"
+                        android:textStyle="italic" />
                     <ImageView
                         android:id="@+id/ivDiceResult3"
                         android:src="@drawable/resource_small"
@@ -280,16 +300,17 @@
 
                     <TextView
                         android:id="@+id/tvDiceResult3cost"
-                        android:text="1"
-                        android:layout_gravity="center_vertical"
+                        style="@style/MainText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="2dp"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:textSize="4pt"
-                        android:textStyle="italic"/>
+                        android:text="1"
+                        android:textSize="10sp"
+                        android:textStyle="italic" />
                     <ImageView
                         android:id="@+id/ivDiceResult3cost"
                         android:src="@drawable/resource_small_yellow"
@@ -309,18 +330,20 @@
                     android:layout_gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:id="@+id/tvDiceResult4"
-                        android:text="+2"
-                        android:layout_gravity="center_vertical"
+                        style="@style/MainText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="2dp"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:textSize="4pt"
-                        android:textStyle="italic"/>
+                        android:text="+2"
+                        android:textSize="10sp"
+                        android:textStyle="italic" />
                     <ImageView
                         android:id="@+id/ivDiceResult4"
                         android:src="@drawable/ranged_small"
@@ -337,16 +360,17 @@
 
                     <TextView
                         android:id="@+id/tvDiceResult4cost"
-                        android:text="1"
-                        android:layout_gravity="center_vertical"
+                        style="@style/MainText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="2dp"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:textSize="4pt"
-                        android:textStyle="italic"/>
+                        android:text="1"
+                        android:textSize="10sp"
+                        android:textStyle="italic" />
                     <ImageView
                         android:id="@+id/ivDiceResult4cost"
                         android:src="@drawable/resource_small_yellow"
@@ -366,17 +390,19 @@
                     android:layout_gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:id="@+id/tvDiceResult5"
-                        android:text="+1"
-                        android:layout_gravity="center_vertical"
+                        style="@style/MainText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="2dp"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:textSize="4pt"
+                        android:text="+1"
+                        android:textSize="10sp"
                         android:textStyle="italic" />
                     <ImageView
                         android:id="@+id/ivDiceResult5"
@@ -394,16 +420,17 @@
 
                     <TextView
                         android:id="@+id/tvDiceResult5cost"
-                        android:text="1"
-                        android:layout_gravity="center_vertical"
+                        style="@style/MainText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="2dp"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:textSize="4pt"
-                        android:textStyle="italic"/>
+                        android:text="1"
+                        android:textSize="10sp"
+                        android:textStyle="italic" />
                     <ImageView
                         android:id="@+id/ivDiceResult5cost"
                         android:src="@drawable/resource_small_yellow"
@@ -423,18 +450,20 @@
                     android:layout_gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:id="@+id/tvDiceResult6"
-                        android:text="2"
-                        android:layout_gravity="center_vertical"
+                        style="@style/MainText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="2dp"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:textSize="4pt"
-                        android:textStyle="italic"/>
+                        android:text="2"
+                        android:textSize="10sp"
+                        android:textStyle="italic" />
                     <ImageView
                         android:id="@+id/ivDiceResult6"
                         android:src="@drawable/ranged_small"
@@ -451,16 +480,17 @@
 
                     <TextView
                         android:id="@+id/tvDiceResult6cost"
-                        android:text="1"
-                        android:layout_gravity="center_vertical"
+                        style="@style/MainText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="2dp"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:textSize="4pt"
-                        android:textStyle="italic"/>
+                        android:text="1"
+                        android:textSize="10sp"
+                        android:textStyle="italic" />
                     <ImageView
                         android:id="@+id/ivDiceResult6cost"
                         android:src="@drawable/resource_small_yellow"
@@ -480,28 +510,31 @@
 
             <TextView
                 android:id="@+id/tvFaction"
-                android:text="Villain"
-                android:layout_gravity="center_vertical"
+                style="@style/SubText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingBottom="2dp"
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
                 android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:textSize="4pt"
-                android:textStyle="italic"/>
+                android:text="Villain"
+                android:textSize="10sp"
+                android:textStyle="italic" />
+
             <TextView
                 android:id="@+id/tvPoints"
-                android:text="10 pts"
-                android:layout_gravity="center_vertical"
+                style="@style/SubText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingBottom="2dp"
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
                 android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:textSize="4pt"
-                android:textStyle="italic"/>
+                android:text="10 pts"
+                android:textSize="10sp"
+                android:textStyle="italic" />
         </LinearLayout>
     </LinearLayout>
 

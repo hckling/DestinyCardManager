@@ -2,9 +2,9 @@ package com.cardmanager.apps.kling.destinycardmanager.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 /**
+ * Handles selection logic for normal, non character or battlefield cards.
  * Created by danie on 2016-12-16.
  */
 

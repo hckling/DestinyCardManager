@@ -1,57 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:layout_centerVertical="true"
-    android:layout_alignParentLeft="false"
-    android:layout_alignParentRight="true">
+    android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/ivCardImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:padding="5dp"
+        android:src="@drawable/card_001" />
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="0dp"
-        android:layout_weight="4"
-        android:layout_height="wrap_content">
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_toEndOf="@+id/ivCardImage">
+
+        <LinearLayout
+            android:layout_gravity="top"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textCardTitle"
+                style="@style/HeaderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:padding="2dp"
+                android:text="Card name"
+                tools:style="@style/HeaderText" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textCardSet"
+                    style="@style/SubText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:padding="2dp"
+                    android:text="Set name"
+                    android:textSize="10sp"
+                    android:textStyle="italic" />
+
+                <TextView
+                    style="@style/SubText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=", #"
+                    android:textStyle="italic" />
+
+                <TextView
+                    android:id="@+id/tvCardNumber"
+                    style="@style/SubText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:text="001"
+                    android:textSize="10sp"
+                    android:textStyle="italic" />
+            </LinearLayout>
+        </LinearLayout>
+
         <TextView
-            android:text="Card name"
-            android:id="@+id/textCardTitle"
-            android:layout_width="wrap_content"
-            android:layout_weight="4"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:gravity="center_vertical"
-            />
-        <TextView
-            android:text="Set name"
-            android:id="@+id/textCardSet"
-            android:layout_width="wrap_content"
-            android:layout_weight="4"
-            android:layout_height="wrap_content" />
+            android:id="@+id/textCardCount"
+            style="@style/MainText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="top|center"
+            android:text="0" />
     </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
 
+        <Button
+            android:id="@+id/btnAdd"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="+"
+            android:padding="2dp"
+            android:minWidth="45dp"/>
 
-    <TextView
-        android:id="@+id/textCardCount"
-        android:text="0"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="match_parent"
-        android:gravity="center"/>
-    <Button
-        android:text="+"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnAdd"
-        android:layout_weight="1"
-        android:layout_gravity="right"
-        style="@style/Widget.AppCompat.Button.Borderless" />
+        <Button
+            android:text="-"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnRemove"
+            android:layout_gravity="right"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:padding="2dp"
+            android:minWidth="45dp"/>
 
-    <Button
-        android:text="-"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnRemove"
-        android:layout_gravity="right"
-        style="@style/Widget.AppCompat.Button.Borderless" />
-</LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

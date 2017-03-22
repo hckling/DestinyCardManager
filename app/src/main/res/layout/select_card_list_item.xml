@@ -9,12 +9,15 @@
 
     <ImageView
         android:id="@+id/imgCardImage"
-        android:layout_gravity="center_vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/card_default"
+        android:scaleType="fitStart"
+        android:layout_gravity="top"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="match_parent"
+        android:src="@drawable/card_001"
         android:paddingLeft="4dp"
-        android:paddingRight="4dp"/>
+        android:paddingRight="4dp"
+        android:paddingTop="4dp"/>
 
     <!-- Card name and rules -->
     <LinearLayout
@@ -33,16 +36,19 @@
 
             <TextView
                 android:id="@+id/tvCardName"
-                android:text="F-11D Rifle"
+                style="@style/HeaderText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingRight="8dp"/>
+                android:paddingRight="8dp"
+                android:text="F-11D Rifle" />
+
             <TextView
                 android:id="@+id/tvCardCount"
-                android:text="(0)"
+                style="@style/HeaderText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingRight="8dp"/>
+                android:paddingRight="8dp"
+                android:text="(0)" />
         </LinearLayout>
 
         <!-- Card type -->
@@ -51,30 +57,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="4dp">
+
             <TextView
                 android:id="@+id/tvType"
-                android:text="Upgrade"
+                style="@style/SubText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:textSize="5pt"
-                android:paddingRight="8dp"/>
+                android:paddingRight="8dp"
+                android:textSize="10sp" />
+
             <TextView
                 android:id="@+id/tvTypeSeparator"
-                android:text="-"
+                style="@style/SubText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:textSize="5pt"
-                android:paddingRight="8dp"/>
+                android:paddingRight="8dp"
+                android:textSize="10sp" />
+
             <TextView
                 android:id="@+id/tvSubType"
-                android:text="Weapon"
+                style="@style/SubText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:textSize="5pt"
-                android:paddingRight="8dp"/>
+                android:paddingRight="8dp"
+                android:textSize="10sp" />
         </LinearLayout>
 
         <!-- Action -->
@@ -87,23 +96,26 @@
             android:paddingLeft="4dp"
             android:paddingTop="2dp"
             android:paddingBottom="2dp">
+
             <TextView
-                android:text="Action:"
+                style="@style/SubHeaderText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="4dp"
-                android:textSize="4pt"
-                android:textStyle="bold"/>
+                android:text="Action"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/tvAction"
-                android:text="Just a test action"
+                style="@style/MainText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="4pt"
+                android:paddingBottom="2dp"
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
                 android:paddingTop="2dp"
-                android:paddingBottom="2dp"/>
+                android:textSize="10sp" />
         </LinearLayout>
 
         <!-- Claim -->
@@ -116,37 +128,40 @@
             android:paddingLeft="4dp"
             android:paddingTop="2dp"
             android:paddingBottom="2dp">
+
             <TextView
-                android:text="Claim:"
+                style="@style/SubHeaderText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="4dp"
-                android:textSize="4pt"
-                android:textStyle="bold"/>
+                android:text="Claim"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/tvClaim"
-                android:text="Just a test claim thingy"
+                style="@style/MainText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="4pt"
+                android:paddingBottom="2dp"
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
                 android:paddingTop="2dp"
-                android:paddingBottom="2dp"/>
+                android:textSize="10sp" />
         </LinearLayout>
 
         <!-- Effect -->
         <TextView
             android:id="@+id/tvEffect"
-            android:text=""
+            style="@style/MainText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="4pt"
+            android:paddingBottom="2dp"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
             android:paddingTop="2dp"
-            android:paddingBottom="2dp"
-            android:visibility="gone"/>
+            android:textSize="10sp"
+            android:visibility="gone" />
 
         <LinearLayout
             android:id="@+id/llSpecialEffect"
@@ -159,392 +174,409 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/special_small_inverted"
                 android:layout_gravity="center"/>
+
             <TextView
                 android:id="@+id/tvSpecialEffect"
-                android:text="Force an opponent to deal 2 damage to their characters, distributing the damage as they wish."
+                style="@style/MainText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="4pt"
+                android:paddingBottom="2dp"
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
                 android:paddingTop="2dp"
-                android:paddingBottom="2dp"/>
+                android:textSize="10sp" />
         </LinearLayout>
 
 
         <!-- Dice result -->
         <LinearLayout
             android:id="@+id/llDiceResult"
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:paddingBottom="4dp">
+            android:layout_gravity="bottom"
+            android:orientation="horizontal"
+            android:paddingBottom="4dp"
+            android:paddingTop="8dp">
 
             <!--Dice result 1-->
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right">
+                    android:layout_gravity="right"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/tvDiceResult1"
-                        android:text=""
-                        android:layout_gravity="center_vertical"
+                        style="@style/MainText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="2dp"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:textSize="4pt"
+                        android:textSize="10sp"
                         android:textStyle="italic"
-                        android:visibility="invisible"/>
+                        android:visibility="invisible" />
+
                     <ImageView
                         android:id="@+id/ivDiceResult1"
-                        android:src="@drawable/blank_small"
-                        android:layout_gravity="right"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="4dp"/>
+                        android:layout_gravity="right"
+                        android:paddingRight="4dp"
+                        android:src="@drawable/blank_small" />
                 </LinearLayout>
+
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:orientation="horizontal"
                     android:paddingTop="2dp"
                     android:visibility="invisible">
 
                     <TextView
                         android:id="@+id/tvDiceResult1cost"
-                        android:text="1"
-                        android:layout_gravity="center_vertical"
+                        style="@style/MainText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="2dp"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:textSize="4pt"
-                        android:textStyle="italic"/>
+                        android:textSize="10sp"
+                        android:textStyle="italic" />
+
                     <ImageView
                         android:id="@+id/ivDiceResult1cost"
-                        android:src="@drawable/resource_small_yellow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="4dp"/>
+                        android:paddingRight="4dp"
+                        android:src="@drawable/resource_small_yellow" />
                 </LinearLayout>
             </LinearLayout>
 
             <!--Dice result 2-->
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_gravity="right"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/tvDiceResult2"
-                        android:text=""
-                        android:layout_gravity="center_vertical"
+                        style="@style/MainText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="2dp"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:textSize="4pt"
+                        android:textSize="10sp"
                         android:textStyle="italic"
-                        android:visibility="invisible"/>
+                        android:visibility="invisible" />
+
                     <ImageView
                         android:id="@+id/ivDiceResult2"
-                        android:src="@drawable/special_small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="4dp"/>
+                        android:paddingRight="4dp"
+                        android:src="@drawable/special_small" />
                 </LinearLayout>
+
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:orientation="horizontal"
                     android:paddingTop="2dp"
                     android:visibility="invisible">
 
                     <TextView
                         android:id="@+id/tvDiceResult2cost"
-                        android:text="1"
-                        android:layout_gravity="center_vertical"
+                        style="@style/MainText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="2dp"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:textSize="4pt"
-                        android:textStyle="italic"/>
+                        android:textSize="10sp"
+                        android:textStyle="italic" />
+
                     <ImageView
                         android:id="@+id/ivDiceResult2cost"
-                        android:src="@drawable/resource_small_yellow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="4dp"/>
+                        android:paddingRight="4dp"
+                        android:src="@drawable/resource_small_yellow" />
                 </LinearLayout>
             </LinearLayout>
 
             <!--Dice result 3-->
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_gravity="right"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/tvDiceResult3"
-                        android:text="1"
-                        android:layout_gravity="center_vertical"
+                        style="@style/MainText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="2dp"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:textSize="4pt"
-                        android:textStyle="italic"/>
+                        android:textSize="10sp"
+                        android:textStyle="italic" />
+
                     <ImageView
                         android:id="@+id/ivDiceResult3"
-                        android:src="@drawable/resource_small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="4dp"/>
+                        android:paddingRight="4dp"
+                        android:src="@drawable/resource_small" />
                 </LinearLayout>
+
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:orientation="horizontal"
                     android:paddingTop="2dp"
                     android:visibility="invisible">
 
                     <TextView
                         android:id="@+id/tvDiceResult3cost"
-                        android:text="1"
-                        android:layout_gravity="center_vertical"
+                        style="@style/MainText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="2dp"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:textSize="4pt"
-                        android:textStyle="italic"/>
+                        android:textSize="10sp"
+                        android:textStyle="italic" />
+
                     <ImageView
                         android:id="@+id/ivDiceResult3cost"
-                        android:src="@drawable/resource_small_yellow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="4dp"/>
+                        android:paddingRight="4dp"
+                        android:src="@drawable/resource_small_yellow" />
                 </LinearLayout>
             </LinearLayout>
 
             <!--Dice result 4-->
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_gravity="right"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/tvDiceResult4"
-                        android:text="+2"
-                        android:layout_gravity="center_vertical"
+                        style="@style/MainText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="2dp"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:textSize="4pt"
-                        android:textStyle="italic"/>
+                        android:textSize="10sp"
+                        android:textStyle="italic" />
+
                     <ImageView
                         android:id="@+id/ivDiceResult4"
-                        android:src="@drawable/ranged_small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="4dp"/>
+                        android:paddingRight="4dp"
+                        android:src="@drawable/ranged_small" />
                 </LinearLayout>
+
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:orientation="horizontal"
                     android:paddingTop="2dp"
                     android:visibility="invisible">
 
                     <TextView
                         android:id="@+id/tvDiceResult4cost"
-                        android:text="1"
-                        android:layout_gravity="center_vertical"
+                        style="@style/MainText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="2dp"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:textSize="4pt"
-                        android:textStyle="italic"/>
+                        android:textSize="10sp"
+                        android:textStyle="italic" />
+
                     <ImageView
                         android:id="@+id/ivDiceResult4cost"
-                        android:src="@drawable/resource_small_yellow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="4dp"/>
+                        android:paddingRight="4dp"
+                        android:src="@drawable/resource_small_yellow" />
                 </LinearLayout>
             </LinearLayout>
 
             <!--Dice result 5-->
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_gravity="right"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/tvDiceResult5"
-                        android:text="+1"
-                        android:layout_gravity="center_vertical"
+                        style="@style/MainText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="2dp"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:textSize="4pt"
+                        android:textSize="10sp"
                         android:textStyle="italic" />
+
                     <ImageView
                         android:id="@+id/ivDiceResult5"
-                        android:src="@drawable/ranged_small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="4dp"/>
+                        android:paddingRight="4dp"
+                        android:src="@drawable/ranged_small" />
                 </LinearLayout>
+
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:orientation="horizontal"
                     android:paddingTop="2dp"
                     android:visibility="invisible">
 
                     <TextView
                         android:id="@+id/tvDiceResult5cost"
-                        android:text="1"
-                        android:layout_gravity="center_vertical"
+                        style="@style/MainText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="2dp"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:textSize="4pt"
-                        android:textStyle="italic"/>
+                        android:textSize="10sp"
+                        android:textStyle="italic" />
+
                     <ImageView
                         android:id="@+id/ivDiceResult5cost"
-                        android:src="@drawable/resource_small_yellow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="4dp"/>
+                        android:paddingRight="4dp"
+                        android:src="@drawable/resource_small_yellow" />
                 </LinearLayout>
             </LinearLayout>
 
             <!-- Dice result 6 -->
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_gravity="right"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/tvDiceResult6"
-                        android:text="2"
-                        android:layout_gravity="center_vertical"
+                        style="@style/MainText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="2dp"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:textSize="4pt"
-                        android:textStyle="italic"/>
+                        android:textSize="10sp"
+                        android:textStyle="italic" />
+
                     <ImageView
                         android:id="@+id/ivDiceResult6"
-                        android:src="@drawable/ranged_small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="4dp"/>
+                        android:paddingRight="4dp"
+                        android:src="@drawable/ranged_small" />
                 </LinearLayout>
+
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:orientation="horizontal"
                     android:paddingTop="2dp">
 
                     <TextView
                         android:id="@+id/tvDiceResult6cost"
-                        android:text="1"
-                        android:layout_gravity="center_vertical"
+                        style="@style/MainText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="2dp"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:textSize="4pt"
-                        android:textStyle="italic"/>
+                        android:textSize="10sp"
+                        android:textStyle="italic" />
+
                     <ImageView
                         android:id="@+id/ivDiceResult6cost"
-                        android:src="@drawable/resource_small_yellow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="4dp"/>
+                        android:paddingRight="4dp"
+                        android:src="@drawable/resource_small_yellow" />
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="2dp"
-            android:paddingRight="4dp"
-            android:paddingLeft="4dp">
-            <TextView
-                android:text="Villain"
-                android:id="@+id/tvFaction"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="5pt"/>
         </LinearLayout>
     </LinearLayout>
 

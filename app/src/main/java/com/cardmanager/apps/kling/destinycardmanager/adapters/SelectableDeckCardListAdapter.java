@@ -1,6 +1,7 @@
 package com.cardmanager.apps.kling.destinycardmanager.adapters;
 
 import android.content.Context;
+import android.media.Image;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -226,9 +227,14 @@ public class SelectableDeckCardListAdapter extends ArrayAdapter<CardSelectionInf
     }
 
     private void updateGuiDefault(CardSelectionInfo card, View convertView) {
+        ImageView ivCardImage = (ImageView) convertView.findViewById(R.id.imgCardImage);
         TextView tvTitle = (TextView) convertView.findViewById(R.id.tvCardName);
         TextView tvCardCount = (TextView) convertView.findViewById(R.id.tvCardCount);
         LinearLayout root = (LinearLayout) convertView.findViewById(R.id.select_card_list_item_root);
+
+
+        // Image
+        ivCardImage.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.card_001 + card.getCard().getCardNumber() - 1));
 
         // Title
         tvTitle.setText(card.getCard().getName());
@@ -262,9 +268,6 @@ public class SelectableDeckCardListAdapter extends ArrayAdapter<CardSelectionInf
             TextView tvTypeSeparator = (TextView) convertView.findViewById(R.id.tvTypeSeparator);
             tvTypeSeparator.setVisibility(View.GONE);
         }
-
-        TextView tvFaction = (TextView) convertView.findViewById(R.id.tvFaction);
-        tvFaction.setText(card.getCard().getFaction().toString());
 
         Button btnAdd = (Button) convertView.findViewById(R.id.btnAdd);
         Button btnRemove = (Button) convertView.findViewById(R.id.btnRemove);

@@ -1,8 +1,6 @@
 package com.cardmanager.apps.kling.destinycardmanager.adapters;
 
 import android.content.Context;
-import android.net.wifi.p2p.WifiP2pManager;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +18,6 @@ import com.cardmanager.apps.kling.destinycardmanager.model.DeckDeletedListener;
 import java.util.ArrayList;
 
 public class DeckListAdapter extends ArrayAdapter<Deck> {
-
-    private DeckSelectionListener deckSelectionListener;
     private ArrayList<DeckDeletedListener> deckDeletedListeners = new ArrayList<>();
 
     public DeckListAdapter(Context context, ArrayList<Deck> objects) {
@@ -29,8 +25,7 @@ public class DeckListAdapter extends ArrayAdapter<Deck> {
     }
 
     @Override
-    @NonNull
-    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
         final Deck deck = getItem(position);
 
         if (convertView == null) {
@@ -58,8 +53,7 @@ public class DeckListAdapter extends ArrayAdapter<Deck> {
         return convertView;
     }
 
-    @NonNull
-    public void addDeckDeletedListener(@NonNull DeckDeletedListener listener) {
+    public void addDeckDeletedListener(DeckDeletedListener listener) {
         deckDeletedListeners.add(listener);
     }
 
@@ -144,6 +138,5 @@ public class DeckListAdapter extends ArrayAdapter<Deck> {
     }
 
     public void addDeckSelectionListener(DeckSelectionListener listener) {
-        this.deckSelectionListener = listener;
     }
 }

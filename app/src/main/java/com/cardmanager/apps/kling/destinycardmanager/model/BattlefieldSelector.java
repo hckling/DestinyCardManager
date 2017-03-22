@@ -2,9 +2,9 @@ package com.cardmanager.apps.kling.destinycardmanager.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 /**
+ * Handles selection logic for Battlefield cards
  * Created by danie on 2016-12-19.
  */
 

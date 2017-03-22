@@ -21,16 +21,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical">
+
                 <TextView
+                    style="@style/SubHeaderText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="Faction:"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textStyle="bold" />
+
                 <TextView
-                    android:text="Points:"
-                    android:textStyle="bold"
+                    style="@style/SubHeaderText"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="Points:"
+                    android:textStyle="bold" />
             </LinearLayout>
             <LinearLayout
                 android:orientation="vertical"
@@ -38,23 +42,26 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:paddingRight="16dp">
-                <TextView
-                    android:text="-"
-                    android:minEms="3"
-                    android:gravity="end"
-                    android:id="@+id/tvFaction"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingRight="2dp"/>
 
                 <TextView
-                    android:text="0 / 30"
-                    android:minEms="3"
-                    android:gravity="end"
-                    android:id="@+id/tvPoints"
+                    android:id="@+id/tvFaction"
+                    style="@style/MainText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingRight="2dp"/>
+                    android:gravity="end"
+                    android:minEms="3"
+                    android:paddingRight="2dp"
+                    android:text="-" />
+
+                <TextView
+                    android:id="@+id/tvPoints"
+                    style="@style/MainText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:minEms="3"
+                    android:paddingRight="2dp"
+                    android:text="0 / 30" />
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
@@ -66,19 +73,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical">
-                <TextView
-                    android:text="Cards:"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="2dp"/>
 
                 <TextView
-                    android:text="Dice:"
-                    android:textStyle="bold"
+                    style="@style/SubHeaderText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="2dp"/>
+                    android:paddingLeft="2dp"
+                    android:text="Cards:"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/SubHeaderText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="2dp"
+                    android:text="Dice:"
+                    android:textStyle="bold" />
             </LinearLayout>
             <LinearLayout
                 android:orientation="vertical"
@@ -86,23 +96,26 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:paddingRight="16dp">
-                <TextView
-                    android:text="0 / 30"
-                    android:minEms="3"
-                    android:gravity="end"
-                    android:id="@+id/tvCards"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingRight="2dp"/>
 
                 <TextView
-                    android:text="0"
-                    android:gravity="end"
-                    android:minEms="1"
-                    android:id="@+id/tvDice"
+                    android:id="@+id/tvCards"
+                    style="@style/MainText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingRight="2dp"/>
+                    android:gravity="end"
+                    android:minEms="3"
+                    android:paddingRight="2dp"
+                    android:text="0 / 30" />
+
+                <TextView
+                    android:id="@+id/tvDice"
+                    style="@style/MainText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:minEms="1"
+                    android:paddingRight="2dp"
+                    android:text="0" />
             </LinearLayout>
         </LinearLayout>
 

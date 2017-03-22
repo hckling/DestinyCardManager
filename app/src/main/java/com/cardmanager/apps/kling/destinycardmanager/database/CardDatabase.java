@@ -14,7 +14,6 @@ import com.cardmanager.apps.kling.destinycardmanager.model.CharacterSelectionInf
 import com.cardmanager.apps.kling.destinycardmanager.model.Deck;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by danie on 2016-12-04.

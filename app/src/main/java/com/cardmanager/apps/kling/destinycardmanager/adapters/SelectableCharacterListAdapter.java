@@ -268,12 +268,16 @@ public class SelectableCharacterListAdapter extends ArrayAdapter<CharacterSelect
     }
 
     private void updateGuiDefault(CharacterSelectionInfo card, View convertView) {
+        ImageView ivCharacterImage = (ImageView) convertView.findViewById(R.id.ivCharacterImage);
         TextView tvTitle = (TextView) convertView.findViewById(R.id.tvCharacterName);
         final TextView tvElite = (TextView) convertView.findViewById(R.id.tvElite);
         TextView tvFaction = (TextView) convertView.findViewById(R.id.tvFaction);
         final TextView tvPoints = (TextView) convertView.findViewById(R.id.tvPoints);
 
-        // Title
+
+        // Image
+        ivCharacterImage.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.card_001 + card.getCard().getCardNumber() - 1));
+                // Title
         tvTitle.setText(card.getCard().getName());
         tvFaction.setText(String.valueOf(card.getCard().getFaction()));
         tvPoints.setText(String.valueOf(card.getPoints()));

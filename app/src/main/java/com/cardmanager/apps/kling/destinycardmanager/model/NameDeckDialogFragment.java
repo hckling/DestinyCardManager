@@ -1,6 +1,5 @@
 package com.cardmanager.apps.kling.destinycardmanager.model;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -13,6 +12,7 @@ import android.widget.EditText;
 import com.cardmanager.apps.kling.destinycardmanager.R;
 
 /**
+ * The dialog fragment handling naming new decks.
  * Created by danie on 2016-12-18.
  */
 
